@@ -1,5 +1,7 @@
 package com.revature.DTOs;
 
+import java.util.Arrays;
+
 public class UserDTO {
 	
 	/* User Class Fields - along with the usual Generated methods */
@@ -15,89 +17,31 @@ public class UserDTO {
 	private String lastNameString;
 	
 	private String isAdmin;
+	
+	private byte[] profilePic;
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return Id;
+	public UserDTO() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
+	public UserDTO(int id, String email, String password, String firstName, String lastNameString, String isAdmin,
+			byte[] profilePic) {
+		super();
 		Id = id;
-	}
-
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	/**
-	 * @return the firstName
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
-
-	/**
-	 * @param firstName the firstName to set
-	 */
-	public void setFirstName(String firstName) {
 		this.firstName = firstName;
-	}
-
-	/**
-	 * @return the lastNameString
-	 */
-	public String getLastNameString() {
-		return lastNameString;
-	}
-
-	/**
-	 * @param lastNameString the lastNameString to set
-	 */
-	public void setLastNameString(String lastNameString) {
 		this.lastNameString = lastNameString;
-	}
-
-	/**
-	 * @return the isAdmin
-	 */
-	public String getIsAdmin() {
-		return isAdmin;
-	}
-
-	/**
-	 * @param isAdmin the isAdmin to set
-	 */
-	public void setIsAdmin(String isAdmin) {
 		this.isAdmin = isAdmin;
+		this.profilePic = profilePic;
+	}
+
+	@Override
+	public String toString() {
+		return "UserDTO [Id=" + Id + ", email=" + email + ", password=" + password + ", firstName=" + firstName
+				+ ", lastNameString=" + lastNameString + ", isAdmin=" + isAdmin + ", profilePic="
+				+ Arrays.toString(profilePic) + "]";
 	}
 
 	@Override
@@ -110,6 +54,7 @@ public class UserDTO {
 		result = prime * result + ((isAdmin == null) ? 0 : isAdmin.hashCode());
 		result = prime * result + ((lastNameString == null) ? 0 : lastNameString.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + Arrays.hashCode(profilePic);
 		return result;
 	}
 
@@ -149,29 +94,67 @@ public class UserDTO {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
+		if (!Arrays.equals(profilePic, other.profilePic))
+			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "UserDTO [Id=" + Id + ", email=" + email + ", password=" + password + ", firstName=" + firstName
-				+ ", lastNameString=" + lastNameString + ", isAdmin=" + isAdmin + "]";
+	public int getId() {
+		return Id;
 	}
 
-	public UserDTO(int id, String email, String password, String firstName, String lastNameString, String isAdmin) {
-		super();
+	public void setId(int id) {
 		Id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+
+	public String getLastNameString() {
+		return lastNameString;
+	}
+
+	public void setLastNameString(String lastNameString) {
 		this.lastNameString = lastNameString;
+	}
+
+	public String getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(String isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 
-	public UserDTO() {
-		super();
-		// TODO Auto-generated constructor stub
+	public byte[] getProfilePic() {
+		return profilePic;
 	}
+
+	public void setProfilePic(byte[] profilePic) {
+		this.profilePic = profilePic;
+	}
+
 	
 	
 	
