@@ -21,16 +21,6 @@ methods = {RequestMethod.GET, RequestMethod.PUT,
 allowedHeaders = {"*"})//Remove cors methods when global cors is implemented
 public class RSSController {
 
-<<<<<<< HEAD
-	/*
-	 * Add Points - Kei
-	 * 
-	 * Update points - Haji
-	 * 
-	 * Login - Ryan
-	 * 
-	*/
-=======
 	@Autowired
 	RSSService rssService;
 	
@@ -48,5 +38,5 @@ public class RSSController {
 	public void addPoints() {
 		
 	}
->>>>>>> 72d8f25882714f89d908c780c931e0a3e2931bc1
+
 }
