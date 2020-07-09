@@ -4,8 +4,8 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.revature.DTOs.AccountDTO;
-import com.revature.DTOs.UserDTO;
+import com.revature.DTOs.RSSAccountDTO;
+import com.revature.DTOs.RSSUserDTO;
 import com.revature.entities.User;
 
 @Service
@@ -26,7 +26,7 @@ public class RSSService {
 	}
 	
 	
-	public User login(UserDTO u) {
+	public User login(RSSUserDTO u) {
 		// TODO Auto-generated method stub
 		//System.out.println(restTemplate.postForEntity("http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/" ,u, UserDTO.class));
 		return null;
@@ -38,7 +38,7 @@ public class RSSService {
 		return 0;
 	}
 
-	public User addPoints(AccountDTO acc) {
+	public User addPoints(RSSAccountDTO acc) {
 		// TODO Auto-generated method stub
 		return null;
 	}
