@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.DTOs.AccountDTO;
 import com.revature.DTOs.UserDTO;
 import com.revature.entities.User;
 import com.revature.services.RSSService;
@@ -26,16 +28,31 @@ public class RSSController {
 	
 	@PostMapping("/login")
 	public User loginUser(@RequestBody UserDTO u) {
-		return null;
+		return rssService.login(u);
 		
 	}
+	/* Gets the number of points for a user from the RSS account service database and updates the user's RSS points in our database
+	 * 
+	 * Params: userID: the user's id which we are getting the points for.
+	 * 
+	 * Returns: Number of points as an integer
+	 */
 	
-	@GetMapping("/points")
-	public void getPoints() {
+	@GetMapping("/points/{id}")
+	public int getPoints(@RequestParam int id) {
+		return rssService.getPoints(id);
 	}
 	
+	/* Adds points to a user's RSS account on the RSS account service database
+	 * 
+	 * Body params: userId:The user's Id which the points are being added to 
+	 * 		 		points: the number of points to be added to the user
+	 * 
+	 * Returns: 	User entity with updated points
+	 * */
 	@PostMapping("/add")
-	public void addPoints() {
+	public User addPoints(@RequestBody AccountDTO acc) {
+		return rssService.addPoints(acc);
 		
 	}
 
