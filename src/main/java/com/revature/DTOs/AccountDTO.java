@@ -18,6 +18,14 @@ public class AccountDTO {
 		this.accTypeId = accTypeId;
 		this.points = points;
 	}
+	public AccountDTO( int userId, int points) {
+		super();
+		this.userId = userId;
+		this.accTypeId = 3;
+		this.points = points;
+	}
+
+
 
 	public int getAccId() {
 		return accId;
