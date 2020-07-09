@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -35,8 +36,12 @@ public class User {
 	@Valid
 	@NotBlank @Email(message = "Should be a valid email") @Column(name="email",unique=true, nullable=false)
 	private String email;
+	
+	@Transient
+	private String jwt;
 
 	
+
 	public User(@NotNull int userID, int rSSAccountId, int points, boolean admin, byte[] profilePicture,
 			@Valid @NotBlank @Email(message = "Should be a valid email") String email, String firstName,
 			String lastName) {
@@ -51,6 +56,13 @@ public class User {
 		this.lastName = lastName;
 	}
 
+	public String getJwt() {
+		return jwt;
+	}
+	
+	public void setJwt(String jwt) {
+		this.jwt = jwt;
+	}
 	public int getUserID() {
 		return userID;
 	}
