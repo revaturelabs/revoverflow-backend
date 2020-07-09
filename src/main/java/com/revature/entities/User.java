@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -40,29 +41,6 @@ public class User {
 	@Transient
 	private String jwt;
 
-	
-
-	public User(@NotNull int userID, int rSSAccountId, int points, boolean admin, byte[] profilePicture,
-			@Valid @NotBlank @Email(message = "Should be a valid email") String email, String firstName,
-			String lastName) {
-		super();
-		this.userID = userID;
-		RSSAccountId = rSSAccountId;
-		this.points = points;
-		this.admin = admin;
-		this.profilePicture = profilePicture;
-		this.email = email;
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
-
-	public String getJwt() {
-		return jwt;
-	}
-	
-	public void setJwt(String jwt) {
-		this.jwt = jwt;
-	}
 	public int getUserID() {
 		return userID;
 	}
@@ -111,38 +89,12 @@ public class User {
 		this.email = email;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getJwt() {
+		return jwt;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	@Column(name = "first_name")
-	private String firstName;
-	
-	@Column(name="last_name")
-	private String lastName;
-
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public String toString() {
-		return "User [userID=" + userID + ", RSSAccountId=" + RSSAccountId + ", points=" + points + ", admin=" + admin
-				+ ", profilePicture=" + Arrays.toString(profilePicture) + ", email=" + email + ", firstName="
-				+ firstName + ", lastName=" + lastName + "]";
+	public void setJwt(String jwt) {
+		this.jwt = jwt;
 	}
 
 	@Override
@@ -152,8 +104,6 @@ public class User {
 		result = prime * result + RSSAccountId;
 		result = prime * result + (admin ? 1231 : 1237);
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + points;
 		result = prime * result + Arrays.hashCode(profilePicture);
 		result = prime * result + userID;
@@ -178,16 +128,6 @@ public class User {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
 		if (points != other.points)
 			return false;
 		if (!Arrays.equals(profilePicture, other.profilePicture))
@@ -196,5 +136,43 @@ public class User {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "User [userID=" + userID + ", RSSAccountId=" + RSSAccountId + ", points=" + points + ", admin=" + admin
+				+ ", profilePicture=" + Arrays.toString(profilePicture) + ", email=" + email + ", jwt=" + jwt + "]";
+	}
+
+	public User(@NotNull int userID, int rSSAccountId, int points, boolean admin, byte[] profilePicture,
+			@Valid @NotBlank @Email(message = "Should be a valid email") String email) {
+		super();
+		this.userID = userID;
+		RSSAccountId = rSSAccountId;
+		this.points = points;
+		this.admin = admin;
+		this.profilePicture = profilePicture;
+		this.email = email;
+	}
+
+	public User(@NotNull int userID, int rSSAccountId, int points, boolean admin, byte[] profilePicture,
+			@Valid @NotBlank @Email(message = "Should be a valid email") String email, String jwt) {
+		super();
+		this.userID = userID;
+		RSSAccountId = rSSAccountId;
+		this.points = points;
+		this.admin = admin;
+		this.profilePicture = profilePicture;
+		this.email = email;
+		this.jwt = jwt;
+	}
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
+
+
 	
 }
