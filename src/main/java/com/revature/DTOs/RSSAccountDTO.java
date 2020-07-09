@@ -27,6 +27,12 @@ public class RSSAccountDTO {
 
 
 
+	public RSSAccountDTO(int userId) {
+		super();
+		this.userId = userId;
+		this.accTypeId=3;
+	}
+
 	public int getAccId() {
 		return accId;
 	}
