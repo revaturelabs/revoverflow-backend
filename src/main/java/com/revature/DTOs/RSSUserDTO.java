@@ -6,7 +6,7 @@ public class RSSUserDTO {
 	
 	/* User Class Fields - along with the usual Generated methods */
 	
-	private int Id;
+	private int userId;
 	
 	private String email;
 	
@@ -14,9 +14,9 @@ public class RSSUserDTO {
 	
 	private String firstName;
 	
-	private String lastNameString;
+	private String lastName;
 	
-	private String isAdmin;
+	private Boolean admin;
 	
 	private byte[] profilePic;
 
@@ -31,22 +31,22 @@ public class RSSUserDTO {
 		this.password = password;
 	}
 
-	public RSSUserDTO(int id, String email, String password, String firstName, String lastNameString, String isAdmin,
+	public RSSUserDTO(int userId, String email, String password, String firstName, String lastName, Boolean admin,
 			byte[] profilePic) {
 		super();
-		Id = id;
+		this.userId = userId;
 		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
-		this.lastNameString = lastNameString;
-		this.isAdmin = isAdmin;
+		this.lastName = lastName;
+		this.admin = admin;
 		this.profilePic = profilePic;
 	}
 
 	@Override
 	public String toString() {
-		return "UserDTO [Id=" + Id + ", email=" + email + ", password=" + password + ", firstName=" + firstName
-				+ ", lastNameString=" + lastNameString + ", isAdmin=" + isAdmin + ", profilePic="
+		return "RSSUserDTO [userId=" + userId + ", email=" + email + ", password=" + password + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", admin=" + admin + ", profilePic="
 				+ Arrays.toString(profilePic) + "]";
 	}
 
@@ -54,13 +54,13 @@ public class RSSUserDTO {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + Id;
+		result = prime * result + ((admin == null) ? 0 : admin.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((isAdmin == null) ? 0 : isAdmin.hashCode());
-		result = prime * result + ((lastNameString == null) ? 0 : lastNameString.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + Arrays.hashCode(profilePic);
+		result = prime * result + userId;
 		return result;
 	}
 
@@ -73,7 +73,10 @@ public class RSSUserDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		RSSUserDTO other = (RSSUserDTO) obj;
-		if (Id != other.Id)
+		if (admin == null) {
+			if (other.admin != null)
+				return false;
+		} else if (!admin.equals(other.admin))
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -85,15 +88,10 @@ public class RSSUserDTO {
 				return false;
 		} else if (!firstName.equals(other.firstName))
 			return false;
-		if (isAdmin == null) {
-			if (other.isAdmin != null)
+		if (lastName == null) {
+			if (other.lastName != null)
 				return false;
-		} else if (!isAdmin.equals(other.isAdmin))
-			return false;
-		if (lastNameString == null) {
-			if (other.lastNameString != null)
-				return false;
-		} else if (!lastNameString.equals(other.lastNameString))
+		} else if (!lastName.equals(other.lastName))
 			return false;
 		if (password == null) {
 			if (other.password != null)
@@ -102,15 +100,17 @@ public class RSSUserDTO {
 			return false;
 		if (!Arrays.equals(profilePic, other.profilePic))
 			return false;
+		if (userId != other.userId)
+			return false;
 		return true;
 	}
 
-	public int getId() {
-		return Id;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setId(int id) {
-		Id = id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getEmail() {
@@ -137,20 +137,20 @@ public class RSSUserDTO {
 		this.firstName = firstName;
 	}
 
-	public String getLastNameString() {
-		return lastNameString;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastNameString(String lastNameString) {
-		this.lastNameString = lastNameString;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getIsAdmin() {
-		return isAdmin;
+	public Boolean getAdmin() {
+		return admin;
 	}
 
-	public void setIsAdmin(String isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
 	}
 
 	public byte[] getProfilePic() {
@@ -161,7 +161,5 @@ public class RSSUserDTO {
 		this.profilePic = profilePic;
 	}
 
-	
-	
 	
 }
