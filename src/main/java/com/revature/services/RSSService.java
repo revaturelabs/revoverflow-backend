@@ -1,9 +1,14 @@
 package com.revature.services;
 
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import com.revature.DTOs.AccountDTO;
 import com.revature.DTOs.UserDTO;
 import com.revature.entities.User;
 
+@Service
 public class RSSService {
 	/*
 	 * Add Points - Kei
@@ -11,9 +16,19 @@ public class RSSService {
 	 * Update Points - Haji
 	 * 
 	 * Login - Ryan
-	 */
+	*/
+	
+	
+	private RestTemplate restTemplate;
+	
+	public RSSService(RestTemplateBuilder restTemplateBuilder) {
+		this.restTemplate = restTemplateBuilder.build();
+	}
+	
+	
 	public User login(UserDTO u) {
 		// TODO Auto-generated method stub
+		//System.out.println(restTemplate.postForEntity("http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/" ,u, UserDTO.class));
 		return null;
 	}
 
