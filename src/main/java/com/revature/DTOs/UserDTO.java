@@ -24,6 +24,12 @@ public class UserDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public UserDTO( String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
 
 	public UserDTO(int id, String email, String password, String firstName, String lastNameString, String isAdmin,
 			byte[] profilePic) {
