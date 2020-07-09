@@ -4,6 +4,8 @@
 name: Analysis with SonarScanner
 
 on:
+  push:
+    branches: [ master ]
   pull_request:
       types: [opened, synchronize, reopened]
 
