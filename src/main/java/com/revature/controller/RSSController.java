@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.DTOs.AccountDTO;
-import com.revature.DTOs.UserDTO;
+import com.revature.DTOs.RSSAccountDTO;
+import com.revature.DTOs.RSSUserDTO;
 import com.revature.entities.User;
 import com.revature.services.RSSService;
 
@@ -27,7 +27,7 @@ public class RSSController {
 	RSSService rssService;
 	
 	@PostMapping("/login")
-	public User loginUser(@RequestBody UserDTO u) {
+	public User loginUser(@RequestBody RSSUserDTO u) {
 		return rssService.login(u);
 		
 	}
@@ -51,7 +51,7 @@ public class RSSController {
 	 * Returns: 	User entity with updated points
 	 * */
 	@PostMapping("/add")
-	public User addPoints(@RequestBody AccountDTO acc) {
+	public User addPoints(@RequestBody RSSAccountDTO acc) {
 		return rssService.addPoints(acc);
 		
 	}

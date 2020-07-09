@@ -2,7 +2,7 @@ package com.revature.DTOs;
 
 import java.util.Arrays;
 
-public class UserDTO {
+public class RSSUserDTO {
 	
 	/* User Class Fields - along with the usual Generated methods */
 	
@@ -20,18 +20,18 @@ public class UserDTO {
 	
 	private byte[] profilePic;
 
-	public UserDTO() {
+	public RSSUserDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public UserDTO( String email, String password) {
+	public RSSUserDTO( String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;
 	}
 
-	public UserDTO(int id, String email, String password, String firstName, String lastNameString, String isAdmin,
+	public RSSUserDTO(int id, String email, String password, String firstName, String lastNameString, String isAdmin,
 			byte[] profilePic) {
 		super();
 		Id = id;
@@ -72,7 +72,7 @@ public class UserDTO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserDTO other = (UserDTO) obj;
+		RSSUserDTO other = (RSSUserDTO) obj;
 		if (Id != other.Id)
 			return false;
 		if (email == null) {

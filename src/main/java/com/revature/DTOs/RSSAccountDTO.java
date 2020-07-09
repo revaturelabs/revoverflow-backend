@@ -1,24 +1,24 @@
 package com.revature.DTOs;
 
-public class AccountDTO {
+public class RSSAccountDTO {
 	
 	private int accId;
     private int userId;
     private int accTypeId;
 	private int points;
 	
-	public AccountDTO() {
+	public RSSAccountDTO() {
 		super();
 	}
 
-	public AccountDTO(int accId, int userId, int accTypeId, int points) {
+	public RSSAccountDTO(int accId, int userId, int accTypeId, int points) {
 		super();
 		this.accId = accId;
 		this.userId = userId;
 		this.accTypeId = accTypeId;
 		this.points = points;
 	}
-	public AccountDTO( int userId, int points) {
+	public RSSAccountDTO( int userId, int points) {
 		super();
 		this.userId = userId;
 		this.accTypeId = 3;
@@ -78,7 +78,7 @@ public class AccountDTO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AccountDTO other = (AccountDTO) obj;
+		RSSAccountDTO other = (RSSAccountDTO) obj;
 		if (accId != other.accId)
 			return false;
 		if (accTypeId != other.accTypeId)
