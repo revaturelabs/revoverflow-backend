@@ -7,27 +7,32 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Answers {
-	
+@Table(name = "Answers")
+public class Answer {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name = "user_id")
 	private int userId;
-	
+
+	@Column(name = "question_id")
+	private int questionId;
+
 	@NotBlank(message = "Content must have a string value")
 	private String content;
-	
+
 	// add the not null check in the service layer
 	private LocalDate creationDate;
-	
+
 	@NotBlank(message = "Edit date must have a date value")
 	private LocalDate editDate;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -68,6 +73,19 @@ public class Answers {
 		this.editDate = editDate;
 	}
 
+	public int getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
+	}
+
+	public Answer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -76,6 +94,7 @@ public class Answers {
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((editDate == null) ? 0 : editDate.hashCode());
 		result = prime * result + id;
+		result = prime * result + questionId;
 		result = prime * result + userId;
 		return result;
 	}
@@ -88,7 +107,7 @@ public class Answers {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Answers other = (Answers) obj;
+		Answer other = (Answer) obj;
 		if (content == null) {
 			if (other.content != null)
 				return false;
@@ -106,6 +125,8 @@ public class Answers {
 			return false;
 		if (id != other.id)
 			return false;
+		if (questionId != other.questionId)
+			return false;
 		if (userId != other.userId)
 			return false;
 		return true;
@@ -113,22 +134,18 @@ public class Answers {
 
 	@Override
 	public String toString() {
-		return "Answers [id=" + id + ", userId=" + userId + ", content=" + content + ", creationDate=" + creationDate
-				+ ", editDate=" + editDate + "]";
+		return "Answer [id=" + id + ", userId=" + userId + ", questionId=" + questionId + ", content=" + content
+				+ ", creationDate=" + creationDate + ", editDate=" + editDate + "]";
 	}
 
-	public Answers(int id, int userId, String content, LocalDate creationDate, LocalDate editDate) {
+	public Answer(int id, int userId, int questionId, String content, LocalDate creationDate, LocalDate editDate) {
 		super();
 		this.id = id;
 		this.userId = userId;
+		this.questionId = questionId;
 		this.content = content;
 		this.creationDate = creationDate;
 		this.editDate = editDate;
-	}
-
-	public Answers() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 }

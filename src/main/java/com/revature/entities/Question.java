@@ -7,14 +7,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Questions {
+@Table(name = "Questions")
+public class Question {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@Column(name = "accepted_id")
+	private int acceptedId;
 
 	@NotBlank(message = "Title requires a string value")
 	private String title;
@@ -43,6 +48,14 @@ public class Questions {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getAcceptedId() {
+		return acceptedId;
+	}
+
+	public void setAcceptedId(int acceptedId) {
+		this.acceptedId = acceptedId;
 	}
 
 	public String getTitle() {
@@ -97,6 +110,7 @@ public class Questions {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + acceptedId;
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((editDate == null) ? 0 : editDate.hashCode());
@@ -115,7 +129,9 @@ public class Questions {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Questions other = (Questions) obj;
+		Question other = (Question) obj;
+		if (acceptedId != other.acceptedId)
+			return false;
 		if (content == null) {
 			if (other.content != null)
 				return false;
@@ -147,14 +163,16 @@ public class Questions {
 
 	@Override
 	public String toString() {
-		return "Answers [id=" + id + ", title=" + title + ", content=" + content + ", creationDate=" + creationDate
-				+ ", editDate=" + editDate + ", status=" + status + ", userID=" + userID + "]";
+		return "Question [id=" + id + ", acceptedId=" + acceptedId + ", title=" + title + ", content=" + content
+				+ ", creationDate=" + creationDate + ", editDate=" + editDate + ", status=" + status + ", userID="
+				+ userID + "]";
 	}
 
-	public Questions(int id, String title, String content, LocalDate creationDate, LocalDate editDate,
-			 boolean status, int userID) {
+	public Question(int id, int acceptedId, String title, String content, LocalDate creationDate, LocalDate editDate,
+			boolean status, int userID) {
 		super();
 		this.id = id;
+		this.acceptedId = acceptedId;
 		this.title = title;
 		this.content = content;
 		this.creationDate = creationDate;
@@ -163,7 +181,7 @@ public class Questions {
 		this.userID = userID;
 	}
 
-	public Questions() {
+	public Question() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
