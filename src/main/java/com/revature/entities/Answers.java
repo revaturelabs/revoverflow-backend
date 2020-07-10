@@ -12,32 +12,21 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class Answers {
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-
-	@NotBlank(message = "Title requires a string value")
-	private String title;
-
-	@NotBlank(message = "Content requires a string value")
-	private String content;
-
-	@NotNull(message = "Must provide a creation date")
-	@Column(name = "creation_date")
-	private LocalDate creationDate;
-
-	@Column(name = "edit_date")
-	private LocalDate editDate;
-
-	// closed or open
-	@NotBlank(message = "Status requires a string value")
-	private boolean status;
-
-	@NotNull(message = "must have a user id")
 	@Column(name = "user_id")
-	private int userID;
-
+	private int userId;
+	@NotBlank(message = "Content must have a string value")
+	private String content;
+	
+	@NotNull(message = "Creation Date must have a date value")
+	private LocalDate creationDate;
+	
+	@NotBlank(message = "Edit date must have a date value")
+	private LocalDate editDate;
+	
 	public int getId() {
 		return id;
 	}
@@ -46,12 +35,12 @@ public class Answers {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getContent() {
@@ -78,22 +67,6 @@ public class Answers {
 		this.editDate = editDate;
 	}
 
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-
-	public int getUserID() {
-		return userID;
-	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -102,9 +75,7 @@ public class Answers {
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((editDate == null) ? 0 : editDate.hashCode());
 		result = prime * result + id;
-		result = prime * result + (status ? 1231 : 1237);
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + userID;
+		result = prime * result + userId;
 		return result;
 	}
 
@@ -134,34 +105,24 @@ public class Answers {
 			return false;
 		if (id != other.id)
 			return false;
-		if (status != other.status)
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		if (userID != other.userID)
+		if (userId != other.userId)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Answers [id=" + id + ", title=" + title + ", content=" + content + ", creationDate=" + creationDate
-				+ ", editDate=" + editDate + ", status=" + status + ", userID=" + userID + "]";
+		return "Answers [id=" + id + ", userId=" + userId + ", content=" + content + ", creationDate=" + creationDate
+				+ ", editDate=" + editDate + "]";
 	}
 
-	public Answers(int id, String title, String content, LocalDate creationDate, LocalDate editDate,
-			 boolean status, int userID) {
+	public Answers(int id, int userId, String content, LocalDate creationDate, LocalDate editDate) {
 		super();
 		this.id = id;
-		this.title = title;
+		this.userId = userId;
 		this.content = content;
 		this.creationDate = creationDate;
 		this.editDate = editDate;
-		this.status = status;
-		this.userID = userID;
 	}
 
 	public Answers() {
