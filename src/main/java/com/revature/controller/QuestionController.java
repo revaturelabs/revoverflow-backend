@@ -1,5 +1,6 @@
 package com.revature.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,17 +14,7 @@ import com.revature.services.QuestionService;
 
 @RestController
 @RequestMapping("/questions")
-public class QuestionController {
-
-	@Autowired
-	QuestionService questionService;
-	
-	
-	@PostMapping
-	public Questions saveQuestion(Questions question) {
-		return questionService.save(question);
-	}
-	
+public class QuestionController {	
 
 	@Autowired
 	QuestionService questionService;
@@ -34,6 +25,7 @@ public class QuestionController {
 		return questionService.getAllQuestions(pageable);
 	}
 	
+
 	@PostMapping
 	public Questions saveQuestion(Questions question) {
 		return questionService.save(question);
