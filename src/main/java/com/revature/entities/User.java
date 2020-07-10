@@ -16,7 +16,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@NotNull
+	@NotNull(message = "Role Id must have a value")
 	private int roleId;
 	
 	@Min(value = 0, message = "Points must be greate than -1")
