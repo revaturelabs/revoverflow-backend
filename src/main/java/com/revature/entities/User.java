@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class User {
@@ -16,13 +15,15 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@NotNull(message = "Role Id must have a value")
+	// @NotNull(message = "Role Id must have a value")
+	// add the not null check in the service layer
 	private int roleId;
 	
 	@Min(value = 0, message = "Points must be greate than -1")
 	private int points;
 	
-	@NotNull(message = "Must provide a UserId")
+	//@NotNull(message = "Must provide a UserId")
+	// add the not null check in the service layer
 	@Column(name = "user_id")
 	private int userID;
 	

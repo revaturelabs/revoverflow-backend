@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class Questions {
@@ -23,7 +22,8 @@ public class Questions {
 	@NotBlank(message = "Content requires a string value")
 	private String content;
 
-	@NotNull(message = "Must provide a creation date")
+	//@NotNull(message = "Must provide a creation date")
+	// add the not null check in the service layer
 	@Column(name = "creation_date")
 	private LocalDate creationDate;
 
@@ -34,7 +34,8 @@ public class Questions {
 	@NotBlank(message = "Status requires a string value")
 	private boolean status;
 
-	@NotNull(message = "must have a user id")
+	//@NotNull(message = "must have a user id")
+	// add the not null check in the service layer
 	@Column(name = "user_id")
 	private int userID;
 
