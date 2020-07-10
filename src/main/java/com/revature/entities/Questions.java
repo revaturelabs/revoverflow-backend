@@ -22,7 +22,6 @@ public class Questions {
 	@NotBlank(message = "Content requires a string value")
 	private String content;
 
-	//@NotNull(message = "Must provide a creation date")
 	// add the not null check in the service layer
 	@Column(name = "creation_date")
 	private LocalDate creationDate;
@@ -34,7 +33,6 @@ public class Questions {
 	@NotBlank(message = "Status requires a string value")
 	private boolean status;
 
-	//@NotNull(message = "must have a user id")
 	// add the not null check in the service layer
 	@Column(name = "user_id")
 	private int userID;

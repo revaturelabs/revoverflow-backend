@@ -22,7 +22,6 @@ public class Answers {
 	@NotBlank(message = "Content must have a string value")
 	private String content;
 	
-	//@NotNull(message = "Creation Date must have a date value")
 	// add the not null check in the service layer
 	private LocalDate creationDate;
 	
