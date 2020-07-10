@@ -18,7 +18,7 @@ public class QuestionService {
 		return questionRepository.findAll(pageable);
 	}
 	
-	public Questions save(Questions question) {
+	public Question save(Question question) {
 		return questionRepository.save(question);
 	}
 }

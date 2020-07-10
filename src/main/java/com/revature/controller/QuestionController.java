@@ -14,7 +14,7 @@ import com.revature.services.QuestionService;
 
 @RestController
 @RequestMapping("/questions")
-public class QuestionController {	
+public class QuestionController {
 
 	@Autowired
 	QuestionService questionService;
@@ -25,9 +25,8 @@ public class QuestionController {
 		return questionService.getAllQuestions(pageable);
 	}
 	
-
 	@PostMapping
-	public Questions saveQuestion(Questions question) {
+	public Question saveQuestion(Question question) {
 		return questionService.save(question);
 	}
 	
