@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class Answers {
@@ -16,12 +15,14 @@ public class Answers {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
 	@Column(name = "user_id")
 	private int userId;
+	
 	@NotBlank(message = "Content must have a string value")
 	private String content;
 	
-	@NotNull(message = "Creation Date must have a date value")
+	// add the not null check in the service layer
 	private LocalDate creationDate;
 	
 	@NotBlank(message = "Edit date must have a date value")
