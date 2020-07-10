@@ -13,23 +13,26 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "Answers")
 public class Answer {
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name = "user_id")
 	private int userId;
-	
+
+	@Column(name = "question_id")
+	private int questionId;
+
 	@NotBlank(message = "Content must have a string value")
 	private String content;
-	
+
 	// add the not null check in the service layer
 	private LocalDate creationDate;
-	
+
 	@NotBlank(message = "Edit date must have a date value")
 	private LocalDate editDate;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -70,6 +73,19 @@ public class Answer {
 		this.editDate = editDate;
 	}
 
+	public int getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
+	}
+
+	public Answer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -78,6 +94,7 @@ public class Answer {
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((editDate == null) ? 0 : editDate.hashCode());
 		result = prime * result + id;
+		result = prime * result + questionId;
 		result = prime * result + userId;
 		return result;
 	}
@@ -108,6 +125,8 @@ public class Answer {
 			return false;
 		if (id != other.id)
 			return false;
+		if (questionId != other.questionId)
+			return false;
 		if (userId != other.userId)
 			return false;
 		return true;
@@ -115,22 +134,18 @@ public class Answer {
 
 	@Override
 	public String toString() {
-		return "Answers [id=" + id + ", userId=" + userId + ", content=" + content + ", creationDate=" + creationDate
-				+ ", editDate=" + editDate + "]";
+		return "Answer [id=" + id + ", userId=" + userId + ", questionId=" + questionId + ", content=" + content
+				+ ", creationDate=" + creationDate + ", editDate=" + editDate + "]";
 	}
 
-	public Answer(int id, int userId, String content, LocalDate creationDate, LocalDate editDate) {
+	public Answer(int id, int userId, int questionId, String content, LocalDate creationDate, LocalDate editDate) {
 		super();
 		this.id = id;
 		this.userId = userId;
+		this.questionId = questionId;
 		this.content = content;
 		this.creationDate = creationDate;
 		this.editDate = editDate;
-	}
-
-	public Answer() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 }

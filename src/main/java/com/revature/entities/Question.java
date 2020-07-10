@@ -18,6 +18,9 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@Column(name = "accepted_id")
+	private int acceptedId;
+
 	@NotBlank(message = "Title requires a string value")
 	private String title;
 
@@ -45,6 +48,14 @@ public class Question {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getAcceptedId() {
+		return acceptedId;
+	}
+
+	public void setAcceptedId(int acceptedId) {
+		this.acceptedId = acceptedId;
 	}
 
 	public String getTitle() {
@@ -99,6 +110,7 @@ public class Question {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + acceptedId;
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((editDate == null) ? 0 : editDate.hashCode());
@@ -118,6 +130,8 @@ public class Question {
 		if (getClass() != obj.getClass())
 			return false;
 		Question other = (Question) obj;
+		if (acceptedId != other.acceptedId)
+			return false;
 		if (content == null) {
 			if (other.content != null)
 				return false;
@@ -149,14 +163,16 @@ public class Question {
 
 	@Override
 	public String toString() {
-		return "Answers [id=" + id + ", title=" + title + ", content=" + content + ", creationDate=" + creationDate
-				+ ", editDate=" + editDate + ", status=" + status + ", userID=" + userID + "]";
+		return "Question [id=" + id + ", acceptedId=" + acceptedId + ", title=" + title + ", content=" + content
+				+ ", creationDate=" + creationDate + ", editDate=" + editDate + ", status=" + status + ", userID="
+				+ userID + "]";
 	}
 
-	public Question(int id, String title, String content, LocalDate creationDate, LocalDate editDate,
-			 boolean status, int userID) {
+	public Question(int id, int acceptedId, String title, String content, LocalDate creationDate, LocalDate editDate,
+			boolean status, int userID) {
 		super();
 		this.id = id;
+		this.acceptedId = acceptedId;
 		this.title = title;
 		this.content = content;
 		this.creationDate = creationDate;
