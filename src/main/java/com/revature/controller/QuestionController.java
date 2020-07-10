@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.revature.entities.Questions;
+import com.revature.entities.Question;
 import com.revature.services.QuestionService;
 
 @RestController
@@ -20,7 +20,7 @@ public class QuestionController {
 	QuestionService questionService;
 	
 	@GetMapping
-	public Page<Questions> getAllQuestions(Pageable pageable)
+	public Page<Question> getAllQuestions(Pageable pageable)
 	{
 		return questionService.getAllQuestions(pageable);
 	}

@@ -7,36 +7,31 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Entity
-public class Questions {
+@Table(name = "Answers")
+public class Answer {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	@NotBlank(message = "Title requires a string value")
-	private String title;
+	@Column(name = "user_id")
+	private int userId;
 
-	@NotBlank(message = "Content requires a string value")
+	@Column(name = "question_id")
+	private int questionId;
+
+	@NotBlank(message = "Content must have a string value")
 	private String content;
 
-	@NotNull(message = "Must provide a creation date")
-	@Column(name = "creation_date")
+	// add the not null check in the service layer
 	private LocalDate creationDate;
 
-	@Column(name = "edit_date")
+	@NotBlank(message = "Edit date must have a date value")
 	private LocalDate editDate;
-
-	// closed or open
-	@NotBlank(message = "Status requires a string value")
-	private boolean status;
-
-	@NotNull(message = "must have a user id")
-	@Column(name = "user_id")
-	private int userID;
 
 	public int getId() {
 		return id;
@@ -46,12 +41,12 @@ public class Questions {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getContent() {
@@ -78,20 +73,17 @@ public class Questions {
 		this.editDate = editDate;
 	}
 
-	public boolean isStatus() {
-		return status;
+	public int getQuestionId() {
+		return questionId;
 	}
 
-	public void setStatus(boolean status) {
-		this.status = status;
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
 	}
 
-	public int getUserID() {
-		return userID;
-	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public Answer() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -102,9 +94,8 @@ public class Questions {
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((editDate == null) ? 0 : editDate.hashCode());
 		result = prime * result + id;
-		result = prime * result + (status ? 1231 : 1237);
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + userID;
+		result = prime * result + questionId;
+		result = prime * result + userId;
 		return result;
 	}
 
@@ -116,7 +107,7 @@ public class Questions {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Questions other = (Questions) obj;
+		Answer other = (Answer) obj;
 		if (content == null) {
 			if (other.content != null)
 				return false;
@@ -134,39 +125,27 @@ public class Questions {
 			return false;
 		if (id != other.id)
 			return false;
-		if (status != other.status)
+		if (questionId != other.questionId)
 			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		if (userID != other.userID)
+		if (userId != other.userId)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Answers [id=" + id + ", title=" + title + ", content=" + content + ", creationDate=" + creationDate
-				+ ", editDate=" + editDate + ", status=" + status + ", userID=" + userID + "]";
+		return "Answer [id=" + id + ", userId=" + userId + ", questionId=" + questionId + ", content=" + content
+				+ ", creationDate=" + creationDate + ", editDate=" + editDate + "]";
 	}
 
-	public Questions(int id, String title, String content, LocalDate creationDate, LocalDate editDate,
-			 boolean status, int userID) {
+	public Answer(int id, int userId, int questionId, String content, LocalDate creationDate, LocalDate editDate) {
 		super();
 		this.id = id;
-		this.title = title;
+		this.userId = userId;
+		this.questionId = questionId;
 		this.content = content;
 		this.creationDate = creationDate;
 		this.editDate = editDate;
-		this.status = status;
-		this.userID = userID;
-	}
-
-	public Questions() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 }
