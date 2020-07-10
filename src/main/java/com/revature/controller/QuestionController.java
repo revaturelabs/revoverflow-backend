@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import com.revature.entities.Questions;
 import com.revature.services.QuestionService;
 
@@ -36,6 +32,11 @@ public class QuestionController {
 	public Page<Questions> getAllQuestions(Pageable pageable)
 	{
 		return questionService.getAllQuestions(pageable);
+	}
+	
+	@PostMapping
+	public Questions saveQuestion(Questions question) {
+		return questionService.save(question);
 	}
 	
 }
