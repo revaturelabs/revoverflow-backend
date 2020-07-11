@@ -19,6 +19,6 @@ public class QuestionService {
 	}
 	
 	public Page<Question> getAllQuestionsByUserId(Pageable pageable, int id){
-		return questionRepository.getAllQuestionsByUserId(pageable, id);		
+		return questionRepository.getAllQuestionsByUserID(pageable, id);		
 	}
 }
