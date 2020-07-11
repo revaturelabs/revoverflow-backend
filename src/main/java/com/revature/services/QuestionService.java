@@ -20,5 +20,8 @@ public class QuestionService {
 	
 	public Page<Question> getAllQuestionsByUserId(Pageable pageable, int id){
 		return questionRepository.getAllQuestionsByUserID(pageable, id);		
+
+	public Question save(Question question) {
+		return questionRepository.save(question);
 	}
 }
