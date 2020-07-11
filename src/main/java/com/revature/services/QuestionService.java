@@ -17,4 +17,8 @@ public class QuestionService {
 	public Page<Question> getAllQuestions(Pageable pageable){
 		return questionRepository.findAll(pageable);
 	}
+	
+	public void updateQuestionAcceptedAnswerId(int id, int acceptedId) {
+		questionRepository.updateQuestionAcceptedAnswerId(id, acceptedId);
+	}
 }
