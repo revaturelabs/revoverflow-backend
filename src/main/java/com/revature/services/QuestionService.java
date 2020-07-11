@@ -41,5 +41,4 @@ public class QuestionService {
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, boolean status){
 		return questionRepository.getAllQuestionsByStatus(pageable, status);
 	}
-
 }
