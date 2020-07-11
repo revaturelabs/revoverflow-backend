@@ -3,7 +3,9 @@ package com.revature.services;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import com.revature.DTOs.RSSAccountDTO;
 import com.revature.DTOs.RSSUserDTO;
 import com.revature.entities.User;
+import com.revature.repositories.UserRepository;
 
 @Service
 public class RSSService {
@@ -27,6 +30,8 @@ public class RSSService {
 	 * Login - Ryan
 	*/
 	
+	@Autowired
+	UserRepository userRepository;
 	
 	private RestTemplate restTemplate;
 	
@@ -64,35 +69,48 @@ public class RSSService {
 		if(response.getStatusCode() == HttpStatus.OK) {	
 			//continue building user from response body
 			RSSUserDTO body = response.getBody();
-			System.out.println(body);
-			user.setAdmin(body.getAdmin());
-			user.setFirstName(body.getFirstName());
-			user.setLastName(body.getLastName());
-			user.setProfilePicture(body.getProfilePic());
-			user.setUserID(body.getUserId());
+			System.out.println(userRepository.existsById(body.getUserId()));
 			
-			//create map for new account post parameters
-			map.clear();
-			map.put("userId",body.getUserId());
-			map.put("accTypeId",1);
 			
-			//build the request
-			entity = new HttpEntity<>(map,headers);
-			
-			//send the request
-			ResponseEntity<RSSAccountDTO> accResponse= this.restTemplate.postForEntity(uri2, entity, RSSAccountDTO.class);
-			if(accResponse.getStatusCode()==HttpStatus.OK) {
+			if(!userRepository.existsById(body.getUserId())) {
+				user.setAdmin(body.getAdmin());
+				user.setFirstName(body.getFirstName());
+				user.setLastName(body.getLastName());
+				user.setProfilePicture(body.getProfilePic());
+				user.setUserID(body.getUserId());
 				
-				//finish building user object
-				RSSAccountDTO accBody = accResponse.getBody();
-				System.out.println(accBody);
-				user.setRSSAccountId(accBody.getAccId());
-				user.setPoints(accBody.getPoints());
+				//create map for new account post parameters
+				map.clear();
+				map.put("userId",body.getUserId());
+				map.put("accTypeId",3);
+			
+				//build the request
+				entity = new HttpEntity<>(map,headers);
+			
+				//send the request
+				/*
+				ResponseEntity<RSSAccountDTO> accResponse= this.restTemplate.postForEntity(uri2, entity, RSSAccountDTO.class);
+				if(accResponse.getStatusCode()==HttpStatus.OK) {
 				
+					//finish building user object
+					RSSAccountDTO accBody = accResponse.getBody();
+					System.out.println(accBody);
+					user.setRSSAccountId(accBody.getAccId());
+					user.setPoints(accBody.getPoints());
+				
+				}
+				*/
+			}else {
+				Optional<User> optUser = userRepository.findById(body.getUserId());
+				if (optUser.isPresent()) {
+					user = optUser.get();
+				}
 			}
+			
 		}
 		System.out.println(user);
-		return null;
+		
+		return userRepository.save(user);
 	}
 
 	

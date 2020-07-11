@@ -15,6 +15,7 @@
 		<sonar.organization>${env.SONAR_ORGANIZATION}</sonar.organization>
 		<sonar.host.url>${env.SONAR_HOST_URL}</sonar.host.url>
 		<sonar.login>${env.SONAR_LOGIN}</sonar.login>
+		<sonar.exclusions>src/**/entities/**/*</sonar.exclusions>
 	</properties>
 
 	<!-- Parent pom file - used to pull in major dependencies & versions -->
