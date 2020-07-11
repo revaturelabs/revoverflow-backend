@@ -26,6 +26,12 @@ public class QuestionController {
 		return questionService.getAllQuestions(pageable);
 	}
 	
+	@GetMapping("/{statusId}")
+	public Page<Question> getAllQuestionsByStatus(Pageable pageable, @PathVariable boolean status)
+	{
+		return questionService.getAllQuestionsByStatus(pageable, status);
+	}
+
 	@GetMapping("/user/{id}")
 	public Page<Question> getAllQuestionsByUserId(Pageable pageable, @PathVariable int id)
 	{

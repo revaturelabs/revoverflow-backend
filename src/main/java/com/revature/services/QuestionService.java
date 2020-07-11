@@ -25,4 +25,8 @@ public class QuestionService {
 	public Question save(Question question) {
 		return questionRepository.save(question);
 	}
+	
+	public Page<Question> getAllQuestionsByStatus(Pageable pageable, boolean status){
+		return questionRepository.getAllQuestionsByStatus(pageable, status);
+	}
 }
