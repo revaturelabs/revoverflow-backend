@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.revature.entities.Questions;
+import com.revature.entities.Question;
 import com.revature.repositories.QuestionRepository;
 
 @Service
@@ -14,7 +14,11 @@ public class QuestionService {
 	@Autowired
 	QuestionRepository questionRepository;
 	
-	public Page<Questions> getAllQuestions(Pageable pageable){
+	public Page<Question> getAllQuestions(Pageable pageable){
 		return questionRepository.findAll(pageable);
+	}
+	
+	public Question save(Question question) {
+		return questionRepository.save(question);
 	}
 }
