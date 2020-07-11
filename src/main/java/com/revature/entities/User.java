@@ -57,7 +57,7 @@ public class User {
 			String lastName) {
 		super();
 		this.userID = userID;
-		this.RSSAccountId = rSSAccountId;
+		RSSAccountId = rSSAccountId;
 		this.points = points;
 		this.admin = admin;
 		this.profilePicture = profilePicture;
