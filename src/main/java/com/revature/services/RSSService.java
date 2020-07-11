@@ -102,8 +102,11 @@ public class RSSService {
 				*/
 			}else {
 				Optional<User> optUser = userRepository.findById(body.getUserId());
-				user = optUser.get();
-				System.out.println("hello");
+				if (optUser.isPresent()) {
+					
+					user = optUser.get();
+					System.out.println("hello");
+				}
 			}
 			
 		}
