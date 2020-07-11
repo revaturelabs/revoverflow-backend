@@ -57,15 +57,8 @@ public class QuestionController {
 		return questionService.findById(id);
 	}
 	
-//	@PatchMapping("/questions/")
-//	public Question updateQuestionAcceptedAnswerId(@PathVariable int id, @PathVariable int acceptedId,
-//			@RequestBody Question question)
-//	{
-//		try {
-//			questionService.updateQuestionAcceptedAnswerId(id, acceptedId);
-//			return Question.ok().build();
-//	} catch (ResourseNotFoundException ex) {
-//		logger.error(ex.getMessage());
-//		return Question.notFound().build();
-//	}
+	@PatchMapping("/questions")
+	public Question updateQuestionAcceptedAnswerId(Question question) {
+		return questionService.updateQuestionAcceptedAnswerId(question);
+	}
 }
