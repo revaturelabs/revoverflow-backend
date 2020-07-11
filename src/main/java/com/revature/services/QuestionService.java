@@ -18,8 +18,8 @@ public class QuestionService {
 		return questionRepository.findAll(pageable);
 	}
 	
-	public void updateQuestionAcceptedAnswerId(int id, int acceptedId) {
-		questionRepository.updateQuestionAcceptedAnswerId(id, acceptedId);
+	public Question updateQuestionAcceptedAnswerId(Question question) {
+		return questionRepository.save(question);
 	}
 	
 	public Question save(Question question) {
