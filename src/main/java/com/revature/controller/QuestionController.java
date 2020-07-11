@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,5 +41,10 @@ public class QuestionController {
 //		logger.error(ex.getMessage());
 //		return Question.notFound().build();
 //	}
+
+	@PostMapping
+	public Question saveQuestion(Question question) {
+		return questionService.save(question);
+	}
 	
 }

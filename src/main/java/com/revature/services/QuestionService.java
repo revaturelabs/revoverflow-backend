@@ -21,4 +21,9 @@ public class QuestionService {
 	public void updateQuestionAcceptedAnswerId(int id, int acceptedId) {
 		questionRepository.updateQuestionAcceptedAnswerId(id, acceptedId);
 	}
+	
+	public Question save(Question question) {
+		return questionRepository.save(question);
+
+	}
 }
