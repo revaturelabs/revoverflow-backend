@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 public class User {
 
 	@Id
-	@NotNull
 	@Column(unique = true, name = "user_id")
 	private int userID;
 	

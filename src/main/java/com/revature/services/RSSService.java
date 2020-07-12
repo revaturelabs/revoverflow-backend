@@ -39,7 +39,9 @@ public class RSSService {
 		this.restTemplate = restTemplateBuilder.build();
 	}
 	
-	
+	/*
+	 * @Author Ryan Clayton
+	 */
 	public User login(RSSUserDTO u) {
 		// create headers
 	    HttpHeaders headers = new HttpHeaders();
@@ -104,6 +106,7 @@ public class RSSService {
 				Optional<User> optUser = userRepository.findById(body.getUserId());
 				if (optUser.isPresent()) {
 					user = optUser.get();
+
 				}
 			}
 			
@@ -113,12 +116,17 @@ public class RSSService {
 		return userRepository.save(user);
 	}
 
-	
+	/*
+	 * @Author
+	 */
 	public int getPoints(int id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/*
+	 * @Author
+	 */
 	public User addPoints(RSSAccountDTO acc) {
 		/*
 		 * Objective: Add points from RevOverflow Answer to User Account

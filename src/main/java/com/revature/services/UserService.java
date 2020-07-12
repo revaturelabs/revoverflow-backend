@@ -14,6 +14,9 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
+	/*
+	 * @Author Ryan Clayton
+	 */
 	public List<User> getAllUsers() {
 		
 		return userRepository.findAll();
