@@ -37,6 +37,11 @@ public class QuestionController {
 	{
 		return questionService.getAllQuestionsByStatus(pageable, status);
 	}
+	
+	@PatchMapping("/questions/status")
+	public Question updateStatus(Question question) {
+		return questionService.updateStatus(question);
+	}
 
 	/**@author ken*/
 	@GetMapping("/user/{id}")
