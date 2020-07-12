@@ -124,33 +124,8 @@ public class RSSService {
 		return 0;
 	}
 
-<<<<<<< HEAD
-	/*
-	 * @Author
-	 */
-	public User addPoints(RSSAccountDTO acc) {
-		/*
-		 * Objective: Add points from RevOverflow Answer to User Account
-		 * 
-		 * 1) Retrieve points from answers
-		 * 2) Add points to the User Account
-		 * 3) Post the points to the User
-		 * 
-		 * Check the user / account ID match before anything
-		 * If user / account exist then add points. If not, then return 0 points.
-		*/
-		
-		if (!userRepository.existsById(id)) {
-			
-		}
-		if (acc.getAccId() == ) {
-			
-		} else {
 
-		}
-		
-		return null;
-=======
+
 	public RSSAccountDTO addPoints(RSSAccountDTO acc) {
 		String uri =  "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/account";
 		 	HttpHeaders headers = new HttpHeaders();
@@ -169,7 +144,7 @@ public class RSSService {
 	        account.setPoints(account.getPoints() + 20);
 	        System.out.println(account);
 	        return account;
->>>>>>> 873a1c03f3eb57ce8803e5d44f575476aa11f306
+
 	}
 
 
