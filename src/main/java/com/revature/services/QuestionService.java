@@ -18,12 +18,13 @@ public class QuestionService {
 	public Page<Question> getAllQuestions(Pageable pageable){
 		return questionRepository.findAll(pageable);
 	}
-	
+
 	/**@author ken*/
 	public Page<Question> getAllQuestionsByUserId(Pageable pageable, int id){
 		return questionRepository.getAllQuestionsByUserID(pageable, id);		
 	}
 	
+	/** @Author James Walls */
 	public Question save(Question question) {
 		return questionRepository.save(question);
 	}
