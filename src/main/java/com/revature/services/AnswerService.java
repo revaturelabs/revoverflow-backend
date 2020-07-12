@@ -12,7 +12,7 @@ public class AnswerService {
 	@Autowired
 	AnswerRepository answerRepository;
 	
-	/* @Author James Walls */
+	/** @Author James Walls */
 	public Answer save(Answer answer) {
 		return answerRepository.save(answer);
 	}
