@@ -51,7 +51,7 @@ public class RSSController {
 	 * Returns: 	User entity with updated points
 	 * */
 	@PostMapping("/add")
-	public User addPoints(@RequestBody RSSAccountDTO acc) {
+	public RSSAccountDTO addPoints(@RequestBody RSSAccountDTO acc) {
 		return rssService.addPoints(acc);
 		
 	}

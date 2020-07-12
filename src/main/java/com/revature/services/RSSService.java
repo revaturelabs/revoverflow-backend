@@ -101,9 +101,24 @@ public class RSSService {
 		return 0;
 	}
 
-	public User addPoints(RSSAccountDTO acc) {
-		// TODO Auto-generated method stub
-		return null;
+	public RSSAccountDTO addPoints(RSSAccountDTO acc) {
+		String uri =  "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/account";
+		 	HttpHeaders headers = new HttpHeaders();
+		    headers.setContentType(MediaType.APPLICATION_JSON);
+		    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		    
+		    Map<String, Object> map = new HashMap<>();
+			map.put("accId", acc.getAccId());
+
+			HttpEntity<Map<String,Object>> entity = new HttpEntity<>(map,headers);
+			
+			ResponseEntity<RSSAccountDTO> response= this.restTemplate.postForEntity(uri, entity, RSSAccountDTO.class);
+	       
+	        RSSAccountDTO account = response.getBody();
+	        System.out.println(account);
+	        account.setPoints(account.getPoints() + 20);
+	        System.out.println(account);
+	        return account;
 	}
 
 
