@@ -39,7 +39,9 @@ public class RSSService {
 		this.restTemplate = restTemplateBuilder.build();
 	}
 	
-	
+	/*
+	 * @Author Ryan Clayton
+	 */
 	public User login(RSSUserDTO u) {
 		// create headers
 	    HttpHeaders headers = new HttpHeaders();
@@ -115,12 +117,17 @@ public class RSSService {
 		return userRepository.save(user);
 	}
 
-	
+	/*
+	 * @Author
+	 */
 	public int getPoints(int id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/*
+	 * @Author
+	 */
 	public User addPoints(RSSAccountDTO acc) {
 		// TODO Auto-generated method stub
 		return null;
