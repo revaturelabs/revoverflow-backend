@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.revature.entities.Answer;
 import com.revature.repositories.AnswerRepository;
-     
+
 
 @Service
 public class AnswerService {
@@ -15,6 +15,7 @@ public class AnswerService {
  @Autowired
  AnswerRepository answerRepository;
  
+  /** @Author Natasha Poser */
  public Page<Answer> getAnswerByQuestionId(Pageable pageable, int question_id){
 	 return answerRepository.getAnswerByQuestionId(pageable, question_id);
  }
@@ -23,6 +24,11 @@ public class AnswerService {
 	 return answerRepository.findAll(pageable);
  }
 	
+	
+	/** @Author James Walls */
+	public Answer save(Answer answer) {
+		return answerRepository.save(answer);
+	}
 
 }
 
