@@ -124,14 +124,11 @@ public class RSSService {
 		return 0;
 	}
 
-<<<<<<< HEAD
 
-
-=======
 	/*
 	*@Author Haji
 	*/
->>>>>>> 83b1af18e496a619b1711a6edfe1e81ff453fb24
+
 	public RSSAccountDTO addPoints(RSSAccountDTO acc) {
 		String uri =  "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/account";
 		 	HttpHeaders headers = new HttpHeaders();
@@ -150,10 +147,7 @@ public class RSSService {
 	        account.setPoints(account.getPoints() + 20);
 	        System.out.println(account);
 	        return account;
-<<<<<<< HEAD
 
-=======
->>>>>>> 83b1af18e496a619b1711a6edfe1e81ff453fb24
 	}
 
 
