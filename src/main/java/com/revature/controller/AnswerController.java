@@ -15,6 +15,7 @@ public class AnswerController {
 
 	AnswerService answerService;
 	
+	/**@author ken*/
 	@GetMapping("/user/{id}")
 	public Page<Answer> getAllAnswersByUserID(Pageable pageable, int id){
 		return answerService.getAllAnswersByUserID(pageable, id);		

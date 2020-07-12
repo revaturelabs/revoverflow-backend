@@ -10,7 +10,9 @@ import com.revature.entities.Question;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Integer>{
 
+	/**@author ken*/
 	Page<Question> getAllQuestionsByUserID(Pageable pageable, int id);
 
+	/**@author ken*/
 	Page<Question> getAllQuestionsByStatus(Pageable pageable, boolean status);
 }

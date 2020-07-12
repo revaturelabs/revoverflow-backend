@@ -11,8 +11,9 @@ import com.revature.repositories.AnswerRepository;
 public class AnswerService {
 
 	AnswerRepository answerRepository;
-	
+	/**@author ken*/
 	public Page<Answer> getAllAnswersByUserID(Pageable pageable, int id){
 		return answerRepository.getAllAnswersByUserId(pageable, id);		
 	}
+	
 }

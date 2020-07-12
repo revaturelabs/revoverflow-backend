@@ -20,18 +20,21 @@ public class QuestionController {
 	@Autowired
 	QuestionService questionService;
 	
+	/**	 *@author ken */
 	@GetMapping
 	public Page<Question> getAllQuestions(Pageable pageable)
 	{
 		return questionService.getAllQuestions(pageable);
 	}
-	
+
+	/**@author ken*/
 	@GetMapping("/{statusId}")
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, @PathVariable boolean status)
 	{
 		return questionService.getAllQuestionsByStatus(pageable, status);
 	}
 
+	/**@author ken*/
 	@GetMapping("/user/{id}")
 	public Page<Question> getAllQuestionsByUserId(Pageable pageable, @PathVariable int id)
 	{
