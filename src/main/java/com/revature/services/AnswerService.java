@@ -1,5 +1,8 @@
 package com.revature.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +33,11 @@ public class AnswerService {
 		return answerRepository.save(answer);
 	}
 
+	/**@author ken*/
+	public Page<Answer> getAllAnswersByUserID(Pageable pageable, int id){
+		return answerRepository.getAllAnswersByUserId(pageable, id);		
+	}
+	
 }
 
 

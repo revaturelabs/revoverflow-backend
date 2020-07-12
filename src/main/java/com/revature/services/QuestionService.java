@@ -16,8 +16,14 @@ public class QuestionService {
 	@Autowired
 	QuestionRepository questionRepository;
 	
+	/**@author ken*/
 	public Page<Question> getAllQuestions(Pageable pageable){
 		return questionRepository.findAll(pageable);
+	}
+
+	/**@author ken*/
+	public Page<Question> getAllQuestionsByUserId(Pageable pageable, int id){
+		return questionRepository.getAllQuestionsByUserID(pageable, id);		
 	}
 	
 	/** @Author James Walls */
@@ -25,9 +31,16 @@ public class QuestionService {
 		return questionRepository.save(question);
 	}
 	
+  /** @Author Natasha Poser */ 
 	public Question findById(int id) {
 		return questionRepository.findById(id)
 				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
 	
+
+	/**@author ken*/
+	public Page<Question> getAllQuestionsByStatus(Pageable pageable, boolean status){
+		return questionRepository.getAllQuestionsByStatus(pageable, status);
+	}
+
 }
