@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 public class User {
 
 	@Id
-	@NotNull
 	@Column(unique = true, name = "user_id")
 	private int userID;
 	
@@ -57,7 +56,7 @@ public class User {
 			String lastName) {
 		super();
 		this.userID = userID;
-		RSSAccountId = rSSAccountId;
+		this.RSSAccountId = rSSAccountId;
 		this.points = points;
 		this.admin = admin;
 		this.profilePicture = profilePicture;
