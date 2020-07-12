@@ -120,7 +120,26 @@ public class RSSService {
 	}
 
 	public User addPoints(RSSAccountDTO acc) {
-		// TODO Auto-generated method stub
+		/*
+		 * Objective: Add points from RevOverflow Answer to User Account
+		 * 
+		 * 1) Retrieve points from answers
+		 * 2) Add points to the User Account
+		 * 3) Post the points to the User
+		 * 
+		 * Check the user / account ID match before anything
+		 * If user / account exist then add points. If not, then return 0 points.
+		*/
+		
+		if (!userRepository.existsById(id)) {
+			
+		}
+		if (acc.getAccId() == ) {
+			
+		} else {
+
+		}
+		
 		return null;
 	}
 
