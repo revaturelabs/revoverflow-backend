@@ -34,6 +34,11 @@ public class QuestionController {
 	public Question updateQuestionAcceptedAnswerId(Question question) {
 		return questionService.updateQuestionAcceptedAnswerId(question);
 	}
+	
+	@PatchMapping("/questions/status")
+	public Question updateStatus(Question question) {
+		return questionService.updateStatus(question);
+	}
 
 	@PostMapping
 	public Question saveQuestion(Question question) {

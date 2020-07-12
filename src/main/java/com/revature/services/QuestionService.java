@@ -26,4 +26,8 @@ public class QuestionService {
 		return questionRepository.save(question);
 
 	}
+	
+	public Question updateStatus(Question question) {
+		return questionRepository.save(question);
+	}
 }
