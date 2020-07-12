@@ -25,8 +25,6 @@ public class AnswerController {
 	public Answer saveAnswer(Answer answer) {
 		return answerService.save(answer);
 	}
-
-	AnswerService answerService;
 	
 	/**@author ken*/
 	@GetMapping("/user/{id}")

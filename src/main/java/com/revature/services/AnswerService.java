@@ -20,7 +20,6 @@ public class AnswerService {
 		return answerRepository.save(answer);
 	}
 
-	AnswerRepository answerRepository;
 	/**@author ken*/
 	public Page<Answer> getAllAnswersByUserID(Pageable pageable, int id){
 		return answerRepository.getAllAnswersByUserId(pageable, id);		
