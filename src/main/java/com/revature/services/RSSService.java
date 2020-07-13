@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -150,22 +151,34 @@ public class RSSService {
 	*@Author Haji
 	*/
 
-	public RSSAccountDTO addPoints(RSSAccountDTO acc) {
-		String uri =  "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/account";
+	public User addPoints(RSSAccountDTO acc) {
+			String uri =  "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/points/a";
 		 	HttpHeaders headers = new HttpHeaders();
 		    headers.setContentType(MediaType.APPLICATION_JSON);
 		    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-		    
-		    Map<String, Object> map = new HashMap<>();
-			map.put("accId", acc.getAccId());
-
-			HttpEntity<Map<String,Object>> entity = new HttpEntity<>(map,headers);
-			
-			ResponseEntity<RSSAccountDTO> response= this.restTemplate.postForEntity(uri, entity, RSSAccountDTO.class);
-	       
-	        RSSAccountDTO account = response.getBody();
-	        account.setPoints(account.getPoints() + 20);
-	        return account;
+		    Optional<User> optUser = userRepository.findById(acc.getUserId());
+		    if (optUser.isPresent()) {
+		    	User user = optUser.get();
+		    	
+		    	Map<String, Object> map = new HashMap<>();
+		    	map.put("accId", user.getRSSAccountId());
+		    	map.put("points", acc.getPoints());
+		    	
+		    	HttpEntity<Map<String,Object>> entity = new HttpEntity<>(map,headers);
+		    	
+		    	ResponseEntity<RSSAccountDTO> response= this.restTemplate.postForEntity(uri, entity, RSSAccountDTO.class);
+		    	
+				if(response.getStatusCode()==HttpStatus.OK) {
+					user.setPoints(user.getPoints()+acc.getPoints());
+					return userRepository.save(user);
+				}
+				else {
+					return null;
+				}
+		    }
+		    else {
+		    	return null;
+		    }
 
 	}
 
