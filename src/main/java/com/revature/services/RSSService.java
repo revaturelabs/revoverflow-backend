@@ -23,13 +23,7 @@ import com.revature.util.JwtUtil;
 
 @Service
 public class RSSService {
-	/*
-	 * Add Points - Kei
-	 * 
-	 * Update Points - Haji
-	 * 
-	 * Login - Ryan
-	*/
+	
 	
 	@Autowired
 	UserRepository userRepository;
@@ -140,7 +134,7 @@ public class RSSService {
 	}
 
 	/*
-	 * @Author
+	 * @Author Kei
 	 */
 	public int getPoints(int id) {
 		return id;
