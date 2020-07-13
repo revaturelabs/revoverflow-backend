@@ -5,4 +5,4 @@
 /bin
 
 # Ignore application.yml that sets up connection to PSQL database for testing
-postgres-yml/
+/postgres-yml
