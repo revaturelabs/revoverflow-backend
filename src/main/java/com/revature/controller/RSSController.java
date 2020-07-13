@@ -26,17 +26,6 @@ public class RSSController {
 	@Autowired
 	RSSService rssService;
 	
-	@PostMapping("/login")
-	public User loginUser(@RequestBody RSSUserDTO u) {
-		return rssService.login(u);
-		
-	}
-	/* Gets the number of points for a user from the RSS account service database and updates the user's RSS points in our database
-	 * 
-	 * Params: userID: the user's id which we are getting the points for.
-	 * 
-	 * Returns: Number of points as an integer
-	 */
 	
 	@GetMapping("/points/{id}")
 	public int getPoints(@RequestParam int id) {

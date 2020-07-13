@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +15,29 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
+	@Autowired
+	RSSService rssService;
+	
 	/*
 	 * @Author Ryan Clayton
 	 */
-	public List<User> getAllUsers() {
-		
-		return userRepository.findAll();
+
+	public User getUserById(int id) {
+		Optional<User> optUser = userRepository.findById(id);
+		System.out.println("hello");
+		if(optUser.isPresent()) {
+			User user = optUser.get();
+			try {
+				
+				user.setPoints(rssService.getPoints(id));
+			}catch(Exception e){
+				System.out.println(e.getLocalizedMessage());
+			}
+			return user;
+		}
+		else {
+			return null;
+		}
 	}
 
 }
