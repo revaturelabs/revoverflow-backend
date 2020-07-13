@@ -120,8 +120,22 @@ public class RSSService {
 	 * @Author
 	 */
 	public int getPoints(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		String uri =  "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/account";
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+	    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+	    
+	    Map<String, Object> map = new HashMap<>();
+		map.put("accId", id);
+		
+		HttpEntity<Map<String,Object>> entity = new HttpEntity<>(map,headers);
+		
+		ResponseEntity<RSSAccountDTO> response= this.restTemplate.postForEntity(uri, entity, RSSAccountDTO.class);
+       
+        RSSAccountDTO account = response.getBody();
+        System.out.println(account.getPoints());
+
+		return account.getPoints();
 	}
 
 	public RSSAccountDTO addPoints(RSSAccountDTO acc) {
