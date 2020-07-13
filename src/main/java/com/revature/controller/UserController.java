@@ -17,6 +17,11 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	/**
+	 * @author Ryan Clayton
+	 * @param id this is the user's Id
+	 * @return User this returns the user entity with updated RSS points
+	 */
 	@GetMapping("/{id}")
 	public User getUserById(@PathVariable int id) {
 		return userService.getUserById(id);

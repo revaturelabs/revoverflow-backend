@@ -28,6 +28,9 @@ public class RSSService {
 	
 	@Autowired
 	UserRepository userRepository;
+
+	@Value("${environments.rss}")
+	String rssServiceUrl;
 	
 	private RestTemplate restTemplate;
 	
@@ -35,20 +38,15 @@ public class RSSService {
 		this.restTemplate = restTemplateBuilder.build();
 	}
 	
-	@Value("${environments.rss.login}")
-	String login;
+	String login = rssServiceUrl+"/user/login";
+	String getPoints = rssServiceUrl+"/account/account";
+	String addPoints = rssServiceUrl+"/account/points/a";
+	String newAcc = rssServiceUrl+"/account/new";
 	
-	@Value("${environments.rss.getPoints}")
-	String getPoints;
-	
-	@Value("${environments.rss.addPoints}")
-	String addPoints;
-	
-	@Value("${environments.rss.newAcc}")
-	String newAcc;
-	
-	/*
+	/**
 	 * @Author Ryan Clayton
+	 * @param u this takes in a RSSUserDto object with an email and password populated
+	 * @return User this user is authenticated with the RSS account service
 	 */
 	public User login(RSSUserDTO u) {
 		// create headers
@@ -142,8 +140,10 @@ public class RSSService {
 		}
 	}
 
-	/*
+	/**
 	 * @Author Kei
+	 * @param id  this is the user's id number
+	 * @return the number of points in a user's RSS account from the RSS account service
 	 */
 	public int getPoints(int id) {
 		HttpHeaders headers = new HttpHeaders();
@@ -170,9 +170,11 @@ public class RSSService {
 	}
 
 
-	/*
-	*@Author Haji
-	*/
+	/**
+	 * @Author Haji
+	 * @param acc  this takes in an RSSAccountDTO object with the userId and the number of points populated
+	 * @return the user with an updated number of points in both from our database as well as the RSS account service DB
+	 */
 
 	public User addPoints(RSSAccountDTO acc) {
 		 	HttpHeaders headers = new HttpHeaders();

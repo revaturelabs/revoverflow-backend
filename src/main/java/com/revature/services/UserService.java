@@ -17,8 +17,10 @@ public class UserService {
 	@Autowired
 	RSSService rssService;
 	
-	/*
-	 * @Author Ryan Clayton
+	/**
+	 * @author Ryan Clayton
+	 * @param id this is the user's Id
+	 * @return User this returns the user entity with updated RSS points
 	 */
 
 	public User getUserById(int id) {
