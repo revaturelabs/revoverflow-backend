@@ -136,7 +136,7 @@ public class RSSService {
 	/*
 	 * @Author Kei
 	 */
-	public String getPoints(int id) {
+	public int getPoints(int id) {
 		String uri =  "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/account";
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
@@ -154,9 +154,9 @@ public class RSSService {
 	    	ResponseEntity<RSSAccountDTO> response= this.restTemplate.postForEntity(uri, entity, RSSAccountDTO.class);
 	    	
 	    	RSSAccountDTO account = response.getBody();
-	    	return  Integer.toString(account.getPoints());
+	    	return account.getPoints();
 	    }else {
-	    	return "User with this id does not exist.";
+	    	return 0;
 	    }
 
 	}

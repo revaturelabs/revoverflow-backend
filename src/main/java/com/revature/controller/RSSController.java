@@ -39,7 +39,7 @@ public class RSSController {
 	 */
 	
 	@GetMapping(value="/points/{id}")
-	public String getPoints(@PathVariable int id) {
+	public int getPoints(@PathVariable int id) {
 		return rssService.getPoints(id);
 	}
 	
