@@ -23,6 +23,7 @@
 		<sonar.exclusions>src/**/entities/**/*</sonar.exclusions>
 		<sonar.coverage.jacoco.xmlReportPaths>${coverage.reports.dir}/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 		<sonar.exclusions>src/**/entities/**/*,src/**/DTOs/**/*</sonar.exclusions>
+		<sonar.verbose>true</sonar.verbose>
 	</properties>
 
 	<!-- Parent pom file - used to pull in major dependencies & versions -->
