@@ -41,10 +41,15 @@ public class QuestionController {
 		return questionService.getAllQuestionsByUserId(pageable, id);
 	}
 
-
 	/** @Author James Walls */
 	@PostMapping
 	public Question saveQuestion(Question question) {
 		return questionService.save(question);
+	}
+
+	/** @Author Natasha Poser */
+	@GetMapping("/{id}")
+	public Question getQuestionByQuestionId(@PathVariable int id) {
+		return questionService.findById(id);
 	}
 }
