@@ -31,12 +31,12 @@ public class QuestionService {
 		return questionRepository.save(question);
 	}
 	
-	/** @author Natasha Poser */
+  /** @Author Natasha Poser */ 
 	public Question findById(int id) {
 		return questionRepository.findById(id)
 				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
-	
+
 	/**@author ken*/
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, boolean status){
 		return questionRepository.getAllQuestionsByStatus(pageable, status);
