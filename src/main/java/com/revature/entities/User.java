@@ -27,7 +27,7 @@ public class User {
 	@Column(name = "points")
 	private int points;
 	
-	@Column(name = "admin")
+	@Column(name = "admin_role")
 	private boolean admin;
 	
 	@Column(name = "profile_picture")
