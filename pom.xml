@@ -15,7 +15,7 @@
 		<sonar.organization>${env.SONAR_ORGANIZATION}</sonar.organization>
 		<sonar.host.url>${env.SONAR_HOST_URL}</sonar.host.url>
 		<sonar.login>${env.SONAR_LOGIN}</sonar.login>
-		<sonar.exclusions>src/**/entities/**/*</sonar.exclusions>
+		<sonar.exclusions>src/**/entities/**/*,src/**/DTOs/**/*</sonar.exclusions>
 	</properties>
 
 	<!-- Parent pom file - used to pull in major dependencies & versions -->
@@ -80,6 +80,11 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
 		</dependency>
 	</dependencies>
 	<!-- Package as an executable jar -->
