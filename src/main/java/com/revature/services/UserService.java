@@ -1,6 +1,5 @@
 package com.revature.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ public class UserService {
 
 	public User getUserById(int id) {
 		Optional<User> optUser = userRepository.findById(id);
-		System.out.println("hello");
 		if(optUser.isPresent()) {
 			User user = optUser.get();
 			try {
