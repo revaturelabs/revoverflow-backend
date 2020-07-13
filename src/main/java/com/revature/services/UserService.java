@@ -33,7 +33,7 @@ public class UserService {
 			}catch(Exception e){
 				System.out.println(e.getLocalizedMessage());
 			}
-			return user;
+			return userRepository.save(user);
 		}
 		else {
 			return null;
