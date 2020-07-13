@@ -21,6 +21,7 @@
 		<sonar.host.url>${env.SONAR_HOST_URL}</sonar.host.url>
 		<sonar.login>${env.SONAR_LOGIN}</sonar.login>
 		<sonar.exclusions>src/**/entities/**/*</sonar.exclusions>
+		<sonar.coverage.jacoco.xmlReportPaths>${coverage.reports.dir}/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 		<sonar.exclusions>src/**/entities/**/*,src/**/DTOs/**/*</sonar.exclusions>
 		<sonar.verbose>true</sonar.verbose>
 	</properties>
@@ -116,6 +117,7 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.4</version>
 				<configuration>
+					<outputDirectory>${coverage.reports.dir}</outputDirectory>
 					<excludes>
 						<exclude>**/entities/**</exclude>
 						<exclude>**/DTOs/**</exclude>
