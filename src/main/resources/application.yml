@@ -1,0 +1,9 @@
+server:
+  port: 8080
+  
+environments:
+  rss:
+    login: "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/user/login"
+    newAcc: "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/new"
+    getPoints: "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/account"
+    addPoints: "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/points/a"

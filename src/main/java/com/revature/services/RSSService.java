@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -34,6 +35,18 @@ public class RSSService {
 		this.restTemplate = restTemplateBuilder.build();
 	}
 	
+	@Value("${environments.rss.login}")
+	String login;
+	
+	@Value("${environments.rss.getPoints}")
+	String getPoints;
+	
+	@Value("${environments.rss.addPoints}")
+	String addPoints;
+	
+	@Value("${environments.rss.newAcc}")
+	String newAcc;
+	
 	/*
 	 * @Author Ryan Clayton
 	 */
@@ -45,8 +58,6 @@ public class RSSService {
 	    // set `accept` header
 	    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 	    
-		String uri = "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/user/login";
-		
 		//create map for user login post parameters
 		Map<String, Object> map = new HashMap<>();
 		map.put("email", u.getEmail());
@@ -56,7 +67,7 @@ public class RSSService {
 		HttpEntity<Map<String,Object>> entity = new HttpEntity<>(map,headers);
 		
 		//send Post Request
-		ResponseEntity<RSSUserDTO> response= this.restTemplate.postForEntity(uri, entity, RSSUserDTO.class);
+		ResponseEntity<RSSUserDTO> response= this.restTemplate.postForEntity(login, entity, RSSUserDTO.class);
 		
 		//Begin building User object
 		User user = new User();
@@ -76,7 +87,6 @@ public class RSSService {
 				
 				
 				
-				String uri2 = "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/new";
 				//create map for new account post parameters
 				map.clear();
 				map.put("userId",body.getUserId());
@@ -85,7 +95,7 @@ public class RSSService {
 				//build the request
 				entity = new HttpEntity<>(map,headers);
 				//send the request
-				ResponseEntity<RSSAccountDTO> accResponse= this.restTemplate.postForEntity(uri2, entity, RSSAccountDTO.class);
+				ResponseEntity<RSSAccountDTO> accResponse= this.restTemplate.postForEntity(newAcc, entity, RSSAccountDTO.class);
 				if(accResponse.hasBody()) {
 				
 					//finish building user object
@@ -105,7 +115,6 @@ public class RSSService {
 					user = optUser.get();
 					
 					//create url for rss points request
-					String uri2 = "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/account";
 					//create map for new account post parameters
 					map.clear();
 					map.put("userId",user.getUserID());
@@ -115,7 +124,7 @@ public class RSSService {
 					entity = new HttpEntity<>(map,headers);
 				
 					//send the request
-					ResponseEntity<RSSAccountDTO> accResponse= this.restTemplate.postForEntity(uri2, entity, RSSAccountDTO.class);
+					ResponseEntity<RSSAccountDTO> accResponse= this.restTemplate.postForEntity(getPoints, entity, RSSAccountDTO.class);
 					if(accResponse.hasBody()) {
 						user.setPoints(accResponse.getBody().getPoints());
 					}
@@ -137,7 +146,6 @@ public class RSSService {
 	 * @Author Kei
 	 */
 	public int getPoints(int id) {
-		String uri =  "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/account";
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
 	    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -151,7 +159,7 @@ public class RSSService {
 	    	
 	    	HttpEntity<Map<String,Object>> entity = new HttpEntity<>(map,headers);
 	    	
-	    	ResponseEntity<RSSAccountDTO> response= this.restTemplate.postForEntity(uri, entity, RSSAccountDTO.class);
+	    	ResponseEntity<RSSAccountDTO> response= this.restTemplate.postForEntity(getPoints, entity, RSSAccountDTO.class);
 	    	
 	    	RSSAccountDTO account = response.getBody();
 	    	return account.getPoints();
@@ -167,7 +175,6 @@ public class RSSService {
 	*/
 
 	public User addPoints(RSSAccountDTO acc) {
-			String uri =  "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/points/a";
 		 	HttpHeaders headers = new HttpHeaders();
 		    headers.setContentType(MediaType.APPLICATION_JSON);
 		    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -181,7 +188,7 @@ public class RSSService {
 		    	
 		    	HttpEntity<Map<String,Object>> entity = new HttpEntity<>(map,headers);
 		    	
-		    	ResponseEntity<RSSAccountDTO> response= this.restTemplate.postForEntity(uri, entity, RSSAccountDTO.class);
+		    	ResponseEntity<RSSAccountDTO> response= this.restTemplate.postForEntity(addPoints, entity, RSSAccountDTO.class);
 		    	
 				if(response.getStatusCode()==HttpStatus.OK) {
 					user.setPoints(user.getPoints()+acc.getPoints());

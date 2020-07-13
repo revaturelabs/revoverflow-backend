@@ -17,15 +17,19 @@ public class LoginController {
 	@Autowired
 	RSSService rssService;
 	
+	
+	/* This method is used for logging in a user and validating their credentials with RSS account service
+	 * 
+	 * Params: userID: the user's id which we are getting the points for.
+	 * @param email 	This is the user's email needed for login validation
+	 * @param password 	User must supply a password for validation
+	 * 
+	 * @return User		This is the instance of the User entity in our database provided from the RSS account service	
+	 * 	 */
 	@PostMapping
 	public User loginUser(@RequestBody RSSUserDTO u) {
 		return rssService.login(u);
 		
 	}
-	/* Gets the number of points for a user from the RSS account service database and updates the user's RSS points in our database
-	 * 
-	 * Params: userID: the user's id which we are getting the points for.
-	 * 
-	 * Returns: Number of points as an integer
-	 */
+	
 }
