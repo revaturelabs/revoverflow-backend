@@ -11,11 +11,19 @@
 	<properties>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
+
+		<!-- Jacoco Configuration -->
+		<coverage.reports.dir>${basedir}/target/coverage-reports</coverage.reports.dir>
+		
+		<!-- Sonar Configuration -->
 		<sonar.projectKey>${env.SONAR_PROJECT_KEY}</sonar.projectKey>
 		<sonar.organization>${env.SONAR_ORGANIZATION}</sonar.organization>
 		<sonar.host.url>${env.SONAR_HOST_URL}</sonar.host.url>
 		<sonar.login>${env.SONAR_LOGIN}</sonar.login>
 		<sonar.exclusions>src/**/entities/**/*</sonar.exclusions>
+		<sonar.coverage.jacoco.xmlReportPaths>${coverage.reports.dir}/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+		
+		
 	</properties>
 
 	<!-- Parent pom file - used to pull in major dependencies & versions -->
@@ -81,6 +89,16 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<version>2.1.1.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 	<!-- Package as an executable jar -->
 	<build>
@@ -88,6 +106,33 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.4</version>
+				<configuration>
+					<outputDirectory>${coverage.reports.dir}</outputDirectory>
+					<excludes>
+						<exclude>**/entities/**</exclude>
+						<exclude>**/DTOs/**</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
