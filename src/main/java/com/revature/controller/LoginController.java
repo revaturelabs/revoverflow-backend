@@ -18,7 +18,7 @@ public class LoginController {
 	RSSService rssService;
 	
 	
-	/* This method is used for logging in a user and validating their credentials with RSS account service
+	/** This method is used for logging in a user and validating their credentials with RSS account service
 	 * 
 	 * Params: userID: the user's id which we are getting the points for.
 	 * @param email 	This is the user's email needed for login validation
