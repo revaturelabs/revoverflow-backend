@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -143,8 +142,7 @@ public class RSSService {
 	 * @Author
 	 */
 	public int getPoints(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return id;
 	}
 
 
@@ -166,9 +164,7 @@ public class RSSService {
 			ResponseEntity<RSSAccountDTO> response= this.restTemplate.postForEntity(uri, entity, RSSAccountDTO.class);
 	       
 	        RSSAccountDTO account = response.getBody();
-	        System.out.println(account);
 	        account.setPoints(account.getPoints() + 20);
-	        System.out.println(account);
 	        return account;
 
 	}
