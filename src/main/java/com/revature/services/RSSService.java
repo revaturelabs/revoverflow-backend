@@ -136,23 +136,29 @@ public class RSSService {
 	/*
 	 * @Author Kei
 	 */
-	public int getPoints(int id) {
+	public String getPoints(int id) {
 		String uri =  "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/account";
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
 	    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 	    
-	    Map<String, Object> map = new HashMap<>();
-		map.put("accId", id);
-		
-		HttpEntity<Map<String,Object>> entity = new HttpEntity<>(map,headers);
-		
-		ResponseEntity<RSSAccountDTO> response= this.restTemplate.postForEntity(uri, entity, RSSAccountDTO.class);
-       
-        RSSAccountDTO account = response.getBody();
-        System.out.println(account.getPoints());
+	    Optional<User> optUser = userRepository.findById(id);
+	    if (optUser.isPresent()) {
+	    	User user = optUser.get();
+	    
+	    	Map<String, Object> map = new HashMap<>();
+	    	map.put("accId", user.getRSSAccountId());
+	    	
+	    	HttpEntity<Map<String,Object>> entity = new HttpEntity<>(map,headers);
+	    	
+	    	ResponseEntity<RSSAccountDTO> response= this.restTemplate.postForEntity(uri, entity, RSSAccountDTO.class);
+	    	
+	    	RSSAccountDTO account = response.getBody();
+	    	return  Integer.toString(account.getPoints());
+	    }else {
+	    	return "User with this id does not exist.";
+	    }
 
-		return account.getPoints();
 	}
 
 
