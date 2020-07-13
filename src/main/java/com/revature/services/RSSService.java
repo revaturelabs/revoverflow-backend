@@ -19,6 +19,7 @@ import com.revature.DTOs.RSSAccountDTO;
 import com.revature.DTOs.RSSUserDTO;
 import com.revature.entities.User;
 import com.revature.repositories.UserRepository;
+import com.revature.util.JwtUtil;
 
 @Service
 public class RSSService {
@@ -51,7 +52,6 @@ public class RSSService {
 	    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 	    
 		String uri = "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/user/login";
-		String uri2 = "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/new";
 		
 		//create map for user login post parameters
 		Map<String, Object> map = new HashMap<>();
@@ -68,10 +68,9 @@ public class RSSService {
 		User user = new User();
 		user.setEmail(u.getEmail());
 		
-		if(response.getStatusCode() == HttpStatus.OK) {	
+		if(response.hasBody()) {	
 			//continue building user from response body
 			RSSUserDTO body = response.getBody();
-			System.out.println(userRepository.existsById(body.getUserId()));
 			
 			
 			if(!userRepository.existsById(body.getUserId())) {
@@ -81,39 +80,63 @@ public class RSSService {
 				user.setProfilePicture(body.getProfilePic());
 				user.setUserID(body.getUserId());
 				
+				
+				
+				String uri2 = "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/new";
 				//create map for new account post parameters
 				map.clear();
 				map.put("userId",body.getUserId());
 				map.put("accTypeId",3);
-			
+				
 				//build the request
 				entity = new HttpEntity<>(map,headers);
-			
 				//send the request
-				/*
 				ResponseEntity<RSSAccountDTO> accResponse= this.restTemplate.postForEntity(uri2, entity, RSSAccountDTO.class);
-				if(accResponse.getStatusCode()==HttpStatus.OK) {
+				if(accResponse.hasBody()) {
 				
 					//finish building user object
 					RSSAccountDTO accBody = accResponse.getBody();
-					System.out.println(accBody);
 					user.setRSSAccountId(accBody.getAccId());
 					user.setPoints(accBody.getPoints());
 				
 				}
-				*/
+				//create jwt for user
+				JwtUtil jwt = new JwtUtil();
+				user.setJwt(jwt.generateToken(user));
+				
 			}else {
 				Optional<User> optUser = userRepository.findById(body.getUserId());
 				if (optUser.isPresent()) {
+					//get user data from our database
 					user = optUser.get();
+					
+					//create url for rss points request
+					String uri2 = "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/account";
+					//create map for new account post parameters
+					map.clear();
+					map.put("userId",user.getUserID());
+					map.put("accId",user.getRSSAccountId());
+					
+					//build the request
+					entity = new HttpEntity<>(map,headers);
+				
+					//send the request
+					ResponseEntity<RSSAccountDTO> accResponse= this.restTemplate.postForEntity(uri2, entity, RSSAccountDTO.class);
+					if(accResponse.hasBody()) {
+						user.setPoints(accResponse.getBody().getPoints());
+					}
+					//create jwt token for our user
+					JwtUtil jwt = new JwtUtil();
+					user.setJwt(jwt.generateToken(user));
 
 				}
 			}
 			
+			return userRepository.save(user);
+		}		
+		else {
+			return null;
 		}
-		System.out.println(user);
-		
-		return userRepository.save(user);
 	}
 
 	/*
