@@ -32,6 +32,22 @@ public class QuestionService {
 		return questionRepository.save(question);
 	}
 	
+	/**@author Hugh Thornhill*/
+	public Question updateQuestionAcceptedAnswerId(Question question) {
+		if(question.getId() == 0) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+		}	
+		return save(question);
+	}
+	
+	/**@author Hugh Thornhill*/
+	public Question updateQuestionStatus(Question question) {
+		if(question.getId() == 0) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+		}	
+		return save(question);
+	}
+	
   /** @Author Natasha Poser */ 
 	public Question findById(int id) {
 		return questionRepository.findById(id)
