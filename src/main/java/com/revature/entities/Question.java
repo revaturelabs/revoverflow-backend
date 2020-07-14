@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "Questions")
+@Table(name = "questions")
 public class Question {
 
 	@Id
@@ -34,8 +34,6 @@ public class Question {
 	@Column(name = "edit_date")
 	private LocalDate editDate;
 
-	// closed or open
-	@NotBlank(message = "Status requires a string value")
 	private boolean status;
 
 	// add the not null check in the service layer
