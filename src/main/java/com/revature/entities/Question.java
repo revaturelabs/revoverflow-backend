@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "Questions")
+@Table(name = "questions")
 public class Question {
 
 	@Id
@@ -19,7 +19,7 @@ public class Question {
 	private int id;
 
 	@Column(name = "accepted_id")
-	private int acceptedId;
+	private Integer acceptedId;
 
 	@NotBlank(message = "Title requires a string value")
 	private String title;
@@ -50,7 +50,7 @@ public class Question {
 		this.id = id;
 	}
 
-	public int getAcceptedId() {
+	public Integer getAcceptedId() {
 		return acceptedId;
 	}
 
@@ -168,7 +168,7 @@ public class Question {
 				+ userID + "]";
 	}
 
-	public Question(int id, int acceptedId, String title, String content, LocalDate creationDate, LocalDate editDate,
+	public Question(int id, Integer acceptedId, String title, String content, LocalDate creationDate, LocalDate editDate,
 			boolean status, int userID) {
 		super();
 		this.id = id;
