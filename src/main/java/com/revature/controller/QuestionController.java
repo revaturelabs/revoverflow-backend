@@ -38,10 +38,10 @@ public class QuestionController {
 		return questionService.getAllQuestionsByStatus(pageable, status);
 	}
 	
-	@PatchMapping("/questions/status")
-	public Question updateStatus(Question question) {
-		return questionService.updateStatus(question);
-	}
+//	@PatchMapping("/questions/status")
+//	public Question updateStatus(Question question) {
+//		return questionService.updateStatus(question);
+//	}
 
 	/**@author ken*/
 	@GetMapping("/user/{id}")
@@ -62,8 +62,8 @@ public class QuestionController {
 		return questionService.findById(id);
 	}
 	
-	@PatchMapping("/questions")
-	public Question updateQuestionAcceptedAnswerId(Question question) {
-		return questionService.updateQuestionAcceptedAnswerId(question);
-	}
+//	@PatchMapping("/questions")
+//	public Question updateQuestionAcceptedAnswerId(Question question) {
+//		return questionService.updateQuestionAcceptedAnswerId(question);
+//	}
 }
