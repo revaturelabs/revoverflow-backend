@@ -3,4 +3,4 @@
 /target
 /RemoteSystemsTempFiles
 /bin
-/src/main/resources
+/src/main/resources/application.yaml
