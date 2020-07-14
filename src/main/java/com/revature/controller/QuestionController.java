@@ -68,7 +68,7 @@ public class QuestionController {
 		return questionService.getAllQuestionsByUserId(pageable, id);
 	}
 
-	// DOES NOT work
+	// works
 	/** @Author James Walls */
 	@PostMapping
 	public Question saveQuestion(@RequestBody Question question) {
