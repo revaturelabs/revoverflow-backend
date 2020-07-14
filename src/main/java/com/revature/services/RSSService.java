@@ -29,7 +29,7 @@ public class RSSService {
 	@Autowired
 	UserRepository userRepository;
 
-	@Value("${environments.rss.url}")
+	@Value("${environments.rss}")
 	String rssServiceUrl;
 	
 	private RestTemplate restTemplate;
