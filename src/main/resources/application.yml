@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: RevOverflow
+  profiles:    active:    - dev
+
+server:
+  port: 8080
+    
+# Profile configuration - This is being configured in a single file as the config is currently relatively
+# and easier to parse out in as ingle file.  If the config groups more complex, the configuration can be
+# broken up into files per profile, ex: application-dev.yml---
+# dev profile configuration
+spring:
+  profiles: dev
+  datasource:
+    url:  jdbc:h2:mem:db;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+
+  
+---
+# Localhost PostgreSQL configuration
+spring:
+  profiles: local-pg
+  datasource:    url: ${REV_OVER_DB_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${REV_OVER_DB_ROLE}
+    password: ${REV_OVER_DB_PASS}
+  
+  
+---
+# Production Configuration
+spring:  profiles: prod
+  
