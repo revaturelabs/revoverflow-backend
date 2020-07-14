@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -27,6 +28,9 @@ public class RSSService {
 	
 	@Autowired
 	UserRepository userRepository;
+
+	@Value("${environments.rss}")
+	String rssServiceUrl;
 	
 	private RestTemplate restTemplate;
 	
@@ -34,8 +38,15 @@ public class RSSService {
 		this.restTemplate = restTemplateBuilder.build();
 	}
 	
-	/*
+	String login = rssServiceUrl+"/user/login";
+	String getPoints = rssServiceUrl+"/account/account";
+	String addPoints = rssServiceUrl+"/account/points/a";
+	String newAcc = rssServiceUrl+"/account/new";
+	
+	/**
 	 * @Author Ryan Clayton
+	 * @param u this takes in a RSSUserDto object with an email and password populated
+	 * @return User this user is authenticated with the RSS account service
 	 */
 	public User login(RSSUserDTO u) {
 		// create headers
@@ -45,8 +56,6 @@ public class RSSService {
 	    // set `accept` header
 	    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 	    
-		String uri = "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/user/login";
-		
 		//create map for user login post parameters
 		Map<String, Object> map = new HashMap<>();
 		map.put("email", u.getEmail());
@@ -56,7 +65,7 @@ public class RSSService {
 		HttpEntity<Map<String,Object>> entity = new HttpEntity<>(map,headers);
 		
 		//send Post Request
-		ResponseEntity<RSSUserDTO> response= this.restTemplate.postForEntity(uri, entity, RSSUserDTO.class);
+		ResponseEntity<RSSUserDTO> response= this.restTemplate.postForEntity(login, entity, RSSUserDTO.class);
 		
 		//Begin building User object
 		User user = new User();
@@ -76,7 +85,6 @@ public class RSSService {
 				
 				
 				
-				String uri2 = "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/new";
 				//create map for new account post parameters
 				map.clear();
 				map.put("userId",body.getUserId());
@@ -85,7 +93,7 @@ public class RSSService {
 				//build the request
 				entity = new HttpEntity<>(map,headers);
 				//send the request
-				ResponseEntity<RSSAccountDTO> accResponse= this.restTemplate.postForEntity(uri2, entity, RSSAccountDTO.class);
+				ResponseEntity<RSSAccountDTO> accResponse= this.restTemplate.postForEntity(newAcc, entity, RSSAccountDTO.class);
 				if(accResponse.hasBody()) {
 				
 					//finish building user object
@@ -105,7 +113,6 @@ public class RSSService {
 					user = optUser.get();
 					
 					//create url for rss points request
-					String uri2 = "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/account";
 					//create map for new account post parameters
 					map.clear();
 					map.put("userId",user.getUserID());
@@ -115,7 +122,7 @@ public class RSSService {
 					entity = new HttpEntity<>(map,headers);
 				
 					//send the request
-					ResponseEntity<RSSAccountDTO> accResponse= this.restTemplate.postForEntity(uri2, entity, RSSAccountDTO.class);
+					ResponseEntity<RSSAccountDTO> accResponse= this.restTemplate.postForEntity(getPoints, entity, RSSAccountDTO.class);
 					if(accResponse.hasBody()) {
 						user.setPoints(accResponse.getBody().getPoints());
 					}
@@ -133,20 +140,43 @@ public class RSSService {
 		}
 	}
 
-	/*
+	/**
 	 * @Author Kei
+	 * @param id  this is the user's id number
+	 * @return the number of points in a user's RSS account from the RSS account service
 	 */
 	public int getPoints(int id) {
-		return id;
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+	    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+	    
+	    Optional<User> optUser = userRepository.findById(id);
+	    if (optUser.isPresent()) {
+	    	User user = optUser.get();
+	    
+	    	Map<String, Object> map = new HashMap<>();
+	    	map.put("accId", user.getRSSAccountId());
+	    	
+	    	HttpEntity<Map<String,Object>> entity = new HttpEntity<>(map,headers);
+	    	
+	    	ResponseEntity<RSSAccountDTO> response= this.restTemplate.postForEntity(getPoints, entity, RSSAccountDTO.class);
+	    	
+	    	RSSAccountDTO account = response.getBody();
+	    	return account.getPoints();
+	    }else {
+	    	return 0;
+	    }
+
 	}
 
 
-	/*
-	*@Author Haji
-	*/
+	/**
+	 * @Author Haji
+	 * @param acc  this takes in an RSSAccountDTO object with the userId and the number of points populated
+	 * @return the user with an updated number of points in both from our database as well as the RSS account service DB
+	 */
 
 	public User addPoints(RSSAccountDTO acc) {
-			String uri =  "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001/account/points/a";
 		 	HttpHeaders headers = new HttpHeaders();
 		    headers.setContentType(MediaType.APPLICATION_JSON);
 		    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -160,7 +190,7 @@ public class RSSService {
 		    	
 		    	HttpEntity<Map<String,Object>> entity = new HttpEntity<>(map,headers);
 		    	
-		    	ResponseEntity<RSSAccountDTO> response= this.restTemplate.postForEntity(uri, entity, RSSAccountDTO.class);
+		    	ResponseEntity<RSSAccountDTO> response= this.restTemplate.postForEntity(addPoints, entity, RSSAccountDTO.class);
 		    	
 				if(response.getStatusCode()==HttpStatus.OK) {
 					user.setPoints(user.getPoints()+acc.getPoints());

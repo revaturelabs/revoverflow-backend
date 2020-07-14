@@ -1,6 +1,6 @@
 package com.revature.services;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +14,30 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
-	/*
-	 * @Author Ryan Clayton
+	@Autowired
+	RSSService rssService;
+	
+	/**
+	 * @author Ryan Clayton
+	 * @param id this is the user's Id
+	 * @return User this returns the user entity with updated RSS points
 	 */
-	public List<User> getAllUsers() {
-		
-		return userRepository.findAll();
+
+	public User getUserById(int id) {
+		Optional<User> optUser = userRepository.findById(id);
+		if(optUser.isPresent()) {
+			User user = optUser.get();
+			try {
+				
+				user.setPoints(rssService.getPoints(id));
+			}catch(Exception e){
+				System.out.println(e.getLocalizedMessage());
+			}
+			return userRepository.save(user);
+		}
+		else {
+			return null;
+		}
 	}
 
 }
