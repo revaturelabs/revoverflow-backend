@@ -28,6 +28,7 @@ public class QuestionService {
 	
 	/** @Author James Walls */
 	public Question save(Question question) {
+		System.out.println("I am the question = " + question.getTitle());
 		return questionRepository.save(question);
 	}
 	
