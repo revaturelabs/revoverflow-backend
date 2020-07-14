@@ -38,10 +38,7 @@ public class RSSService {
 		this.restTemplate = restTemplateBuilder.build();
 	}
 	
-	String login = rssServiceUrl+"/user/login";
-	String getPoints = rssServiceUrl+"/account/account";
-	String addPoints = rssServiceUrl+"/account/points/a";
-	String newAcc = rssServiceUrl+"/account/new";
+	
 	
 	/**
 	 * @Author Ryan Clayton
@@ -55,7 +52,7 @@ public class RSSService {
 	    headers.setContentType(MediaType.APPLICATION_JSON);
 	    // set `accept` header
 	    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-	    
+	    String login = rssServiceUrl+"/user/login/";
 		//create map for user login post parameters
 		Map<String, Object> map = new HashMap<>();
 		map.put("email", u.getEmail());
@@ -85,6 +82,7 @@ public class RSSService {
 				
 				
 				
+				String newAcc = rssServiceUrl+"/account/new";
 				//create map for new account post parameters
 				map.clear();
 				map.put("userId",body.getUserId());
@@ -112,6 +110,7 @@ public class RSSService {
 					//get user data from our database
 					user = optUser.get();
 					
+					String getPoints = rssServiceUrl+"/account/account";
 					//create url for rss points request
 					//create map for new account post parameters
 					map.clear();
@@ -149,7 +148,8 @@ public class RSSService {
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
 	    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-	    
+	    String getPoints = rssServiceUrl+"/account/account";
+
 	    Optional<User> optUser = userRepository.findById(id);
 	    if (optUser.isPresent()) {
 	    	User user = optUser.get();
@@ -184,6 +184,7 @@ public class RSSService {
 		    if (optUser.isPresent()) {
 		    	User user = optUser.get();
 		    	
+		    	String addPoints = rssServiceUrl+"/account/points/a";
 		    	Map<String, Object> map = new HashMap<>();
 		    	map.put("accId", user.getRSSAccountId());
 		    	map.put("points", acc.getPoints());
