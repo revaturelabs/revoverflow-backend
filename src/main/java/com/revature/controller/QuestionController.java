@@ -1,6 +1,8 @@
 package com.revature.controller;
 
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -36,12 +38,14 @@ public class QuestionController {
 		return questionService.getAllQuestions(pageable);
 	}
 	
+	// works
 	/**@author Hugh Thornhill*/
 	@PutMapping
 	public Question updateQuestionAcceptedAnswerId(@RequestBody Question question) {
 		return questionService.updateQuestionAcceptedAnswerId(question);
 	}
 	
+	// works
 	/**@author Hugh Thornhill*/
 	@PutMapping("/status")
 	public Question updateStatus(@RequestBody Question question) {
@@ -67,7 +71,7 @@ public class QuestionController {
 	// DOES NOT work
 	/** @Author James Walls */
 	@PostMapping
-	public Question saveQuestion(Question question) {
+	public Question saveQuestion(@RequestBody Question question) {
 		return questionService.save(question);
 	}
 

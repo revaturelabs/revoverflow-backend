@@ -20,7 +20,7 @@ public class Question {
 	private int id;
 
 	@Column(name = "accepted_id")
-	private Integer acceptedId;
+	private int acceptedId;
 
 	@NotBlank(message = "Title requires a string value")
 	private String title;
@@ -35,8 +35,6 @@ public class Question {
 	@Column(name = "edit_date")
 	private LocalDate editDate;
 
-	// closed or open
-	@NotNull(message = "Status requires a string value")
 	private boolean status;
 
 	// add the not null check in the service layer
@@ -51,7 +49,7 @@ public class Question {
 		this.id = id;
 	}
 
-	public Integer getAcceptedId() {
+	public int getAcceptedId() {
 		return acceptedId;
 	}
 
@@ -169,7 +167,7 @@ public class Question {
 				+ userID + "]";
 	}
 
-	public Question(int id, Integer acceptedId, String title, String content, LocalDate creationDate, LocalDate editDate,
+	public Question(int id, int acceptedId, String title, String content, LocalDate creationDate, LocalDate editDate,
 			boolean status, int userID) {
 		super();
 		this.id = id;
