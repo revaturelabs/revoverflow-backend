@@ -3,10 +3,5 @@
 /target
 /RemoteSystemsTempFiles
 /bin
-<<<<<<< HEAD
-
-# Ignore application.yml that sets up connection to PSQL database for testing
-/postgres-yml
-=======
-/src/main/resources
->>>>>>> fc3b8fb6aa036386221d7697297f25ed8e1b4e44
+/src/main/resources/application.yaml
+/src/main/resources/application.md
