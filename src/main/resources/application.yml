@@ -3,7 +3,7 @@ server:
   
 spring:
   datasource:
-    url: jdbc:postgresql://${P3_URL}/postgres
+    url: jdbc:postgresql://${P3_URL}/rev_overflow
     username: ${P3_ROLE}
     password: ${P3_PASS}
     driver-class-name: org.postgresql.Driver

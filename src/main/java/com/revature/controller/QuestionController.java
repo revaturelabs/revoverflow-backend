@@ -27,6 +27,7 @@ public class QuestionController {
 	@Autowired
 	QuestionService questionService;
 	
+	// works
 	/**	 *@author ken */
 	@GetMapping
 	public Page<Question> getAllQuestions(Pageable pageable)
@@ -34,30 +35,27 @@ public class QuestionController {
 		return questionService.getAllQuestions(pageable);
 	}
 	
-	/**@author Hugh Thornhill*/
-	@PatchMapping("/questions")
-	public Question updateQuestionAcceptedAnswerId(Question question) {
-		return questionService.updateQuestionAcceptedAnswerId(question);
-	}
-	
-	/**@author Hugh Thornhill*/
-	@PatchMapping("/questions/status")
-	public Question updateStatus(Question question) {
-		return questionService.updateStatus(question);
-	}
+//	/**@author Hugh Thornhill*/
+//	@PatchMapping("/questions")
+//	public Question updateQuestionAcceptedAnswerId(Question question) {
+//		return questionService.updateQuestionAcceptedAnswerId(question);
+//	}
+//	
+//	/**@author Hugh Thornhill*/
+//	@PatchMapping("/questions/status")
+//	public Question updateStatus(Question question) {
+//		return questionService.updateStatus(question);
+//	}
 
+	// DOES NOT work
 	/**@author ken*/
 	@GetMapping("/{statusId}")
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, @PathVariable boolean status)
 	{
 		return questionService.getAllQuestionsByStatus(pageable, status);
 	}
-	
-//	@PatchMapping("/questions/status")
-//	public Question updateStatus(Question question) {
-//		return questionService.updateStatus(question);
-//	}
 
+	// works
 	/**@author ken*/
 	@GetMapping("/user/{id}")
 	public Page<Question> getAllQuestionsByUserId(Pageable pageable, @PathVariable int id)
@@ -65,20 +63,17 @@ public class QuestionController {
 		return questionService.getAllQuestionsByUserId(pageable, id);
 	}
 
+	// DOES NOT work
 	/** @Author James Walls */
 	@PostMapping
 	public Question saveQuestion(Question question) {
 		return questionService.save(question);
 	}
 
+	// DOES NOT work
 	/** @Author Natasha Poser */
 	@GetMapping("/{id}")
 	public Question getQuestionByQuestionId(@PathVariable int id) {
 		return questionService.findById(id);
 	}
-	
-//	@PatchMapping("/questions")
-//	public Question updateQuestionAcceptedAnswerId(Question question) {
-//		return questionService.updateQuestionAcceptedAnswerId(question);
-//	}
 }
