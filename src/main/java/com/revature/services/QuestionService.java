@@ -28,19 +28,25 @@ public class QuestionService {
 	
 	/**@author Hugh Thornhill*/
 	public Question updateQuestionAcceptedAnswerId(Question question) {
-		return questionRepository.save(question);
+		if(question.getId() == 0) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+		}	
+		return save(question);
+	}
+	
+	/**@author Hugh Thornhill*/
+	public Question updateQuestionStatus(Question question) {
+		if(question.getId() == 0) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+		}	
+		return save(question);
 	}
 	
 	/** @Author James Walls */
 	public Question save(Question question) {
 		return questionRepository.save(question);
-
 	}
 	
-	/**@author Hugh Thornhill*/
-	public Question updateStatus(Question question) {
-		return questionRepository.save(question);
-	}
 	
   /** @Author Natasha Poser */ 
 	public Question findById(int id) {

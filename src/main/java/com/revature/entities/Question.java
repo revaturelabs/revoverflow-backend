@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "questions")
@@ -35,7 +36,7 @@ public class Question {
 	private LocalDate editDate;
 
 	// closed or open
-	@NotBlank(message = "Status requires a string value")
+	@NotNull(message = "Status requires a string value")
 	private boolean status;
 
 	// add the not null check in the service layer

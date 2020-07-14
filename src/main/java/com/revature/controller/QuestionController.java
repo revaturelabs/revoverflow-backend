@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,17 +36,17 @@ public class QuestionController {
 		return questionService.getAllQuestions(pageable);
 	}
 	
-//	/**@author Hugh Thornhill*/
-//	@PatchMapping("/questions")
-//	public Question updateQuestionAcceptedAnswerId(Question question) {
-//		return questionService.updateQuestionAcceptedAnswerId(question);
-//	}
-//	
-//	/**@author Hugh Thornhill*/
-//	@PatchMapping("/questions/status")
-//	public Question updateStatus(Question question) {
-//		return questionService.updateStatus(question);
-//	}
+	/**@author Hugh Thornhill*/
+	@PutMapping
+	public Question updateQuestionAcceptedAnswerId(@RequestBody Question question) {
+		return questionService.updateQuestionAcceptedAnswerId(question);
+	}
+	
+	/**@author Hugh Thornhill*/
+	@PutMapping("/status")
+	public Question updateStatus(@RequestBody Question question) {
+		return questionService.updateQuestionStatus(question);
+	}
 
 	// DOES NOT work
 	/**@author ken*/
