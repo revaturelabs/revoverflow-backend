@@ -3,6 +3,9 @@ package com.revature.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +32,18 @@ public class QuestionController {
 	public Page<Question> getAllQuestions(Pageable pageable)
 	{
 		return questionService.getAllQuestions(pageable);
+	}
+	
+	/**@author Hugh Thornhill*/
+	@PatchMapping("/questions")
+	public Question updateQuestionAcceptedAnswerId(Question question) {
+		return questionService.updateQuestionAcceptedAnswerId(question);
+	}
+	
+	/**@author Hugh Thornhill*/
+	@PatchMapping("/questions/status")
+	public Question updateStatus(Question question) {
+		return questionService.updateStatus(question);
 	}
 
 	/**@author ken*/

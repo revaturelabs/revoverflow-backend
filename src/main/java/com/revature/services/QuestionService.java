@@ -26,8 +26,19 @@ public class QuestionService {
 		return questionRepository.getAllQuestionsByUserID(pageable, id);		
 	}
 	
+	/**@author Hugh Thornhill*/
+	public Question updateQuestionAcceptedAnswerId(Question question) {
+		return questionRepository.save(question);
+	}
+	
 	/** @Author James Walls */
 	public Question save(Question question) {
+		return questionRepository.save(question);
+
+	}
+	
+	/**@author Hugh Thornhill*/
+	public Question updateStatus(Question question) {
 		return questionRepository.save(question);
 	}
 	
@@ -42,7 +53,4 @@ public class QuestionService {
 		return questionRepository.getAllQuestionsByStatus(pageable, status);
 	}
 	
-	public Question updateStatus(Question question) {
-		return questionRepository.save(question);
-	}
 }

@@ -13,10 +13,15 @@ import com.revature.entities.Question;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Integer>{
 
+//	@Modifying(clearAutomatically = true)
+//	@Query("UPDATE Questions q SET q.acceptedId = ?1 WHERE q.id = ?2")
+//	void updateQuestionAcceptedAnswerId(@Param("id") int id, @Param("acceptedId") int acceptedId);
+//	Question updateQuestionByAcceptedId
 
 	/**@author ken*/
 	Page<Question> getAllQuestionsByUserID(Pageable pageable, int id);
 
 	/**@author ken*/
 	Page<Question> getAllQuestionsByStatus(Pageable pageable, boolean status);
+
 }
