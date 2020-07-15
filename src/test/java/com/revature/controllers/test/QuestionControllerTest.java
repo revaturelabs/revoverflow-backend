@@ -19,7 +19,7 @@ public class QuestionControllerTest {
 	
 	@Test
 	public void test() {
-		System.out.println("I am in the test");
+		System.out.println("I am in the QuestionControllerTest");
 	}
 	
 	/** @author ken */
