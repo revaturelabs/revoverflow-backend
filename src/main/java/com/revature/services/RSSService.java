@@ -67,7 +67,6 @@ public class RSSService {
 		//Begin building User object
 		User user = new User();
 		user.setEmail(u.getEmail());
-		System.out.println(userRepository.findByEmail(u.getEmail()));
 		if(response.hasBody()) {	
 			//continue building user from response body
 			RSSUserDTO body = response.getBody();
