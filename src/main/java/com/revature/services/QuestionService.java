@@ -16,6 +16,10 @@ public class QuestionService {
 	@Autowired
 	QuestionRepository questionRepository;
 	
+	public QuestionService(QuestionRepository questionRepository) {
+		this.questionRepository = questionRepository;
+	}
+	
 	/**@author ken*/
 	public Page<Question> getAllQuestions(Pageable pageable){
 		return questionRepository.findAll(pageable);
@@ -31,7 +35,7 @@ public class QuestionService {
 		System.out.println("I am the question = " + question.getTitle());
 		return questionRepository.save(question);
 	}
-	
+
   /** @Author Natasha Poser */ 
 	public Question findById(int id) {
 		return questionRepository.findById(id)
