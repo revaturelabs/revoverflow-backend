@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
@@ -24,6 +25,56 @@ public class QuestionControllerTest {
 	QuestionRepository questionRepository = Mockito.mock(QuestionRepository.class);
 	QuestionService questionService = new QuestionService(questionRepository);
 	
+Pageable pageable = new Pageable() {
+		
+		@Override
+		public Pageable previousOrFirst() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		public Pageable next() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		public boolean hasPrevious() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		@Override
+		public Sort getSort() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		public int getPageSize() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		
+		@Override
+		public int getPageNumber() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		
+		@Override
+		public long getOffset() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		
+		@Override
+		public Pageable first() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	};
 	
 	/** @author ken */
 	@Test
@@ -42,61 +93,19 @@ public class QuestionControllerTest {
 	public void getAllQuestions() {
 		Question question = new Question();
 		List<Question> questions = new ArrayList<>();
+		questions.add(question);
 	
 		Page<Question> page = new PageImpl<Question>(questions);
-		Pageable pageable = new Pageable() {
-			
-			@Override
-			public Pageable previousOrFirst() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public Pageable next() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public boolean hasPrevious() {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public Sort getSort() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public int getPageSize() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-			
-			@Override
-			public int getPageNumber() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-			
-			@Override
-			public long getOffset() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-			
-			@Override
-			public Pageable first() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		};
-		
+		Pageable pageRequest = PageRequest.of(1, 5);
 		when(questionService.getAllQuestions(pageable)).thenReturn((page));
+		
 		Page<Question> result = questionService.getAllQuestions(pageable);
 		assertEquals(page, result);
 	}
+	
+	@Test
+	public void getAllQuestionsByStatus() {
+		
+	}
+	
 }
