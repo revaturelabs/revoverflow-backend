@@ -53,14 +53,8 @@ public class QuestionController {
 
 	/**@author Hugh Thornhill*/
 	@PutMapping
-	public Question updateQuestionAcceptedAnswerId(@RequestBody Question question) {
-		return questionService.updateQuestionAcceptedAnswerId(question);
-	}
-
-	/**@author Hugh Thornhill*/
-	@PutMapping("/status")
-	public Question updateStatus(@RequestBody Question question) {
-		return questionService.updateQuestionStatus(question);
+	public Question updateStatusAndAcceptedAnswerId(@RequestBody Question question) {
+		return questionService.updateQuestionStatusAnswerId(question);
 	}
 
 	/** @Author Natasha Poser */
