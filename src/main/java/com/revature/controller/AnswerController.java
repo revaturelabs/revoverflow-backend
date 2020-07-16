@@ -4,7 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -20,11 +19,10 @@ public class AnswerController {
 	@Autowired
 	AnswerService answerService;
 	
-/** @Author Natasha Poser */
-	@GetMapping
-	public Page<Answer>getAnswers(Pageable pageable,
-			@RequestParam(required = false) int question_id){
-		return answerService.getAnswers(pageable);
+	/** @Author Natasha Poser */
+	@GetMapping("/answers/{question_id}")
+	public Page<Answer>getAnswerByQuestionId(Pageable pageable, int question_id){
+		return answerService.getAnswerByQuestionId(pageable, question_id);
 	}
 
 	/** @Author James Walls */
@@ -38,5 +36,11 @@ public class AnswerController {
 	public Page<Answer> getAllAnswersByUserID(Pageable pageable, int id){
 		return answerService.getAllAnswersByUserID(pageable, id);		
 	}
-
+	
+	/** @author Natasha Poser  
+	@GetMapping("/questions/{accepted_id}")
+	public Page<Answer> getAnswerByAcceptedId(Pageable pageable, int accepted_id){
+		return answerService.getAnswerByAcceptedId(pageable, accepted_id);
+	}
+	*/
 }

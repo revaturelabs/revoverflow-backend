@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,13 +44,13 @@ public class QuestionController {
 
 	/** @Author James Walls */
 	@PostMapping
-	public Question saveQuestion(Question question) {
+	public Question saveQuestion(@RequestBody Question question) {
 		return questionService.save(question);
 	}
 
 	/** @Author Natasha Poser */
-	@GetMapping("/{id}")
-	public Question getQuestionByQuestionId(@PathVariable int id) {
+	@GetMapping("questions/{id}")
+	public Question getQuestionById(@PathVariable int id) {
 		return questionService.findById(id);
 	}
 }

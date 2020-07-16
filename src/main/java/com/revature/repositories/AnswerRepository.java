@@ -13,9 +13,10 @@ public interface AnswerRepository extends JpaRepository<Answer, Integer>{
 	/** @author Natasha Poser */
 	Page<Answer> getAnswerByQuestionId(Pageable pageable, int question_id);
 	
-
 	/**@author ken */
 	Page<Answer> getAllAnswersByUserId(Pageable pageable, int id);
 	
-
+	/** @author Natasha Poser 
+	Page<Answer> getAnswerByAcceptedId(Pageable pageable, int accepted_id);
+	*/
 }

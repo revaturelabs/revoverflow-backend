@@ -19,10 +19,6 @@ public class AnswerService {
  public Page<Answer> getAnswerByQuestionId(Pageable pageable, int question_id){
 	 return answerRepository.getAnswerByQuestionId(pageable, question_id);
  }
- 
- public Page<Answer> getAnswers(Pageable pageable) {
-	 return answerRepository.findAll(pageable);
- }
 	
 	/** @Author James Walls */
 	public Answer save(Answer answer) {
@@ -34,6 +30,11 @@ public class AnswerService {
 		return answerRepository.getAllAnswersByUserId(pageable, id);		
 	}
 	
+	/** @author Natasha Poser  
+	public Page<Answer> getAnswerByAcceptedId(Pageable pageable, int accepted_id){
+		return answerRepository.getAnswerByAcceptedId(pageable, accepted_id);
+	}
+	*/
 }
 
 
