@@ -61,7 +61,7 @@ public class QuestionController {
 	public Question updateStatus(@RequestBody Question question) {
 		return questionService.save(question);
 	}
-
+ 
 	/** @Author Natasha Poser */
 	@GetMapping("/{id}")
 	public Question getQuestionByQuestionId(@PathVariable int id) {
