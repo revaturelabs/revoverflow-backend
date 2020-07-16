@@ -37,6 +37,14 @@ public class QuestionService {
 	}
 
 	/**@author Hugh Thornhill*/
+	public Question updateQuestionAcceptedAnswerId(Question question) {
+		if(question.getId() == 0) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+		}	
+		return save(question);
+	}
+	
+	/**@author Hugh Thornhill*/
 	public Question updateQuestionStatus(Question question) {
 		// check the question accepted answer id is there
 		if(question.getId() == 0 && question.getAcceptedId() == 0) {
