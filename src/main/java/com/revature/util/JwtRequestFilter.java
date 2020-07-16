@@ -36,23 +36,25 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		
 		final String jwt = request.getHeader("Authorization");
 		String email = null;
-		
-		if (jwt != null) {
-			email = jwtUtil.extractEmail(jwt);
-		}
-		if (email != null && SecurityContextHolder.getContext().getAuthentication()==null) {
-			User user = userRepository.findByEmail(email);
-			if(jwtUtil.validateToken(jwt, user)) {
-
-				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user,null, userService.getAuthority(user) );
-				usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-				
-				System.out.println(SecurityContextHolder.getContext());
-				System.out.println(usernamePasswordAuthenticationToken);
+		try {
+			
+			if (jwt != null) {
+				email = jwtUtil.extractEmail(jwt);
 			}
+			if (email != null && SecurityContextHolder.getContext().getAuthentication()==null) {
+				User user = userRepository.findByEmail(email);
+				if(jwtUtil.validateToken(jwt, user)) {
+					UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user,null, userService.getAuthority(user) );
+					usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+					SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+					System.out.println(SecurityContextHolder.getContext());
+				}
+			}
+		}catch(Exception e){
+		System.out.println(e);
+		}finally {
+		filterChain.doFilter(request,response);		
 		}
-		filterChain.doFilter(request,response);
 	}
 
 }
