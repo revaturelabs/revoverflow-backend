@@ -102,7 +102,7 @@
 		</plugins>
 	</build>
 	<!-- Add Spring repositories -->
-	<!-- (you don't need this if you are using a .RELEASE version) -->
+	<!-- (you don't need this if you are using a .RELEASE version)  -->
 	<repositories>
 		<repository>
 			<id>spring-snapshots</id>
@@ -126,4 +126,4 @@
 			<url>https://repo.spring.io/milestone</url>
 		</pluginRepository>
 	</pluginRepositories>
-</project>
+</project>  
