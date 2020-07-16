@@ -36,6 +36,15 @@ public class QuestionService {
 		return questionRepository.save(question);
 	}
 
+	/**@author Hugh Thornhill*/
+	public Question updateQuestionStatus(Question question) {
+		// check the question accepted answer id is there
+		if(question.getId() == 0 && question.getAcceptedId() == 0) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+		}	
+		return save(question);
+	}
+	
   /** @Author Natasha Poser */ 
 	public Question findById(int id) {
 		return questionRepository.findById(id)
