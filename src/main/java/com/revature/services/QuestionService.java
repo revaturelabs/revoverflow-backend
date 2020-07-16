@@ -64,11 +64,6 @@ public class QuestionService {
 		if (user == null) {
 			throw new NullPointerException("Null value");
 		}
-
-//		RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
-//		RSSAccountDTO dto = new RSSAccountDTO(userId, points);
-//		RSSService rss = new RSSService(restTemplateBuilder);
-//		rss.addPoints(dto);
 		return save(question);
 	}
 	
