@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Question;
@@ -47,6 +48,18 @@ public class QuestionController {
 	@PostMapping
 	public Question saveQuestion(@Valid @RequestBody Question question) {
 		return questionService.save(question);
+	}
+
+	/**@author Hugh Thornhill*/
+	@PutMapping
+	public Question updateQuestionAcceptedAnswerId(@RequestBody Question question) {
+		return questionService.updateQuestionAcceptedAnswerId(question);
+	}
+
+	/**@author Hugh Thornhill*/
+	@PutMapping("/status")
+	public Question updateStatus(@RequestBody Question question) {
+		return questionService.updateQuestionStatus(question);
 	}
 
 	/** @Author Natasha Poser */
