@@ -51,11 +51,11 @@ public class QuestionController {
 		return questionService.save(question);
 	}
 
-	/**@author Hugh Thornhill*/
-	@PutMapping
-	public Question updateQuestionAcceptedAnswerId(@RequestBody Question question) {
-		return questionService.updateQuestionAcceptedAnswerId(question);
-	}
+	///**@author Hugh Thornhill*/
+	//@PutMapping
+	//public Question updateQuestionAcceptedAnswerId(@RequestBody Question question) {
+	//	return questionService.updateQuestionAcceptedAnswerId(question);
+	//}
 
 	/**@author Hugh Thornhill*/
 	@PutMapping("/status")
