@@ -19,8 +19,5 @@ public interface QuestionRepository extends JpaRepository<Question, Integer>{
 
 	/**@author ken*/
 	Page<Question> getAllQuestionsByStatus(Pageable pageable, boolean status);
-
-	/** @author Natasha Poser */
-	
 	
 }

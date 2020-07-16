@@ -16,6 +16,10 @@ public class QuestionService {
 	@Autowired
 	QuestionRepository questionRepository;
 	
+	public QuestionService(QuestionRepository questionRepository) {
+		this.questionRepository = questionRepository;
+	}
+	
 	/**@author ken*/
 	public Page<Question> getAllQuestions(Pageable pageable){
 		return questionRepository.findAll(pageable);
@@ -28,7 +32,25 @@ public class QuestionService {
 	
 	/** @Author James Walls */
 	public Question save(Question question) {
+		System.out.println("I am the question = " + question.getTitle());
 		return questionRepository.save(question);
+	}
+
+	/**@author Hugh Thornhill*/
+	public Question updateQuestionAcceptedAnswerId(Question question) {
+		if(question.getId() == 0) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+		}	
+		return save(question);
+	}
+	
+	/**@author Hugh Thornhill*/
+	public Question updateQuestionStatus(Question question) {
+		// check the question accepted answer id is there
+		if(question.getId() == 0 && question.getAcceptedId() == 0) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+		}	
+		return save(question);
 	}
 	
 	/**@author ken*/

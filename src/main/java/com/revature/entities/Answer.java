@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "Answers")
+@Table(name = "answers")
 public class Answer {
 
 	@Id
@@ -30,7 +30,7 @@ public class Answer {
 	// add the not null check in the service layer
 	private LocalDate creationDate;
 
-	@NotBlank(message = "Edit date must have a date value")
+
 	private LocalDate editDate;
 
 	public int getId() {

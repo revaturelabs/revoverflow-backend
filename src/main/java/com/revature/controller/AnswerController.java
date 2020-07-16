@@ -1,8 +1,11 @@
 package com.revature.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,11 +26,16 @@ public class AnswerController {
 	@GetMapping("/answers/{question_id}")
 	public Page<Answer>getAnswerByQuestionId(Pageable pageable, int question_id){
 		return answerService.getAnswerByQuestionId(pageable, question_id);
+		
+/** @Author Natasha Poser */
+	@GetMapping
+	public Page<Answer>getAnswers(Pageable pageable){
+			return answerService.getAnswers(pageable);
 	}
 
 	/** @Author James Walls */
 	@PostMapping
-	public Answer saveAnswer(Answer answer) {
+	public Answer saveAnswer(@Valid @RequestBody Answer answer) {
 		return answerService.save(answer);
 	}
 	
