@@ -1,18 +1,26 @@
 package com.revature.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 import com.revature.entities.Question;
+import com.revature.entities.User;
+import com.revature.DTOs.RSSAccountDTO;
 import com.revature.repositories.QuestionRepository;
+import com.revature.services.RSSService;
 
 @Service
 public class QuestionService {
 
+	@Autowired
+	RSSService rssService;	
+	
 	@Autowired
 	QuestionRepository questionRepository;
 	
@@ -45,13 +53,25 @@ public class QuestionService {
 	}
 	
 	/**@author Hugh Thornhill*/
-	public Question updateQuestionStatus(Question question) {
+	public Question updateQuestionStatus(Question question, int userId, int points) {
 		// check the question accepted answer id is there
 		if(question.getId() == 0 && question.getAcceptedId() == 0) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
-		}	
+		}
+		
+		RSSAccountDTO dto = new RSSAccountDTO(userId, points);
+		User user = rssService.addPoints(dto);
+		if (user == null) {
+			throw new NullPointerException("Null value");
+		}
+
+//		RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
+//		RSSAccountDTO dto = new RSSAccountDTO(userId, points);
+//		RSSService rss = new RSSService(restTemplateBuilder);
+//		rss.addPoints(dto);
 		return save(question);
 	}
+	
 	
   /** @Author Natasha Poser */ 
 	public Question findById(int id) {

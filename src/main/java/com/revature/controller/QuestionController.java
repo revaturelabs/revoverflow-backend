@@ -59,7 +59,7 @@ public class QuestionController {
 	/**@author Hugh Thornhill*/
 	@PutMapping("/status")
 	public Question updateStatus(@RequestBody Question question) {
-		return questionService.updateQuestionStatus(question);
+		return questionService.save(question);
 	}
 
 	/** @Author Natasha Poser */
