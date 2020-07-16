@@ -25,9 +25,8 @@ public class AnswerController {
 	
 /** @Author Natasha Poser */
 	@GetMapping
-	public Page<Answer>getAnswers(Pageable pageable,
-			@RequestParam(required = false) int question_id){
-		return answerService.getAnswers(pageable);
+	public Page<Answer>getAnswers(Pageable pageable){
+			return answerService.getAnswers(pageable);
 	}
 
 	/** @Author James Walls */
