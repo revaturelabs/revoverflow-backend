@@ -1,6 +1,5 @@
 package com.revature.controllers.test;
 
-import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -30,10 +29,11 @@ import com.revature.controller.AnswerController;
 import com.revature.entities.Answer;
 import com.revature.services.AnswerService;
 
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(AnswerController.class)
 public class AnswerControllerTest {
-
+	
 	@Autowired
 	private MockMvc mvc;
 	
@@ -48,7 +48,7 @@ public class AnswerControllerTest {
 	/**@author ken*/
 	@Test
 	public void testGetAnswers() throws Exception{
-		List<Answer> answers = new ArrayList<Answer>();
+		List<Answer> answers = new ArrayList<>();
 		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
 		Page<Answer> pageResult = new PageImpl<>(answers);
 		
@@ -58,21 +58,42 @@ public class AnswerControllerTest {
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content()
-						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-				//.andExpect(jsonPath("$.content[0].userId", is("userId")));
+						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.content[0].id", is(1)));
 	}
 	
+	/*
 	@Test
 	public void testSaveAnswer() throws Exception {
-		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);
-		
-		mvc.perform(post("/answers")
-				.accept(MediaType.APPLICATION_JSON));
-				//.andExpect(status().isOk());
-				//.andExpect(content()
-				//		.contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-				//.andExpect(jsonPath("$.content[0].userId", is("userId")));
+		Answer answer = new Answer(2, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);
 
+		when(answerService.save(Mockito.any(Answer.class))).thenReturn(answer);
+	
+		 mvc.perform(post("/answers")
+				 .contentType(MediaType.APPLICATION_JSON)
+				 .content(answer.toString()))
+		 		 .andExpect(status().isOk())
+	             .andExpect(content()
+	     						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	             .andExpect(jsonPath("$.content[0].content", is(2)));
+	}
+	*/
+	
+	/**@author ken*/
+	@Test
+	public void testGetAnswerByUserId() throws Exception {
+		List<Answer> answers = new ArrayList<>();
+		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
+		Page<Answer> pageResult = new PageImpl<>(answers);
+		
+		when(answerService.getAllAnswersByUserID(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn(pageResult);
+		
+		mvc.perform(get("/answers/user/1")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content()
+						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.content[0].id", is(1)));
 	}
 	
 }
