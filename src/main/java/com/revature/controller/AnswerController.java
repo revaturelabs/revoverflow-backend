@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,11 +36,9 @@ public class AnswerController {
 		return answerService.save(answer);
 	}
 	
-	// issue Optional int parameter 'userID' is present but cannot be translated into a null value
 	/**@author ken*/
 	@GetMapping("/user/{userID}")
-	public Page<Answer> getAllAnswersByUserID(Pageable pageable, int userID){
+	public Page<Answer> getAllAnswersByUserID(Pageable pageable, @PathVariable int userID){
 		return answerService.getAllAnswersByUserID(pageable, userID);		
 	}
-
 }
