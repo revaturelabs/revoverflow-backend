@@ -19,7 +19,7 @@ public class Answer {
 	private int id;
 
 	@Column(name = "user_id")
-	private int userID;
+	private int userId;
 
 	@Column(name = "question_id")
 	private int questionId;
@@ -44,13 +44,13 @@ public class Answer {
 	}
 
 
-	public int getUserID() {
-		return userID;
+	public int getUserId() {
+		return userId;
 	}
 
 
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 
@@ -103,7 +103,7 @@ public class Answer {
 		result = prime * result + ((editDate == null) ? 0 : editDate.hashCode());
 		result = prime * result + id;
 		result = prime * result + questionId;
-		result = prime * result + userID;
+		result = prime * result + userId;
 		return result;
 	}
 
@@ -136,7 +136,7 @@ public class Answer {
 			return false;
 		if (questionId != other.questionId)
 			return false;
-		if (userID != other.userID)
+		if (userId != other.userId)
 			return false;
 		return true;
 	}
@@ -144,17 +144,17 @@ public class Answer {
 
 	@Override
 	public String toString() {
-		return "Answer [id=" + id + ", userID=" + userID + ", questionId=" + questionId + ", content=" + content
+		return "Answer [id=" + id + ", userId=" + userId + ", questionId=" + questionId + ", content=" + content
 				+ ", creationDate=" + creationDate + ", editDate=" + editDate + "]";
 	}
 
 
-	public Answer(int id, int userID, int questionId,
+	public Answer(int id, int userId, int questionId,
 			@NotBlank(message = "Content must have a string value") String content, LocalDate creationDate,
 			LocalDate editDate) {
 		super();
 		this.id = id;
-		this.userID = userID;
+		this.userId = userId;
 		this.questionId = questionId;
 		this.content = content;
 		this.creationDate = creationDate;

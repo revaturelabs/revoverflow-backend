@@ -39,10 +39,10 @@ public class QuestionController {
 	}
 
 	/**@author ken*/
-	@GetMapping("/user/{userID}")
-	public Page<Question> getAllQuestionsByUserId(Pageable pageable, @PathVariable int userID)
+	@GetMapping("/user/{id}")
+	public Page<Question> getAllQuestionsByUserId(Pageable pageable, @PathVariable int id)
 	{
-		return questionService.getAllQuestionsByUserId(pageable, userID);
+		return questionService.getAllQuestionsByUserId(pageable, id);
 	}
 
 	/** @Author James Walls */
