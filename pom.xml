@@ -7,6 +7,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>RevOverflow</name>
 	<description>This is the back end for RevOverflow, group 200427's project 3.</description>
+	<packaging>jar</packaging>
+
 	<!-- Java 1.8 -->
 	<properties>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -157,8 +159,9 @@
 					<execution>
       					<id>default</id>
       					<goals>
-        					<goal>build</goal>
-        					<!-- <goal>push</goal> -->
+        					<!-- Build Goals - Currently only build to local docker repository,
+								could add push to also push to a remote docker repository -->
+							<goal>build</goal>
       					</goals>
     				</execution>
   				</executions>
@@ -198,11 +201,11 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<distributionManagement>
-		<!-- <repository>
+		<repository>
 			<id>dockerhub</id>
 			<name>Dockerhub</name>
 			<url>docker.io</url>
 			<layout>default</layout>
-		</repository> -->
+		</repository>
 	</distributionManagement>
 </project>
