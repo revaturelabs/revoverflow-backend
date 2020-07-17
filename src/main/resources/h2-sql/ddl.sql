@@ -25,13 +25,13 @@ create table questions (
 	creation_date TIMESTAMP NOT NULL,
 	edit_date TIMESTAMP,
 	status BOOLEAN NOT NULL,
-	user_id INTEGER references users(id)
+	user_id INTEGER references users(user_id)
 );
 
 DROP TABLE IF EXISTS answers CASCADE;
 create table answers (
 	id INTEGER generated always as identity primary key,
-	user_id INTEGER references users(id),
+	user_id INTEGER references users(user_id),
 	question_id INTEGER references questions(id),
 	content VARCHAR(1000),
 	creation_date TIMESTAMP NOT NULL,
@@ -47,5 +47,5 @@ create table questions (
 	creation_date TIMESTAMP NOT NULL,
 	edit_date TIMESTAMP,
 	status BOOLEAN NOT NULL,
-	user_id INTEGER references users(id)
+	user_id INTEGER references users(user_id)
 );
