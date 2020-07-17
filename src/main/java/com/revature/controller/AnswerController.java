@@ -32,14 +32,14 @@ public class AnswerController {
 
 	/** @Author James Walls */
 	@PostMapping
-	public Answer saveAnswer(@Valid @RequestBody Answer answer) {
+	public Answer saveAnswer( @RequestBody Answer answer) {
 		return answerService.save(answer);
 	}
 	
 	/**@author ken*/
-	@GetMapping("/user/{userID}")
-	public Page<Answer> getAllAnswersByUserID(Pageable pageable, @PathVariable int userID){
-		return answerService.getAllAnswersByUserID(pageable, userID);		
+	@GetMapping("/user/{id}")
+	public Page<Answer> getAllAnswersByUserID(Pageable pageable,@PathVariable int id){
+		return answerService.getAllAnswersByUserID(pageable, id);
 	}
 }
  
