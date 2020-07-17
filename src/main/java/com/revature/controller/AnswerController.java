@@ -32,7 +32,7 @@ public class AnswerController {
 
 	/** @Author James Walls */
 	@PostMapping
-	public Answer saveAnswer(@Valid @RequestBody Answer answer) {
+	public Answer saveAnswer( @RequestBody Answer answer) {
 		return answerService.save(answer);
 	}
 	
