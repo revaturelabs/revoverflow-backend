@@ -34,8 +34,8 @@ public class QuestionService {
 	}
 
 	/**@author ken*/
-	public Page<Question> getAllQuestionsByUserId(Pageable pageable, int id){
-		return questionRepository.getAllQuestionsByUserID(pageable, id);		
+	public Page<Question> getAllQuestionsByUserId(Pageable pageable, int userID){
+		return questionRepository.getAllQuestionsByUserID(pageable, userID);		
 	}
 	
 	/** @Author James Walls */

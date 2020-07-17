@@ -15,7 +15,7 @@ public interface AnswerRepository extends JpaRepository<Answer, Integer>{
 	
 
 	/**@author ken */
-	Page<Answer> getAllAnswersByUserId(Pageable pageable, int id);
+	Page<Answer> getAllAnswersByUserID(Pageable pageable, int userID);
 	
 
 }

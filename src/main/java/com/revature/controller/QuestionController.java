@@ -30,6 +30,7 @@ public class QuestionController {
 		return questionService.getAllQuestions(pageable);
 	}
 
+	// issue Ambiguous handler method
 	/**@author ken*/
 	@GetMapping("/{statusId}")
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, @PathVariable boolean status)
@@ -38,10 +39,10 @@ public class QuestionController {
 	}
 
 	/**@author ken*/
-	@GetMapping("/user/{id}")
-	public Page<Question> getAllQuestionsByUserId(Pageable pageable, @PathVariable int id)
+	@GetMapping("/user/{userID}")
+	public Page<Question> getAllQuestionsByUserId(Pageable pageable, @PathVariable int userID)
 	{
-		return questionService.getAllQuestionsByUserId(pageable, id);
+		return questionService.getAllQuestionsByUserId(pageable, userID);
 	}
 
 	/** @Author James Walls */
@@ -61,7 +62,8 @@ public class QuestionController {
 	public Question updateStatus(@RequestBody Question question) {
 		return questionService.save(question);
 	}
-
+	
+	// issue Ambiguous handler method
 	/** @Author Natasha Poser */
 	@GetMapping("/{id}")
 	public Question getQuestionByQuestionId(@PathVariable int id) {

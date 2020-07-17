@@ -35,10 +35,11 @@ public class AnswerController {
 		return answerService.save(answer);
 	}
 	
+	// issue Optional int parameter 'userID' is present but cannot be translated into a null value
 	/**@author ken*/
-	@GetMapping("/user/{id}")
-	public Page<Answer> getAllAnswersByUserID(Pageable pageable, int id){
-		return answerService.getAllAnswersByUserID(pageable, id);		
+	@GetMapping("/user/{userID}")
+	public Page<Answer> getAllAnswersByUserID(Pageable pageable, int userID){
+		return answerService.getAllAnswersByUserID(pageable, userID);		
 	}
 
 }

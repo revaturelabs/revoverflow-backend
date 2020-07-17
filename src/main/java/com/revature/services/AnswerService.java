@@ -30,8 +30,8 @@ public class AnswerService {
 	}
 
 	/**@author ken*/
-	public Page<Answer> getAllAnswersByUserID(Pageable pageable, int id){
-		return answerRepository.getAllAnswersByUserId(pageable, id);		
+	public Page<Answer> getAllAnswersByUserID(Pageable pageable, int userID){
+		return answerRepository.getAllAnswersByUserID(pageable, userID);		
 	}
 	
 }

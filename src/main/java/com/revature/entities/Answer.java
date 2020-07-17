@@ -19,7 +19,7 @@ public class Answer {
 	private int id;
 
 	@Column(name = "user_id")
-	private int userId;
+	private int userID;
 
 	@Column(name = "question_id")
 	private int questionId;
@@ -33,58 +33,66 @@ public class Answer {
 
 	private LocalDate editDate;
 
+
 	public int getId() {
 		return id;
 	}
+
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public int getUserId() {
-		return userId;
+
+	public int getUserID() {
+		return userID;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public LocalDate getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(LocalDate creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public LocalDate getEditDate() {
-		return editDate;
-	}
-
-	public void setEditDate(LocalDate editDate) {
-		this.editDate = editDate;
-	}
 
 	public int getQuestionId() {
 		return questionId;
 	}
 
+
 	public void setQuestionId(int questionId) {
 		this.questionId = questionId;
 	}
 
-	public Answer() {
-		super();
-		// TODO Auto-generated constructor stub
+
+	public String getContent() {
+		return content;
 	}
+
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+
+	public LocalDate getCreationDate() {
+		return creationDate;
+	}
+
+
+	public void setCreationDate(LocalDate creationDate) {
+		this.creationDate = creationDate;
+	}
+
+
+	public LocalDate getEditDate() {
+		return editDate;
+	}
+
+
+	public void setEditDate(LocalDate editDate) {
+		this.editDate = editDate;
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -95,9 +103,10 @@ public class Answer {
 		result = prime * result + ((editDate == null) ? 0 : editDate.hashCode());
 		result = prime * result + id;
 		result = prime * result + questionId;
-		result = prime * result + userId;
+		result = prime * result + userID;
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -127,25 +136,36 @@ public class Answer {
 			return false;
 		if (questionId != other.questionId)
 			return false;
-		if (userId != other.userId)
+		if (userID != other.userID)
 			return false;
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Answer [id=" + id + ", userId=" + userId + ", questionId=" + questionId + ", content=" + content
+		return "Answer [id=" + id + ", userID=" + userID + ", questionId=" + questionId + ", content=" + content
 				+ ", creationDate=" + creationDate + ", editDate=" + editDate + "]";
 	}
 
-	public Answer(int id, int userId, int questionId, String content, LocalDate creationDate, LocalDate editDate) {
+
+	public Answer(int id, int userID, int questionId,
+			@NotBlank(message = "Content must have a string value") String content, LocalDate creationDate,
+			LocalDate editDate) {
 		super();
 		this.id = id;
-		this.userId = userId;
+		this.userID = userID;
 		this.questionId = questionId;
 		this.content = content;
 		this.creationDate = creationDate;
 		this.editDate = editDate;
 	}
+
+
+	public Answer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 
 }
