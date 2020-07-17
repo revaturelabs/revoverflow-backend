@@ -60,7 +60,7 @@ public class QuestionService {
 
 	/**@author ken*/
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, boolean status){
-		return questionRepository.getAllQuestionsByStatus(pageable, status);
+		return questionRepository.getQuestionsByStatus(pageable, status);
 	}
 
 }
