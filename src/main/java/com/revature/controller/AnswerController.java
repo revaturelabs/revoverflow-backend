@@ -42,3 +42,4 @@ public class AnswerController {
 		return answerService.getAllAnswersByUserID(pageable, userID);		
 	}
 }
+ 
