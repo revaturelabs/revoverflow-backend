@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,9 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
+import com.revature.entities.Answer;
 import com.revature.entities.Question;
 import com.revature.entities.User;
 import com.revature.DTOs.RSSAccountDTO;
+import com.revature.repositories.AnswerRepository;
 import com.revature.repositories.QuestionRepository;
 
 @Service
@@ -20,6 +24,9 @@ public class QuestionService {
 	
 	@Autowired
 	QuestionRepository questionRepository;
+	
+	@Autowired
+	AnswerRepository answerRepository;
 	
 	public QuestionService(QuestionRepository questionRepository) {
 		this.questionRepository = questionRepository;
@@ -45,21 +52,50 @@ public class QuestionService {
 	public Question updateQuestionAcceptedAnswerId(Question question) {
 		if(question.getId() == 0) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
-		}	
+		}
+		
+		// get question from database
+		// ensure that only the answerId is updated
+		// Question q = optQuestion.get()
+		// if q.getAnswerId is null, set the answerId
+		// q.setAnswer(question.getAnswer)
+		// line 88 and up pretty similar
+		// you will be saving q NOT question
+
 		return save(question);
 	}
 	
-	/**@author Hugh Thornhill*/
-	public Question updateQuestionStatus(Question question, int userId, int points) {
+	/**@author Hugh Thornhill, Ryan Clayton*/
+	public Question updateQuestionStatus(Question question, int points) {
+		// needs to add the points to the user who answered the question, not the user who posted the question
 		// check the question accepted answer id is there
-		if(question.getId() == 0 && question.getAcceptedId() == 0) {
+		if(question.getId() == 0) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
 		}
 		
-		RSSAccountDTO dto = new RSSAccountDTO(userId, points);
-		User user = rssService.addPoints(dto);
-		if (user == null) {
-			throw new NullPointerException("Null value");
+		// ensures someone isn't maliciously updating the question
+		Optional<Question> optQuestion = questionRepository.findById(question.getId());
+		if(optQuestion.isPresent()) {
+			// this overwrites the question from the parameter above, and replaces it with the one from the database
+			question = optQuestion.get();
+		}
+		// System.out.println(question.isStatus());
+		// if the status is already true OR the accepted id is 0/null then it will throw an error
+		if(question.isStatus() == true || question.getAcceptedId() == 0) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+		}
+		
+		// sets the status as true
+		question.setStatus(true);
+		
+		Optional<Answer> optAnswer = answerRepository.findById(question.getAcceptedId());
+		if(optAnswer.isPresent()) {
+			Answer a = optAnswer.get();
+			RSSAccountDTO dto = new RSSAccountDTO(a.getUserId(), points);
+			User user = rssService.addPoints(dto);
+			if (user == null) {
+				throw new NullPointerException("Null value");
+			}
 		}
 		return save(question);
 	}

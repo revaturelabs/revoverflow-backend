@@ -32,7 +32,7 @@ public class QuestionController {
 
 	// issue Ambiguous handler method
 	/**@author ken*/
-	@GetMapping("/status/{statusId}")
+	@GetMapping("/status/{status}")
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, @PathVariable boolean status)
 	{
 		return questionService.getAllQuestionsByStatus(pageable, status);
@@ -60,7 +60,7 @@ public class QuestionController {
 	/**@author Hugh Thornhill*/
 	@PutMapping("/status")
 	public Question updateStatus(@RequestBody Question question) {
-		return questionService.save(question);
+		return questionService.updateQuestionStatus(question, 20);
 	}
 	
 	/** @Author Natasha Poser */
