@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.Answer;
+import com.revature.entities.Question;
 import com.revature.repositories.AnswerRepository;
 
 @Service
@@ -29,12 +30,17 @@ public class AnswerService {
 	public Page<Answer> getAllAnswersByUserID(Pageable pageable, int id){
 		return answerRepository.getAllAnswersByUserId(pageable, id);		
 	}
-	
-	/** @author Natasha Poser  
-	public Page<Answer> getAnswerByAcceptedId(Pageable pageable, int accepted_id){
-		return answerRepository.getAnswerByAcceptedId(pageable, accepted_id);
+
+	public Page<Answer> getAnswers(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	*/
+	
+	/** @author Natasha Poser */
+	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, int question_id){
+		return answerRepository.getAcceptedAnswerByQuestionId(pageable, question_id);
+	}
+	
 }
 
 

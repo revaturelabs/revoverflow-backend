@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.revature.entities.Answer;
+import com.revature.entities.Question;
 
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Integer>{
@@ -16,7 +17,7 @@ public interface AnswerRepository extends JpaRepository<Answer, Integer>{
 	/**@author ken */
 	Page<Answer> getAllAnswersByUserId(Pageable pageable, int id);
 	
-	/** @author Natasha Poser 
-	Page<Answer> getAnswerByAcceptedId(Pageable pageable, int accepted_id);
-	*/
+	/** @author Natasha Poser*/
+	Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, int question_id);
+	
 }

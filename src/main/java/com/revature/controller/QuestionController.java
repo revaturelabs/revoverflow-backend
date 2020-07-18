@@ -67,4 +67,5 @@ public class QuestionController {
 	public Question getQuestionById(@PathVariable int id) {
 		return questionService.findById(id);
 	}
+
 }
