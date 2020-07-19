@@ -61,7 +61,7 @@ public class QuestionService {
 		// Question q = optQuestion.get()
 		// if q.getAnswerId is null, set the answerId
 		// q.setAnswer(question.getAnswer)
-		// line 88 and up pretty similar
+		// line 89 and up pretty similar
 		// you will be saving q NOT question
 
 		return save(question);
@@ -69,7 +69,7 @@ public class QuestionService {
 	
 	/**@author Hugh Thornhill, Ryan Clayton*/
 	public Question updateQuestionStatus(Question question, int points) {
-		// needs to add the points to the user who answered the question, not the user who posted the question
+
 		// check the question accepted answer id is there
 		if(question.getId() == 0) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
@@ -78,16 +78,17 @@ public class QuestionService {
 		// ensures someone isn't maliciously updating the question
 		Optional<Question> optQuestion = questionRepository.findById(question.getId());
 		if(optQuestion.isPresent()) {
-			// this overwrites the question from the parameter above, and replaces it with the one from the database
+			
+			// This overwrites the question from the parameter above, and replaces it with the one from the database
 			question = optQuestion.get();
 		}
-		// System.out.println(question.isStatus());
-		// if the status is already true OR the accepted id is 0/null then it will throw an error
+		
+		// If the status is already true OR the accepted id is 0/null then it will throw an error
 		if(question.isStatus() == true || question.getAcceptedId() == 0) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
 		}
 		
-		// sets the status as true
+		// Sets the status as true
 		question.setStatus(true);
 		
 		Optional<Answer> optAnswer = answerRepository.findById(question.getAcceptedId());
@@ -114,6 +115,7 @@ public class QuestionService {
 		return questionRepository.getAllQuestionsByStatus(pageable, status);
 	}
 	
+	/** @author Hugh Thornhill */
 	public Page<Question> findAllByOrderByCreationDateDesc(Pageable pageable) {
 		Pageable pageableDate = PageRequest.of(0, 20, Sort.by("creationDate").descending());
 		return questionRepository.findAllByOrderByCreationDateDesc(pageableDate);

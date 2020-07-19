@@ -80,6 +80,7 @@ public class QuestionController {
 		return questionService.findById(id);
 	}
 	
+	/** @author Hugh Thornhill */
 	@GetMapping("/recent")
 	public Page<Question> findAllByOrderByCreationDateDesc(Pageable creationDatePageable){
 //		System.out.println(creationDate);
