@@ -4,7 +4,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -111,5 +113,9 @@ public class QuestionService {
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, boolean status){
 		return questionRepository.getAllQuestionsByStatus(pageable, status);
 	}
-
+	
+	public Page<Question> findAllByOrderByCreationDateDesc(Pageable pageable) {
+		Pageable pageableDate = PageRequest.of(0, 20, Sort.by("creationDate").descending());
+		return questionRepository.findAllByOrderByCreationDateDesc(pageableDate);
+	}
 }
