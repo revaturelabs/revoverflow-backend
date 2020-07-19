@@ -36,10 +36,15 @@ public class AnswerService {
 		return null;
 	}
 	
-	/** @author Natasha Poser */
+	/** @author Natasha Poser 
 	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, int question_id){
+		// get the accepted answer of a particular question --
+		// get accepted ID from questions table that aren't null 
+		// check to see if any of the accepted IDs from the questions table match the PKs on the answer table 
+		// return any of the IDs that pass the check 
 		return answerRepository.getAcceptedAnswerByQuestionId(pageable, question_id);
 	}
+	*/
 	
 }
 

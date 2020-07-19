@@ -1,10 +1,13 @@
 package com.revature.controller;
 
+import java.time.LocalDate;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +34,7 @@ public class QuestionController {
 	}
 
 	/**@author ken*/
-	@GetMapping("/{statusId}")
+	@GetMapping("/{status}")
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, @PathVariable boolean status)
 	{
 		return questionService.getAllQuestionsByStatus(pageable, status);
@@ -67,5 +70,6 @@ public class QuestionController {
 	public Question getQuestionById(@PathVariable int id) {
 		return questionService.findById(id);
 	}
-
+	
+		
 }

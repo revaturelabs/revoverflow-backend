@@ -40,11 +40,12 @@ public class AnswerController {
 		return answerService.getAllAnswersByUserID(pageable, id);		
 	}
 	
-	/** @author Natasha Poser */ 
+	/** @author Natasha Poser  
 	@GetMapping("/answers/{question_id}")
 	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, int question_id){
 		return answerService.getAcceptedAnswerByQuestionId(pageable, question_id);
 	}
+	*/
 
 	
 }
