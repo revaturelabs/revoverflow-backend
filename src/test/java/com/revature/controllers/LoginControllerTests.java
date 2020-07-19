@@ -34,7 +34,7 @@ import com.revature.services.RSSService;
 		classes = Application.class)
 @AutoConfigureMockMvc
 public class LoginControllerTests {
-	static RSSUserDTO u1, u2;
+	static RSSUserDTO u1, u2, u3;
 
 	@Autowired
 	private WebApplicationContext context;
@@ -50,8 +50,9 @@ public class LoginControllerTests {
 	
 	@Before                          
     public void setUp() {  
-       u1 = new RSSUserDTO("user@rss.com","Password123!");
+	   u1 = new RSSUserDTO("test@email.com","12345");
        u2 = new RSSUserDTO("keirss",null);
+       u3 = new RSSUserDTO("user@rss.com", "Password123!");
    	   mockMvc = MockMvcBuilders
    				.webAppContextSetup(context)
    				.apply(springSecurity())
@@ -59,7 +60,7 @@ public class LoginControllerTests {
     }
 	
 	@Test
-    public void will_return_user_with_a_status_of_200() throws Exception {
+    public void will_return_user_with_a_status_of_200_and_them_to_our_database() throws Exception {
 		String user = mapper.writeValueAsString(u1);
     	MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/login")
     			.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -84,5 +85,18 @@ public class LoginControllerTests {
     			assertEquals(200, result.getResponse().getStatus());
     			assertFalse("This return object conains no token", content.contains("jwt"));
     			assertEquals("", content);
+    }
+	@Test
+    public void will_return_user_with_a_status_of_200() throws Exception {
+		String user = mapper.writeValueAsString(u3);
+    	MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/login")
+    			.contentType(MediaType.APPLICATION_JSON_UTF8)
+    			.content(user)
+    			.accept(MediaType.APPLICATION_JSON_UTF8)
+    			).andReturn();
+    			String content = result.getResponse().getContentAsString();
+    			assertEquals(200, result.getResponse().getStatus());
+    			assertTrue("This return object conains the string", content.contains("jwt"));
+    			assertNotEquals(null, content);
     }
 }
