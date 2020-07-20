@@ -36,7 +36,7 @@ public class AnswerController {
 	/**@author ken*/
 	@GetMapping("/user/{id}")
 	public Page<Answer> getAllAnswersByUserID(Pageable pageable,@PathVariable int id){
-		return answerService.getAllAnswersByUserID(pageable, id);		
+		return answerService.getAllAnswersByUserID(pageable, id);
 	}
-
 }
+ 
