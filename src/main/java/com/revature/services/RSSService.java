@@ -32,11 +32,12 @@ public class RSSService {
 	@Value("${environments.rss}")
 	String rssServiceUrl;
 	
-	private RestTemplate restTemplate;
+	 RestTemplate restTemplate;
 	
 	public RSSService(RestTemplateBuilder restTemplateBuilder) {
 		this.restTemplate = restTemplateBuilder.build();
 	}
+
 	
 	
 	
@@ -150,7 +151,7 @@ public class RSSService {
 	    String getPoints = rssServiceUrl+"/account/account";
 
 	    Optional<User> optUser = userRepository.findById(id);
-	    if (optUser.isPresent()) {
+	    if (optUser!=null && optUser.isPresent()) {
 	    	User user = optUser.get();
 	    
 	    	Map<String, Object> map = new HashMap<>();
@@ -180,7 +181,7 @@ public class RSSService {
 		    headers.setContentType(MediaType.APPLICATION_JSON);
 		    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		    Optional<User> optUser = userRepository.findById(acc.getUserId());
-		    if (optUser.isPresent()) {
+		    if (optUser!=null && optUser.isPresent()) {
 		    	User user = optUser.get();
 		    	
 		    	String addPoints = rssServiceUrl+"/account/points/a";

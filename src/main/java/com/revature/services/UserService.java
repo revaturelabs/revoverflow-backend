@@ -35,7 +35,7 @@ public class UserService {
 				
 				user.setPoints(rssService.getPoints(id));
 			}catch(Exception e){
-				System.out.println(e.getLocalizedMessage());
+				
 			}
 			return userRepository.save(user);
 		}

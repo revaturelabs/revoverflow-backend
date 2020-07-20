@@ -1,6 +1,10 @@
 package com.revature.services;
 
+
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,6 +30,8 @@ public class UserServiceTest {
 	
 	@InjectMocks
 	UserService userService;
+	
+
 	
 	@Before
 	public void setup() {
@@ -60,4 +66,7 @@ public class UserServiceTest {
 		Collection<? extends GrantedAuthority> result = userService.getAuthority(u2);
 		assertEquals(userRoles, result);
 	}
+	
+
+
 }
