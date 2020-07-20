@@ -16,8 +16,8 @@ public class AnswerService {
  AnswerRepository answerRepository;
  
   /** @Author Natasha Poser */
- public Page<Answer> getAnswerByQuestionId(Pageable pageable, int question_id){
-	 return answerRepository.getAnswerByQuestionId(pageable, question_id);
+ public Page<Answer> getAnswerByQuestionId(Pageable pageable, int id){
+	 return answerRepository.getAnswerByQuestionId(pageable, id);
  }
  
  public Page<Answer> getAnswers(Pageable pageable) {
