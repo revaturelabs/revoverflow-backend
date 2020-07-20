@@ -19,7 +19,7 @@ import com.revature.services.QuestionService;
 @RestController
 @RequestMapping("/questions")
 public class QuestionController {
-
+	
 	@Autowired
 	QuestionService questionService;
 	
@@ -32,7 +32,7 @@ public class QuestionController {
 
 	// issue Ambiguous handler method
 	/**@author ken*/
-	@GetMapping("/status/{statusId}")
+	@GetMapping("/status/{status}")
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, @PathVariable boolean status)
 	{
 		return questionService.getAllQuestionsByStatus(pageable, status);
@@ -60,12 +60,18 @@ public class QuestionController {
 	/**@author Hugh Thornhill*/
 	@PutMapping("/status")
 	public Question updateStatus(@RequestBody Question question) {
-		return questionService.save(question);
+		return questionService.updateQuestionStatus(question, 20);
 	}
 	
 	/** @Author Natasha Poser */
 	@GetMapping("/id/{id}")
 	public Question getQuestionByQuestionId(@PathVariable int id) {
 		return questionService.findById(id);
+	}
+	
+	/** @author Hugh Thornhill */
+	@GetMapping("/recent")
+	public Page<Question> findAllByOrderByCreationDateDesc(Pageable creationDatePageable){
+		return questionService.findAllByOrderByCreationDateDesc(creationDatePageable);
 	}
 }
