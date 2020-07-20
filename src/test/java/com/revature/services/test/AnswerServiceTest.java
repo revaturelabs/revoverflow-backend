@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -25,6 +25,7 @@ import com.revature.repositories.AnswerRepository;
 import com.revature.services.AnswerService;
 
 @RunWith(SpringRunner.class)
+@WebMvcTest(AnswerService.class)
 public class AnswerServiceTest {
 	
 	@MockBean
