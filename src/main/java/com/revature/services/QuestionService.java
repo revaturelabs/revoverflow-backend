@@ -8,11 +8,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.entities.Question;
+import com.revature.entities.User;
+import com.revature.DTOs.RSSAccountDTO;
 import com.revature.repositories.QuestionRepository;
 
 @Service
 public class QuestionService {
 
+	@Autowired
+	RSSService rssService;	
+	
 	@Autowired
 	QuestionRepository questionRepository;
 	
@@ -32,7 +37,6 @@ public class QuestionService {
 	
 	/** @Author James Walls */
 	public Question save(Question question) {
-		System.out.println("I am the question = " + question.getTitle());
 		return questionRepository.save(question);
 	}
 
@@ -45,13 +49,20 @@ public class QuestionService {
 	}
 	
 	/**@author Hugh Thornhill*/
-	public Question updateQuestionStatus(Question question) {
+	public Question updateQuestionStatus(Question question, int userId, int points) {
 		// check the question accepted answer id is there
 		if(question.getId() == 0 && question.getAcceptedId() == 0) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
-		}	
+		}
+		
+		RSSAccountDTO dto = new RSSAccountDTO(userId, points);
+		User user = rssService.addPoints(dto);
+		if (user == null) {
+			throw new NullPointerException("Null value");
+		}
 		return save(question);
 	}
+	
 	
   /** @Author Natasha Poser */ 
 	public Question findById(int id) {
