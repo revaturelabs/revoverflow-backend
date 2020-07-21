@@ -1,7 +1,9 @@
 package com.revature.repositories;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,5 +21,6 @@ public interface QuestionRepository extends JpaRepository<Question, Integer>{
 	Page<Question> getAllQuestionsByStatus(Pageable pageable, boolean status);
 	
 	/** @author Hugh Thornhill */
-	Page<Question> findAllByOrderByCreationDateDesc(Pageable pageable);
+	Pageable pageableDate = PageRequest.of(0, 20, Sort.by("creationDate").descending());
+	Page<Question> findAllByOrderByCreationDateDesc(Pageable pageableDate);
 }

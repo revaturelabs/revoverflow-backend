@@ -36,10 +36,10 @@ public class QuestionServiceTest {
 	@MockBean
 	AnswerRepository answerRepository;
 	
-	
 	@MockBean
 	RSSService rssService;
 	
+	/** @author Hugh Thornhill */
 	@Test
 	public void getAllQuestionsTest() throws Exception {
 		
@@ -55,5 +55,23 @@ public class QuestionServiceTest {
 		
 		assertThat(pageResult).contains(question);	
 		assertEquals(pageResult, result);
+	}
+	
+	/** @author Hugh Thornhill */
+	@Test
+	public void getAllQuestionsByUserID() throws Exception {
+		
+		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);	
+		List<Question> questions = new ArrayList<>();	
+		questions.add(question);	
+
+		Page<Question> pageResult = new PageImpl<Question>(questions);	
+
+		when(questionRepository.getAllQuestionsByUserID(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn((pageResult));	
+
+		Page<Question> result = questionService.getAllQuestionsByUserId(Mockito.any(Pageable.class), Mockito.anyInt());
+
+		assertThat(pageResult).contains(question);
+		
 	}
 }
