@@ -30,6 +30,7 @@ import com.revature.controller.QuestionController;
 import com.revature.entities.Question;
 import com.revature.services.QuestionService;
 
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(QuestionController.class)
 public class QuestionControllerTests {
@@ -64,7 +65,6 @@ public class QuestionControllerTests {
 	/* @Author ken */
 	@Test
 	public void testGetAllQuestionsByUserId() throws Exception {
-		
 		// Create page of data
 		List<Question> questions = new ArrayList<>();
 		questions.add(new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1));
@@ -83,7 +83,7 @@ public class QuestionControllerTests {
 			
 	}
 	
-	/* @Author ken 
+	/* @Author ken 	*/
 	@Test
 	public void testGetAllQuestionsByStatus() throws Exception {
 		
@@ -96,15 +96,15 @@ public class QuestionControllerTests {
 		when(questionService.getAllQuestionsByStatus(Mockito.any(Pageable.class), Mockito.anyBoolean())).thenReturn(pageResult);
 		
 		// Call API end point and assert result
-		mvc.perform(get("/questions/?status=false")
+		mvc.perform(get("/questions/status/false")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content()
-					.contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-			//.andExpect(jsonPath("$.content[0].id", is(1)));
+					.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			.andExpect(jsonPath("$.content[0].id", is(1)));
 			
 	}
-	*/
+
 	
 	/* @Author Natasha Poser */
 	@Ignore

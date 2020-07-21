@@ -33,7 +33,7 @@ public class QuestionController {
 	// issue Ambiguous handler method
 	/**@author ken*/
 
-	@GetMapping("/{status}")
+	@GetMapping("/status/{status}")
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, @PathVariable boolean status)
 	{
 		return questionService.getAllQuestionsByStatus(pageable, status);
