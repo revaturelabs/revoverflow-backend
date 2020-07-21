@@ -92,4 +92,15 @@ public class QuestionServiceTest {
 		assertEquals(result, question);
 	}
 	
+	/** @author James */
+	@Test
+	public void updateQuestion() throws Exception {
+		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);
+	
+		when(questionRepository.save(Mockito.any(Question.class)))
+		.thenReturn(question);
+		Question result = questionService.save(question);
+		assertEquals(result, question);
+	}
+	
 }

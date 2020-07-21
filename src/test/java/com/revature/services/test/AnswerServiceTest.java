@@ -76,4 +76,15 @@ public class AnswerServiceTest {
 		Page<Answer> result = answerService.getAllAnswersByUserID(PageRequest.of(1, 5), 1);
 		assertThat(result).contains(answer);	
 	}
+	
+	/** @author James */
+	@Test
+	public void updateAnswer() throws Exception {
+		Answer answer = new Answer();
+	
+		when(answerRepository.save(Mockito.any(Answer.class)))
+		.thenReturn(answer);
+		Answer result = answerService.save(answer);
+		assertEquals(result, answer);
+	}
 }
