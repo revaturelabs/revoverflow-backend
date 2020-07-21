@@ -71,10 +71,9 @@ public class AnswerServiceTest {
 
 		when(answerRepository.getAllAnswersByUserId(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn((pageResult));	
 
-		Page<Answer> result = answerService.getAnswers(PageRequest.of(1, 5));
+		Page<Answer> result = answerService.getAllAnswersByUserID(Mockito.any(Pageable.class), Mockito.anyInt());
 
-		assertThat(pageResult).contains(answer);	
-		//assertEquals(pageResult, result);	
+		assertThat(pageResult).contains(answer);
 	}
 	
 
