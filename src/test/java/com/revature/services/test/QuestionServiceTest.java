@@ -63,7 +63,7 @@ public class QuestionServiceTest {
 		
 		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);	
 		List<Question> questions = new ArrayList<>();	
-		questions.add(question);	
+		questions.add(question);
 
 		Page<Question> pageResult = new PageImpl<Question>(questions);	
 
