@@ -61,7 +61,20 @@ public class QuestionServiceTest {
 		Page<Question> pageResult = new PageImpl<Question>(questions);
 		when(questionRepository.getAllQuestionsByUserID(Mockito.any(Pageable.class), Mockito.anyInt()))
 				.thenReturn((pageResult));
-		Page<Question> result = questionService.getAllQuestionsByUserId(Mockito.any(Pageable.class), Mockito.anyInt());
-		assertThat(pageResult).contains(question);
+		Page<Question> result = questionService.getAllQuestionsByUserId(PageRequest.of(1, 5), 1);
+		assertThat(result).contains(question);
+	}
+	
+	/** @author ken */
+	@Test
+	public void getAllQuestionsByStatus() throws Exception {
+		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);
+		List<Question> questions = new ArrayList<>();
+		questions.add(question);
+		Page<Question> pageResult = new PageImpl<Question>(questions);
+		when(questionRepository.getQuestionsByStatus(Mockito.any(Pageable.class), Mockito.anyBoolean()))
+		.thenReturn((pageResult));
+		Page<Question> result = questionService.getAllQuestionsByStatus(PageRequest.of(1, 5), false);
+		assertThat(result).contains(question);
 	}
 }
