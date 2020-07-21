@@ -56,7 +56,7 @@ public class QuestionServiceTest {
 		assertThat(pageResult).contains(question);	
 		assertEquals(pageResult, result);
 	}
-	
+
 	/** @author Hugh Thornhill */
 	@Test
 	public void getAllQuestionsByUserID() throws Exception {
