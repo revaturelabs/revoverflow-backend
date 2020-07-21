@@ -105,7 +105,6 @@ public class QuestionControllerTests {
 			
 	}
 
-	
 	/* @Author Natasha Poser */
 	@Test
 	public void testGetQuestionById() throws Exception {

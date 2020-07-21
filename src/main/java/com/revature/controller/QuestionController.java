@@ -30,7 +30,6 @@ public class QuestionController {
 		return questionService.getAllQuestions(pageable);
 	}
 
-	// issue Ambiguous handler method
 	/**@author ken*/
 
 	@GetMapping("/status/{status}")
