@@ -34,6 +34,10 @@ public class AnswerService {
 		return answerRepository.getAllAnswersByUserId(pageable, id);		
 	}
 	
+	/** @author Natasha Poser */ 
+	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, int acceptedId){
+		return answerRepository.getAcceptedAnswerByQuestionId(pageable, acceptedId);
+	}
 }
 
 
