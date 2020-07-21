@@ -107,19 +107,18 @@ public class QuestionControllerTests {
 
 	
 	/* @Author Natasha Poser */
-	@Ignore
+	@Test
 	public void testGetQuestionById() throws Exception {
-		
 		// Create page of data
 		List<Question> questions = new ArrayList<>();
 		questions.add(new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1));
 		Page<Question> pageResult = new PageImpl<>(questions);
 		
-		// Stub getQuestionById to return page of data
+		// Stub getAllQuestions to return page of data
 		when(questionService.getQuestionById(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn(pageResult);
 		
 		// Call API end point and assert result
-		mvc.perform(get("questions/id/1")
+		mvc.perform(get("/questions/id/1")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content()
@@ -127,7 +126,5 @@ public class QuestionControllerTests {
 			.andExpect(jsonPath("$.content[0].id", is(1)));
 			
 	}
-	
-
-	
+		
 }
