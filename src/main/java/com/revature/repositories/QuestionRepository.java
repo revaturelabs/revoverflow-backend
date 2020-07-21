@@ -18,9 +18,14 @@ public interface QuestionRepository extends JpaRepository<Question, Integer>{
 
 	/**@author ken*/
 	@Query("FROM Question s WHERE :status = s.status")
-	Page<Question> getAllQuestionsByStatus(Pageable pageable, boolean status);
-	
+	Page<Question> getQuestionsByStatus(Pageable pageable, boolean status);
+  
 	/** @author Hugh Thornhill */
+<<<<<<< HEAD
 	Pageable pageableDate = PageRequest.of(0, 20, Sort.by("creationDate").descending());
 	Page<Question> findAllByOrderByCreationDateDesc(Pageable pageableDate);
+=======
+	Page<Question> findAllByOrderByCreationDateDesc(Pageable pageable);
+  
+>>>>>>> affa72d459b46d0cdf7b1c335a43b0fa02082179
 }
