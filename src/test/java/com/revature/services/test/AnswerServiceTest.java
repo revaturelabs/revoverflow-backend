@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -23,10 +23,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.revature.entities.Answer;
 import com.revature.repositories.AnswerRepository;
 import com.revature.services.AnswerService;
+import com.revature.services.RSSService;
 
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(AnswerService.class)
+@SpringBootTest
 public class AnswerServiceTest {
 	
 	@MockBean
@@ -35,6 +36,9 @@ public class AnswerServiceTest {
 	@Autowired
 	AnswerService answerService;
 
+	@Autowired
+	RSSService rssservice;
+	
 	@Test
 	public void getAllAnswersTest() throws Exception {
 		
