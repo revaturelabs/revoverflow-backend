@@ -51,5 +51,22 @@ public class AnswerServiceTest {
 		assertEquals( pageResult, result);	
 	}
 	
+	@Test
+	public void getAllAnswersByUserIDTest() throws Exception {
+		
+		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
+		List<Answer> answers = new ArrayList<>();	
+		answers.add(answer);	
+
+		Page<Answer> pageResult = new PageImpl<Answer>(answers);	
+
+		when(answerRepository.getAllAnswersByUserId(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn((pageResult));	
+
+		Page<Answer> result = answerService.getAnswers(PageRequest.of(1, 5));
+
+		assertThat(pageResult).contains(answer);	
+		assertEquals(pageResult, result);	
+	}
+	
 
 }
