@@ -23,5 +23,6 @@ public interface QuestionRepository extends JpaRepository<Question, Integer>{
 	/** @author Hugh Thornhill */
 	Pageable pageableDate = PageRequest.of(0, 20, Sort.by("creationDate").descending());
 	Page<Question> findAllByOrderByCreationDateDesc(Pageable pageableDate);
-	
+
+  
 }

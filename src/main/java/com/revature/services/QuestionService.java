@@ -116,6 +116,7 @@ public class QuestionService {
 	
 	/** @author Hugh Thornhill */
 	public Page<Question> findAllByOrderByCreationDateDesc(Pageable pageable) {
-		return questionRepository.findAllByOrderByCreationDateDesc(pageable);
+		Pageable pageableDate = PageRequest.of(0, 20, Sort.by("creationDate").descending());
+		return questionRepository.findAllByOrderByCreationDateDesc(pageableDate);
 	}
 }
