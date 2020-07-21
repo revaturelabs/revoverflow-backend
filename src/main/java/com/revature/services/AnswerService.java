@@ -16,9 +16,10 @@ public class AnswerService {
  AnswerRepository answerRepository;
  
   /** @Author Natasha Poser */
- public Page<Answer> getAnswerByQuestionId(Pageable pageable, int id){
-	 return answerRepository.getAnswerByQuestionId(pageable, id);
+ public Page<Answer> getAnswerByQuestionId(Pageable pageable, int questionId){
+	 return answerRepository.getAnswerByQuestionId(pageable, questionId);
  }
+ 
 	
 	/** @Author James Walls */
 	public Answer save(Answer answer) {
@@ -30,10 +31,10 @@ public class AnswerService {
 		return answerRepository.getAllAnswersByUserId(pageable, id);		
 	}
 
-	public Page<Answer> getAnswers(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/** @author Natasha Poser */
+	 public Page<Answer> getAnswers(Pageable pageable) {
+		 return answerRepository.findAll(pageable);
+	 }
 	
 	/** @author Natasha Poser */ 
 	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, int acceptedId){

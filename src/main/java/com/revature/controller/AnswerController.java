@@ -27,6 +27,13 @@ public class AnswerController {
 			return answerService.getAnswers(pageable);
 	}
 
+	/** @author Natasha Poser */
+	@GetMapping("/{questionId}") 
+	public Page<Answer> getAnswersByQuestionId(Pageable pageable, @PathVariable int questionId){
+		return answerService.getAnswerByQuestionId(pageable, questionId);
+	}
+	
+
 	/** @Author James Walls */
 	@PostMapping
 	public Answer saveAnswer( @RequestBody Answer answer) {
