@@ -1,13 +1,10 @@
 package com.revature.controller;
 
-import java.time.LocalDate;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +27,7 @@ public class QuestionController {
 	@GetMapping
 	public Page<Question> getAllQuestions(Pageable pageable)
 	{
+		System.out.println(pageable);
 		return questionService.getAllQuestions(pageable);
 	}
 

@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.Answer;
-import com.revature.entities.Question;
 import com.revature.repositories.AnswerRepository;
 
 @Service
@@ -36,15 +35,12 @@ public class AnswerService {
 		return null;
 	}
 	
-	/** @author Natasha Poser 
-	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, int question_id){
-		// get the accepted answer of a particular question --
-		// get accepted ID from questions table that aren't null 
-		// check to see if any of the accepted IDs from the questions table match the PKs on the answer table 
-		// return any of the IDs that pass the check 
-		return answerRepository.getAcceptedAnswerByQuestionId(pageable, question_id);
+	/** @author Natasha Poser */ 
+	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, int acceptedId){
+		return answerRepository.getAcceptedAnswerByQuestionId(pageable, acceptedId);
 	}
-	*/
+	
+	
 	
 }
 

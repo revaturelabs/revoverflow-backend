@@ -1,6 +1,5 @@
 package com.revature.controller;
 
-import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,12 +40,14 @@ public class AnswerController {
 		return answerService.getAllAnswersByUserID(pageable, id);
 	}
 	
-	/** @author Natasha Poser  
-	@GetMapping("/answers/{question_id}")
-	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, int question_id){
-		return answerService.getAcceptedAnswerByQuestionId(pageable, question_id);
+	/** @author Natasha Poser */
+	@GetMapping("/acceptedAnswers/{acceptedId}")
+	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, @PathVariable int acceptedId){
+		System.out.println("I am the controller");
+		return answerService.getAcceptedAnswerByQuestionId(pageable, acceptedId);
 	}
-	*/
+	
+	
 
 }
  
