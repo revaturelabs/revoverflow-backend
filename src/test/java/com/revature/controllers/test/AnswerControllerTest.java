@@ -40,11 +40,6 @@ public class AnswerControllerTest {
 	@MockBean
 	private AnswerService answerService;
 	
-	@Test
-	public void test() {
-		System.out.println("I am testing the AnswerControllerTest");
-	}
-	
 	/**@author ken*/
 	@Test
 	public void testGetAnswers() throws Exception{

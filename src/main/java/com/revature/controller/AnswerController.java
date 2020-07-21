@@ -1,6 +1,5 @@
 package com.revature.controller;
 
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +42,6 @@ public class AnswerController {
 	/** @author Natasha Poser */
 	@GetMapping("/acceptedAnswers/{acceptedId}")
 	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, @PathVariable int acceptedId){
-		System.out.println("I am the controller");
 		return answerService.getAcceptedAnswerByQuestionId(pageable, acceptedId);
 	}
 	

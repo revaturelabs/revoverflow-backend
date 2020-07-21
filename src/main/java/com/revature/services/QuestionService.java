@@ -41,7 +41,6 @@ public class QuestionService {
 	
 	/** @Author James Walls */
 	public Question save(Question question) {
-		System.out.println("I am the question = " + question.getTitle());
 		return questionRepository.save(question);
 	}
 
@@ -76,7 +75,7 @@ public class QuestionService {
 
 	/**@author ken*/
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, boolean status){
-		return questionRepository.getAllQuestionsByStatus(pageable, status);
+		return questionRepository.getQuestionsByStatus(pageable, status);
 	}
 	
 }

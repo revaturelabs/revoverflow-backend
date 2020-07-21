@@ -1,9 +1,5 @@
-spring.datasource.url=jdbc:h2:file:C:/data/test
-spring.datasource.driverClassName=org.h2.Driver
-spring.datasource.username=sa
-spring.datasource.password=
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
-spring.h2.console.enabled=true
-#Enable trace output 
-spring.h2.console.settings.trace=false
-spring.jpa.hibernate.ddl-auto=update
+server:
+  port: 8080
+  
+environments:
+  rss: "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001"
