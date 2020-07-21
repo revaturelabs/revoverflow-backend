@@ -1,0 +1,59 @@
+package com.revature.services.test;
+import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.test.context.junit4.SpringRunner;
+import com.revature.entities.Question;
+import com.revature.repositories.AnswerRepository;
+import com.revature.repositories.QuestionRepository;
+import com.revature.services.QuestionService;
+import com.revature.services.RSSService;
+
+@RunWith(SpringRunner.class)
+
+@SpringBootTest
+public class QuestionServiceTest {
+	
+	@Autowired
+	QuestionService questionService;
+	
+	@MockBean
+	QuestionRepository questionRepository;
+	
+	@MockBean
+	AnswerRepository answerRepository;
+	
+	
+	@MockBean
+	RSSService rssService;
+	
+	@Test
+	public void getAllQuestionsTest() throws Exception {
+		
+		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);
+		List<Question> questions = new ArrayList<>();
+		questions.add(question);
+		
+		Page<Question> pageResult = new PageImpl<>(questions);
+		
+		when(questionRepository.findAll(Mockito.any(Pageable.class))).thenReturn((pageResult));
+		
+		Page<Question> result = questionService.getAllQuestions(PageRequest.of(1, 5));
+		
+		assertThat(pageResult).contains(question);	
+		assertEquals(pageResult, result);
+	}
+}
