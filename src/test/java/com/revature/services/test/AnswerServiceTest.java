@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,13 +27,15 @@ import com.revature.repositories.AnswerRepository;
 import com.revature.services.AnswerService;
 import com.revature.services.RSSService;
 
-
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class AnswerServiceTest {
 	
 	@MockBean
 	AnswerRepository answerRepository;
+	
+	@MockBean
+	RSSService rssService;
 	
 	@Autowired
 	AnswerService answerService;
