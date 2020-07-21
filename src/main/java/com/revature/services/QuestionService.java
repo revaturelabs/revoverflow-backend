@@ -68,9 +68,8 @@ public class QuestionService {
 	}
 	
   /** @Author Natasha Poser */ 
-	public Question findById(int id) {
-		return questionRepository.findById(id)
-				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
+	public Page <Question> getQuestionById(Pageable pageable, int id) {
+		return questionRepository.getQuestionById(pageable, id);
 	}
 
 	/**@author ken*/

@@ -27,7 +27,6 @@ public class QuestionController {
 	@GetMapping
 	public Page<Question> getAllQuestions(Pageable pageable)
 	{
-		System.out.println(pageable);
 		return questionService.getAllQuestions(pageable);
 	}
 
@@ -67,8 +66,8 @@ public class QuestionController {
 	
 	/** @Author Natasha Poser */
 	@GetMapping("/id/{id}")
-	public Question getQuestionByQuestionId(@PathVariable int id) {
-		return questionService.findById(id);
+	public Page<Question> getQuestionById(Pageable pageable, @PathVariable int id) {
+		return questionService.getQuestionById(pageable, id);
 	}
 	
 		
