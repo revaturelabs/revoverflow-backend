@@ -19,9 +19,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	 	@Override
 	    protected void configure(HttpSecurity httpSecurity) throws Exception {
-	 
+	 		httpSecurity.headers().frameOptions().disable();
 	        httpSecurity.cors().and().
-	        	csrf().disable().authorizeRequests().antMatchers("/login").permitAll().
+	        	csrf().disable().authorizeRequests().antMatchers("/login","/h2-console/**").permitAll().
 	        	anyRequest().authenticated()
 	        	.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

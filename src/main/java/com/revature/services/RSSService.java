@@ -32,11 +32,13 @@ public class RSSService {
 	@Value("${environments.rss}")
 	String rssServiceUrl;
 	
-	 RestTemplate restTemplate;
-	
+	RestTemplate restTemplate;
+	 
+	@Autowired
 	public RSSService(RestTemplateBuilder restTemplateBuilder) {
 		this.restTemplate = restTemplateBuilder.build();
 	}
+	
 
 	
 	

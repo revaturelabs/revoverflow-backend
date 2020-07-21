@@ -16,6 +16,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -29,27 +32,30 @@ import com.revature.DTOs.RSSAccountDTO;
 import com.revature.entities.User;
 import com.revature.repositories.UserRepository;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class RssServiceTest {
 	static User u1, u2;
 
+	@MockBean
 	private RestTemplateBuilder builder;
 	
-	private UserRepository testRepo;
-	
+	@MockBean
+	private UserRepository userRepository;
+	@Autowired
 	private RSSService testService;
+	
 	@Before
 	public void setup() {
 		u1 = (new User(12,26,0,true,null,"admin@rss.com","Admin","Admin"));
 		u2 = (new User(13,26,0,false,null,"user@rss.com","User","User"));
-		this.builder = new RestTemplateBuilder();
-		this.testRepo = mock(UserRepository.class);
-		this.testService = new RSSService(this.builder);
-		this.testService.userRepository=testRepo;
+		testService.restTemplate =mock(RestTemplate.class);
+
 	}
 	
 	@Test
 	public void get_points_id_0() {
-		when(testRepo.findById(1)).thenReturn(null);
+		when(userRepository.findById(1)).thenReturn(null);
 		int u = testService.getPoints(1);
 		int result = 0;
 		assertEquals(u,result);
@@ -59,9 +65,7 @@ public class RssServiceTest {
 		int points = 20;
 		
 		RSSAccountDTO dto = new RSSAccountDTO(u1.getUserID(),points);
-		when(testRepo.findById(u1.getUserID())).thenReturn(Optional.of(u1));
-		testService.userRepository=testRepo;
-		testService.restTemplate =mock(RestTemplate.class);
+		when(userRepository.findById(u1.getUserID())).thenReturn(Optional.of(u1));
 		testService.rssServiceUrl="test";
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -84,9 +88,7 @@ public class RssServiceTest {
 		int points = 20;
 		
 		RSSAccountDTO dto = new RSSAccountDTO(u1.getUserID(),points);
-		when(testRepo.findById(u1.getUserID())).thenReturn(Optional.of(u1));
-		testService.userRepository=testRepo;
-		testService.restTemplate =mock(RestTemplate.class);
+		when(userRepository.findById(u1.getUserID())).thenReturn(Optional.of(u1));
 		testService.rssServiceUrl="test";
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -108,9 +110,7 @@ public class RssServiceTest {
 		int points = 20;
 		
 		RSSAccountDTO dto = new RSSAccountDTO(u1.getUserID(),points);
-		when(testRepo.findById(u1.getUserID())).thenReturn(null);
-		testService.userRepository=testRepo;
-		testService.restTemplate =mock(RestTemplate.class);
+		when(userRepository.findById(u1.getUserID())).thenReturn(null);
 		testService.rssServiceUrl="test";
 		
 	
