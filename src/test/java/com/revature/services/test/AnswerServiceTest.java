@@ -43,6 +43,7 @@ public class AnswerServiceTest {
 	@Autowired
 	RSSService rssservice;
 	
+	/** @author ken */
 	@Test
 	public void getAllAnswersTest() throws Exception {
 		
@@ -60,6 +61,7 @@ public class AnswerServiceTest {
 		assertEquals( pageResult, result);	
 	}
 	
+	/** @author ken */
 	@Test
 	public void getAllAnswersByUserIDTest() throws Exception {
 		
@@ -71,10 +73,7 @@ public class AnswerServiceTest {
 
 		when(answerRepository.getAllAnswersByUserId(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn((pageResult));	
 
-		Page<Answer> result = answerService.getAllAnswersByUserID(Mockito.any(Pageable.class), Mockito.anyInt());
-
-		assertThat(pageResult).contains(answer);
+		Page<Answer> result = answerService.getAllAnswersByUserID(PageRequest.of(1, 5), 1);
+		assertThat(result).contains(answer);	
 	}
-	
-
 }
