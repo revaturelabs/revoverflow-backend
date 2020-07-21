@@ -97,11 +97,9 @@ public class QuestionServiceTest {
 	public void updateQuestion() throws Exception {
 		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);
 	
-		//Question pageResult = new PageImpl<Question>(questions);
 		when(questionRepository.save(Mockito.any(Question.class)))
 		.thenReturn(question);
 		Question result = questionService.save(question);
-		//assertThat(result).contains(question);
 		assertEquals(result, question);
 	}
 	

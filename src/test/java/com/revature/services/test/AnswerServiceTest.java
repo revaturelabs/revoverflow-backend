@@ -82,11 +82,9 @@ public class AnswerServiceTest {
 	public void updateAnswer() throws Exception {
 		Answer answer = new Answer();
 	
-		//Question pageResult = new PageImpl<Question>(questions);
 		when(answerRepository.save(Mockito.any(Answer.class)))
 		.thenReturn(answer);
 		Answer result = answerService.save(answer);
-		//assertThat(result).contains(answer);
 		assertEquals(result, answer);
 	}
 }
