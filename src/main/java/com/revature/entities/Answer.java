@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "Answers")
+@Table(name = "answers")
 public class Answer {
 
 	@Id
@@ -30,61 +30,69 @@ public class Answer {
 	// add the not null check in the service layer
 	private LocalDate creationDate;
 
-	@NotBlank(message = "Edit date must have a date value")
+
 	private LocalDate editDate;
+
 
 	public int getId() {
 		return id;
 	}
 
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 
 	public int getUserId() {
 		return userId;
 	}
 
+
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public LocalDate getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(LocalDate creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public LocalDate getEditDate() {
-		return editDate;
-	}
-
-	public void setEditDate(LocalDate editDate) {
-		this.editDate = editDate;
-	}
 
 	public int getQuestionId() {
 		return questionId;
 	}
 
+
 	public void setQuestionId(int questionId) {
 		this.questionId = questionId;
 	}
 
-	public Answer() {
-		super();
-		// TODO Auto-generated constructor stub
+
+	public String getContent() {
+		return content;
 	}
+
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+
+	public LocalDate getCreationDate() {
+		return creationDate;
+	}
+
+
+	public void setCreationDate(LocalDate creationDate) {
+		this.creationDate = creationDate;
+	}
+
+
+	public LocalDate getEditDate() {
+		return editDate;
+	}
+
+
+	public void setEditDate(LocalDate editDate) {
+		this.editDate = editDate;
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -98,6 +106,7 @@ public class Answer {
 		result = prime * result + userId;
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -132,13 +141,17 @@ public class Answer {
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Answer [id=" + id + ", userId=" + userId + ", questionId=" + questionId + ", content=" + content
 				+ ", creationDate=" + creationDate + ", editDate=" + editDate + "]";
 	}
 
-	public Answer(int id, int userId, int questionId, String content, LocalDate creationDate, LocalDate editDate) {
+
+	public Answer(int id, int userId, int questionId,
+			@NotBlank(message = "Content must have a string value") String content, LocalDate creationDate,
+			LocalDate editDate) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -147,5 +160,12 @@ public class Answer {
 		this.creationDate = creationDate;
 		this.editDate = editDate;
 	}
+
+
+	public Answer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 
 }

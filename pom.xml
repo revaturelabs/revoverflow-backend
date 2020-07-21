@@ -35,8 +35,8 @@
 	<!-- Add typical dependencies for a web application -->
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
 		</dependency>
 		<!-- Default dependency for a spring boot webapp -->
 		<dependency>
@@ -50,7 +50,11 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.2.8</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
 		</dependency>
 		<!-- Web tools allows for live reloading of the server -->
 		<dependency>
@@ -59,10 +63,6 @@
 		</dependency>
 		<!-- Actuator enables actuator endpoints (used for integratino with other 
 			web applications) -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
 		<!-- Swagger dependencies -->
 		<dependency>
@@ -88,6 +88,17 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+				<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -161,7 +172,7 @@
 		</plugins>
 	</build>
 	<!-- Add Spring repositories -->
-	<!-- (you don't need this if you are using a .RELEASE version) -->
+	<!-- (you don't need this if you are using a .RELEASE version)  -->
 	<repositories>
 		<repository>
 			<id>spring-snapshots</id>
