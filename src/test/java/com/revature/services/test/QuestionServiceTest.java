@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import com.revature.entities.Question;
 import com.revature.repositories.AnswerRepository;
 import com.revature.repositories.QuestionRepository;
@@ -77,4 +78,18 @@ public class QuestionServiceTest {
 		Page<Question> result = questionService.getAllQuestionsByStatus(PageRequest.of(1, 5), false);
 		assertThat(result).contains(question);
 	}
+	
+	/** @author ken */
+	@Test
+	public void updateQuestionAcceptedAnswerId() throws Exception {
+		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);
+	
+		//Question pageResult = new PageImpl<Question>(questions);
+		when(questionRepository.save(Mockito.any(Question.class)))
+		.thenReturn(question);
+		Question result = questionService.updateQuestionAcceptedAnswerId(question);
+		//assertThat(result).contains(question);
+		assertEquals(result, question);
+	}
+	
 }
