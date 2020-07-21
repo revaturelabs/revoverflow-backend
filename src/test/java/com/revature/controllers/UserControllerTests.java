@@ -98,4 +98,5 @@ public class UserControllerTests {
     			assertEquals(404, result.getResponse().getStatus());
     			assertEquals("", content);
     }
+    
 }
