@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +26,7 @@ public class QuestionController {
 	
 	/**	 *@author ken */
 	@GetMapping
+	@PreAuthorize("hasAuthority('user')")
 	public Page<Question> getAllQuestions(Pageable pageable)
 	{
 		return questionService.getAllQuestions(pageable);
@@ -33,6 +35,7 @@ public class QuestionController {
 	// issue Ambiguous handler method
 	/**@author ken*/
 	@GetMapping("/status/{status}")
+	@PreAuthorize("hasAuthority('admin')")
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, @PathVariable boolean status)
 	{
 		return questionService.getAllQuestionsByStatus(pageable, status);
@@ -40,6 +43,7 @@ public class QuestionController {
 
 	/**@author ken*/
 	@GetMapping("/user/{id}")
+	@PreAuthorize("hasAuthority('user')")
 	public Page<Question> getAllQuestionsByUserId(Pageable pageable, @PathVariable int id)
 	{
 		return questionService.getAllQuestionsByUserId(pageable, id);
@@ -47,30 +51,35 @@ public class QuestionController {
 
 	/** @Author James Walls */
 	@PostMapping
+	@PreAuthorize("hasAuthority('user')")
 	public Question saveQuestion(@Valid @RequestBody Question question) {
 		return questionService.save(question);
 	}
 
 	/**@author Hugh Thornhill*/
 	@PutMapping
+	@PreAuthorize("hasAuthority('user')")
 	public Question updateQuestionAcceptedAnswerId(@RequestBody Question question) {
 		return questionService.updateQuestionAcceptedAnswerId(question);
 	}
 
 	/**@author Hugh Thornhill*/
 	@PutMapping("/status")
+	@PreAuthorize("hasAuthority('admin')")
 	public Question updateStatus(@RequestBody Question question) {
 		return questionService.updateQuestionStatus(question, 20);
 	}
 	
 	/** @Author Natasha Poser */
 	@GetMapping("/id/{id}")
+	@PreAuthorize("hasAuthority('user')")
 	public Question getQuestionByQuestionId(@PathVariable int id) {
 		return questionService.findById(id);
 	}
 	
 	/** @author Hugh Thornhill */
 	@GetMapping("/recent")
+	@PreAuthorize("hasAuthority('user')")
 	public Page<Question> findAllByOrderByCreationDateDesc(Pageable creationDatePageable){
 		return questionService.findAllByOrderByCreationDateDesc(creationDatePageable);
 	}
