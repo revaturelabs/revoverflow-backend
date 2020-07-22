@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -102,8 +101,9 @@ public class QuestionService {
 	}
 	
   /** @Author Natasha Poser */ 
-	public Page <Question> getQuestionById(Pageable pageable, int id) {
-		return questionRepository.getQuestionById(pageable, id);
+	public Question findById(int id) {
+		return questionRepository.findById(id)
+				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
 
 	/**@author ken*/

@@ -73,8 +73,8 @@ public class QuestionController {
 	
 	/** @Author Natasha Poser */
 	@GetMapping("/id/{id}")
-	public Page<Question> getQuestionById(Pageable pageable, @PathVariable int id) {
-		return questionService.getQuestionById(pageable, id);
+	public Question getQuestionById(@PathVariable int id) {
+		return questionService.findById(id);
 	}
 	
 		
