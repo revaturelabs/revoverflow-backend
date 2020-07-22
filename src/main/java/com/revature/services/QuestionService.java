@@ -19,7 +19,7 @@ import com.revature.repositories.QuestionRepository;
 @Service
 public class QuestionService {
 
-	@Autowired
+	@Autowired 
 	RSSService rssService;	
 	
 	@Autowired
