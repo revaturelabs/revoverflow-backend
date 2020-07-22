@@ -52,12 +52,18 @@ public class AnswerController {
 	@GetMapping("/user/{id}")
 	public Page<Answer> getAllAnswersByUserID(Pageable pageable,@PathVariable int id){
 		return answerService.getAllAnswersByUserID(pageable, id);
-	}
+	} 
 	
 	/** @author Natasha Poser */
 	@GetMapping("/acceptedAnswers/{acceptedId}")
 	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, @PathVariable int acceptedId){
 		return answerService.getAcceptedAnswerByQuestionId(pageable, acceptedId);
+	}
+	
+	/** @author Natasha Poser */
+	@GetMapping("/id/{id}")
+	public Page<Answer> getAnswerById(Pageable pageable, @PathVariable int id){
+		return answerService.getAnswerById(pageable, id);
 	}
 }
  

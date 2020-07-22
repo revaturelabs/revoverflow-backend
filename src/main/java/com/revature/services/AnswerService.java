@@ -24,7 +24,7 @@ public class AnswerService {
 	/** @Author James Walls */
 	public Answer save(Answer answer) {
 		return answerRepository.save(answer);
-	}
+	} 
 
 	/**@author ken*/
 	public Page<Answer> getAllAnswersByUserID(Pageable pageable, int id){
@@ -39,6 +39,11 @@ public class AnswerService {
 	/** @author Natasha Poser */ 
 	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, int acceptedId){
 		return answerRepository.getAcceptedAnswerByQuestionId(pageable, acceptedId);
+	}
+	
+	/** @author Natasha Poser */
+	public Page<Answer> getAnswerById(Pageable pageable, int id){
+		return answerRepository.getAnswerById(pageable, id);
 	}
 
 	
