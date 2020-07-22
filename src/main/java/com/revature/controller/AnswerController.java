@@ -51,5 +51,11 @@ public class AnswerController {
 	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, @PathVariable int acceptedId){
 		return answerService.getAcceptedAnswerByQuestionId(pageable, acceptedId);
 	}
+	
+	/** @author Natasha Poser */
+	@GetMapping("/id/{id}")
+	public Page<Answer> getAnswerById(Pageable pageable, @PathVariable int id){
+		return answerService.getAnswerById(pageable, id);
+	}
 }
  
