@@ -1,6 +1,7 @@
 package com.revature.controllers.test;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -21,10 +22,17 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.google.common.net.HttpHeaders;
 import com.revature.controller.AnswerController;
 import com.revature.entities.Answer;
 import com.revature.services.AnswerService;
@@ -59,22 +67,36 @@ public class AnswerControllerTest {
 				.andExpect(jsonPath("$.content[0].id", is(1)));
 	}
 	
-	/*
+	
 	@Test
 	public void testSaveAnswer() throws Exception {
 		Answer answer = new Answer(2, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);
 
 		when(answerService.save(Mockito.any(Answer.class))).thenReturn(answer);
+		
 	
-		 mvc.perform(post("/answers")
-				 .contentType(MediaType.APPLICATION_JSON)
-				 .content(answer.toString()))
-		 		 .andExpect(status().isOk())
-	             .andExpect(content()
-	     						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-	             .andExpect(jsonPath("$.content[0].content", is(2)));
+		String aString = answer.toString(); 
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post("/answers")
+				.accept(MediaType.APPLICATION_JSON).content(aString)
+				.contentType(MediaType.APPLICATION_JSON);
+		
+	ResultActions result = mvc.perform(requestBuilder).andExpect(jsonPath("$.content[0].id", is(1)));
+			//.accept(MediaType.APPLICATION_JSON).content(aString)
+				// .contentType(MediaType.APPLICATION_JSON)).andReturn();
+		 		// .andExpect(status().isOk())
+	           //  .andExpect(content()
+	     		//				.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	            // .andExpect(jsonPath("$.content[0].content", is(2)));
+	//MockHttpServletResponse response = result.getResponse();
+	//System.out.println("what is the response" + response);
+	System.out.println("result = " + result);
+	//assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+	//assertEquals("http://localhost/answers",
+	//	response.getHeader(HttpHeaders.LOCATION));
 	}
-	*/
+	
 	
 	/**@author ken*/
 	@Test
