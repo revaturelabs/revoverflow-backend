@@ -135,6 +135,7 @@ public class QuestionControllerTests {
 			
 	}
 	
+	/**@author James */
 	@Test
     public void updateStatus() throws Exception {
         Question questions, testQuestions;
@@ -157,6 +158,7 @@ public class QuestionControllerTests {
             
     }
     
+	/**@author James */
     @Test
     public void updateQuestionAcceptedAnswerId() throws Exception {
         Question questions, testQuestions;
