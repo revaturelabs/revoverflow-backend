@@ -1,6 +1,9 @@
 package com.revature.controllers;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -25,7 +28,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.controller.QuestionController;
 import com.revature.entities.Question;
 import com.revature.services.QuestionService;
@@ -34,6 +40,9 @@ import com.revature.services.QuestionService;
 @RunWith(SpringRunner.class)
 @WebMvcTest(QuestionController.class)
 public class QuestionControllerTests {
+
+    @Autowired 
+    private ObjectMapper mapper;
 
 	@Autowired
 	private MockMvc mvc;
@@ -125,5 +134,49 @@ public class QuestionControllerTests {
 			.andExpect(jsonPath("$.content[0].id", is(1)));
 			
 	}
+	
+	@Test
+    public void updateStatus() throws Exception {
+        Question questions, testQuestions;
+        questions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, false, 1);
+        testQuestions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1);
+        
+        when(questionService.updateQuestionStatus(Mockito.any(Question.class), Mockito.anyInt())).thenReturn(testQuestions);
+        
+        String toUpdate = mapper.writeValueAsString(questions);
+        org.springframework.test.web.servlet.MvcResult result = mvc.perform(MockMvcRequestBuilders.put("/questions/status")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(toUpdate)
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                ).andReturn();
+        
+        String content = result.getResponse().getContentAsString();
+        assertEquals(200, result.getResponse().getStatus());
+        assertTrue("This return object conains the string", content.contains("true"));
+        assertNotEquals(null, content);
+            
+    }
+    
+    @Test
+    public void updateQuestionAcceptedAnswerId() throws Exception {
+        Question questions, testQuestions;
+        questions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, false, 1);
+        testQuestions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1);
+        
+        when(questionService.updateQuestionAcceptedAnswerId(Mockito.any(Question.class))).thenReturn(testQuestions);
+        
+        String toUpdate = mapper.writeValueAsString(questions);
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.put("/questions")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(toUpdate)
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                ).andReturn();
+        
+        String content = result.getResponse().getContentAsString();
+        assertEquals(200, result.getResponse().getStatus());
+        assertTrue("This return object conains the string", content.contains("true"));
+        assertNotEquals(null, content);
+            
+    }
 		
 }
