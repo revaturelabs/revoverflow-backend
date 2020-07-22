@@ -23,4 +23,4 @@ public interface AnswerRepository extends JpaRepository<Answer, Integer>{
 	
 	/** @author Natasha Poser */
 	Page<Answer> getAnswerById(Pageable pageable, int id);
-}
+} 

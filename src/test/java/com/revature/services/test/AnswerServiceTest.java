@@ -93,4 +93,38 @@ public class AnswerServiceTest {
 		assertThat(result).contains(answer);	
 	}
 	
+	/** @author Natasha Poser  */
+	@Test
+	public void getAcceptedAnswerByQuestionIdTest() throws Exception {
+		
+		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
+		List<Answer> answers = new ArrayList<>();	
+		answers.add(answer);	
+
+		Page<Answer> pageResult = new PageImpl<Answer>(answers);	
+
+		when(answerRepository.getAcceptedAnswerByQuestionId(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn((pageResult));	
+
+		Page<Answer> result = answerService.getAcceptedAnswerByQuestionId(PageRequest.of(1, 5), 1);
+		assertThat(result).contains(answer);	
+	}
+	
+	
+	
+	/** @author Natasha Poser  */
+	@Test
+	public void getAnswerByIdTest() throws Exception {
+		
+		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
+		List<Answer> answers = new ArrayList<>();	
+		answers.add(answer);	
+
+		Page<Answer> pageResult = new PageImpl<Answer>(answers);	
+
+		when(answerRepository.getAnswerById(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn((pageResult));	
+
+		Page<Answer> result = answerService.getAnswerById(PageRequest.of(1, 5), 1);
+		assertThat(result).contains(answer);	
+	}
+	
 }

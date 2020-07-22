@@ -53,7 +53,7 @@ public class AnswerController {
 	@GetMapping("/user/{id}")
 	public Page<Answer> getAllAnswersByUserID(Pageable pageable,@PathVariable int id){
 		return answerService.getAllAnswersByUserID(pageable, id);
-	}
+	} 
 	
 	/** @author Natasha Poser */
 	@GetMapping("/acceptedAnswers/{acceptedId}")
