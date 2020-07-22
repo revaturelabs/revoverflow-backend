@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -102,11 +101,9 @@ public class QuestionService {
 		return save(question);
 	}
 	
-	
   /** @Author Natasha Poser */ 
-	public Question findById(int id) {
-		return questionRepository.findById(id)
-				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
+	public Page <Question> getQuestionById(Pageable pageable, int id) {
+		return questionRepository.getQuestionById(pageable, id);
 	}
 
 	/**@author ken*/
@@ -114,9 +111,4 @@ public class QuestionService {
 		return questionRepository.getQuestionsByStatus(pageable, status);
 	}
 	
-	/** @author Hugh Thornhill */
-	public Page<Question> findAllByOrderByCreationDateDesc(Pageable pageable) {
-		Pageable pageableDate = PageRequest.of(0, 20, Sort.by("creationDate").descending());
-		return questionRepository.findAllByOrderByCreationDateDesc(pageableDate);
-	}
 }
