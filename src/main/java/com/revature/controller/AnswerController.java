@@ -51,8 +51,5 @@ public class AnswerController {
 	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, @PathVariable int acceptedId){
 		return answerService.getAcceptedAnswerByQuestionId(pageable, acceptedId);
 	}
-	
-	
-
 }
  

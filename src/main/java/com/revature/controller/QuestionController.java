@@ -19,7 +19,7 @@ import com.revature.services.QuestionService;
 @RestController
 @RequestMapping("/questions")
 public class QuestionController {
-
+	
 	@Autowired
 	QuestionService questionService;
 	
@@ -31,7 +31,6 @@ public class QuestionController {
 	}
 
 	/**@author ken*/
-
 	@GetMapping("/status/{status}")
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, @PathVariable boolean status)
 	{
@@ -60,7 +59,7 @@ public class QuestionController {
 	/**@author Hugh Thornhill*/
 	@PutMapping("/status")
 	public Question updateStatus(@RequestBody Question question) {
-		return questionService.save(question);
+		return questionService.updateQuestionStatus(question, 20);
 	}
 	
 	/** @Author Natasha Poser */
