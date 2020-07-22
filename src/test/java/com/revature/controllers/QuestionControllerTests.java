@@ -1,8 +1,13 @@
 package com.revature.controllers;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -11,8 +16,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -27,10 +34,18 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.Application;
 import com.revature.controller.QuestionController;
 import com.revature.entities.Question;
+import com.revature.entities.User;
 import com.revature.services.QuestionService;
 
 @RunWith(SpringRunner.class)
@@ -40,11 +55,25 @@ import com.revature.services.QuestionService;
 @AutoConfigureMockMvc
 public class QuestionControllerTests {
 
+	@Autowired 
+	private ObjectMapper mapper;
+	
+	@Autowired
+	private WebApplicationContext context;
+	
 	@Autowired
 	private MockMvc mvc;
 	
 	@MockBean
 	private QuestionService questionService;
+	
+	@Before                          
+    public void setUp() {  
+   	   mvc = MockMvcBuilders
+   				.webAppContextSetup(context)
+   				.apply(springSecurity())
+   				.build();
+    }
 	
 	@Test
 	@WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
@@ -88,6 +117,52 @@ public class QuestionControllerTests {
 			.andExpect(content()
 					.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			.andExpect(jsonPath("$.content[0].id", is(1)));
+			
+	}
+	
+	@Test
+	@WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
+	public void updateStatus() throws Exception {
+		Question questions, testQuestions;
+		questions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, false, 1);
+		testQuestions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1);
+		
+		when(questionService.updateQuestionStatus(Mockito.any(Question.class), Mockito.anyInt())).thenReturn(testQuestions);
+		
+		String toUpdate = mapper.writeValueAsString(questions);
+		MvcResult result = mvc.perform(MockMvcRequestBuilders.put("/questions/status")
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+    			.content(toUpdate)
+    			.accept(MediaType.APPLICATION_JSON_UTF8)
+    			).andReturn();
+		
+		String content = result.getResponse().getContentAsString();
+		assertEquals(200, result.getResponse().getStatus());
+		assertTrue("This return object conains the string", content.contains("true"));
+		assertNotEquals(null, content);
+			
+	}
+	
+	@Test
+	@WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
+	public void updateQuestionAcceptedAnswerId() throws Exception {
+		Question questions, testQuestions;
+		questions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, false, 1);
+		testQuestions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1);
+		
+		when(questionService.updateQuestionAcceptedAnswerId(Mockito.any(Question.class))).thenReturn(testQuestions);
+		
+		String toUpdate = mapper.writeValueAsString(questions);
+		MvcResult result = mvc.perform(MockMvcRequestBuilders.put("/questions")
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+    			.content(toUpdate)
+    			.accept(MediaType.APPLICATION_JSON_UTF8)
+    			).andReturn();
+		
+		String content = result.getResponse().getContentAsString();
+		assertEquals(200, result.getResponse().getStatus());
+		assertTrue("This return object conains the string", content.contains("true"));
+		assertNotEquals(null, content);
 			
 	}
 	
