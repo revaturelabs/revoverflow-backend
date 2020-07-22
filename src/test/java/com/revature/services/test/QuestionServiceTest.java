@@ -73,7 +73,7 @@ public class QuestionServiceTest {
 		List<Question> questions = new ArrayList<>();
 		questions.add(question);
 		Page<Question> pageResult = new PageImpl<Question>(questions);
-		when(questionRepository.getAllQuestionsByStatus(Mockito.any(Pageable.class), Mockito.anyBoolean()))
+		when(questionRepository.getQuestionsByStatus(Mockito.any(Pageable.class), Mockito.anyBoolean()))
 		.thenReturn((pageResult));
 		Page<Question> result = questionService.getAllQuestionsByStatus(PageRequest.of(1, 5), false);
 		assertThat(result).contains(question);
