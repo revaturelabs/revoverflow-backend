@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Answer.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">project-3-back-end (Jul 22, 2020 12:16:10 PM)</a> &gt; <a href="../../index.html" class="el_group">project-3-back-end</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.revature.entities</a> &gt; <span class="el_source">Answer.java</span></div><h1>Answer.java</h1><pre class="source lang-java linenums">package com.revature.entities;
+
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+@Entity
+@Table(name = &quot;answers&quot;)
+public class Answer {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+
+	@Column(name = &quot;user_id&quot;)
+	private int userId;
+
+	@Column(name = &quot;question_id&quot;)
+	private int questionId;
+
+	@NotBlank(message = &quot;Content must have a string value&quot;)
+	private String content;
+
+	// add the not null check in the service layer
+	private LocalDate creationDate;
+
+
+	private LocalDate editDate;
+
+
+	public int getId() {
+<span class="fc" id="L38">		return id;</span>
+	}
+
+
+	public void setId(int id) {
+<span class="nc" id="L43">		this.id = id;</span>
+<span class="nc" id="L44">	}</span>
+
+
+	public int getUserId() {
+<span class="fc" id="L48">		return userId;</span>
+	}
+
+
+	public void setUserId(int userId) {
+<span class="nc" id="L53">		this.userId = userId;</span>
+<span class="nc" id="L54">	}</span>
+
+
+	public int getQuestionId() {
+<span class="fc" id="L58">		return questionId;</span>
+	}
+
+
+	public void setQuestionId(int questionId) {
+<span class="nc" id="L63">		this.questionId = questionId;</span>
+<span class="nc" id="L64">	}</span>
+
+
+	public String getContent() {
+<span class="fc" id="L68">		return content;</span>
+	}
+
+
+	public void setContent(String content) {
+<span class="nc" id="L73">		this.content = content;</span>
+<span class="nc" id="L74">	}</span>
+
+
+	public LocalDate getCreationDate() {
+<span class="fc" id="L78">		return creationDate;</span>
+	}
+
+
+	public void setCreationDate(LocalDate creationDate) {
+<span class="nc" id="L83">		this.creationDate = creationDate;</span>
+<span class="nc" id="L84">	}</span>
+
+
+	public LocalDate getEditDate() {
+<span class="fc" id="L88">		return editDate;</span>
+	}
+
+
+	public void setEditDate(LocalDate editDate) {
+<span class="nc" id="L93">		this.editDate = editDate;</span>
+<span class="nc" id="L94">	}</span>
+
+
+	@Override
+	public int hashCode() {
+<span class="nc" id="L99">		final int prime = 31;</span>
+<span class="nc" id="L100">		int result = 1;</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">		result = prime * result + ((content == null) ? 0 : content.hashCode());</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">		result = prime * result + ((editDate == null) ? 0 : editDate.hashCode());</span>
+<span class="nc" id="L104">		result = prime * result + id;</span>
+<span class="nc" id="L105">		result = prime * result + questionId;</span>
+<span class="nc" id="L106">		result = prime * result + userId;</span>
+<span class="nc" id="L107">		return result;</span>
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">		if (this == obj)</span>
+<span class="fc" id="L114">			return true;</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">		if (obj == null)</span>
+<span class="nc" id="L116">			return false;</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">		if (getClass() != obj.getClass())</span>
+<span class="nc" id="L118">			return false;</span>
+<span class="nc" id="L119">		Answer other = (Answer) obj;</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">		if (content == null) {</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">			if (other.content != null)</span>
+<span class="nc" id="L122">				return false;</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">		} else if (!content.equals(other.content))</span>
+<span class="nc" id="L124">			return false;</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">		if (creationDate == null) {</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">			if (other.creationDate != null)</span>
+<span class="nc" id="L127">				return false;</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">		} else if (!creationDate.equals(other.creationDate))</span>
+<span class="nc" id="L129">			return false;</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">		if (editDate == null) {</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">			if (other.editDate != null)</span>
+<span class="nc" id="L132">				return false;</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">		} else if (!editDate.equals(other.editDate))</span>
+<span class="nc" id="L134">			return false;</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">		if (id != other.id)</span>
+<span class="nc" id="L136">			return false;</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">		if (questionId != other.questionId)</span>
+<span class="nc" id="L138">			return false;</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">		if (userId != other.userId)</span>
+<span class="nc" id="L140">			return false;</span>
+<span class="nc" id="L141">		return true;</span>
+	}
+
+
+	@Override
+	public String toString() {
+<span class="nc" id="L147">		return &quot;Answer [id=&quot; + id + &quot;, userId=&quot; + userId + &quot;, questionId=&quot; + questionId + &quot;, content=&quot; + content</span>
+<span class="nc" id="L148">				+ &quot;, creationDate=&quot; + creationDate + &quot;, editDate=&quot; + editDate + &quot;]&quot;;</span>
+	}
+
+
+	public Answer(int id, int userId, int questionId,
+			@NotBlank(message = &quot;Content must have a string value&quot;) String content, LocalDate creationDate,
+			LocalDate editDate) {
+<span class="fc" id="L155">		super();</span>
+<span class="fc" id="L156">		this.id = id;</span>
+<span class="fc" id="L157">		this.userId = userId;</span>
+<span class="fc" id="L158">		this.questionId = questionId;</span>
+<span class="fc" id="L159">		this.content = content;</span>
+<span class="fc" id="L160">		this.creationDate = creationDate;</span>
+<span class="fc" id="L161">		this.editDate = editDate;</span>
+<span class="fc" id="L162">	}</span>
+
+
+	public Answer() {
+<span class="fc" id="L166">		super();</span>
+		// TODO Auto-generated constructor stub
+<span class="fc" id="L168">	}</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span>project-3-back-end (Jul 22, 2020 12:16:10 PM)</div></body></html>

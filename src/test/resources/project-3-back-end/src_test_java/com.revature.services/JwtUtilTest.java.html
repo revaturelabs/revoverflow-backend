@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>JwtUtilTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">project-3-back-end (Jul 22, 2020 12:16:10 PM)</a> &gt; <a href="../../index.html" class="el_group">project-3-back-end</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">com.revature.services</a> &gt; <span class="el_source">JwtUtilTest.java</span></div><h1>JwtUtilTest.java</h1><pre class="source lang-java linenums">package com.revature.services;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import com.revature.entities.User;
+import com.revature.util.JwtUtil;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+<span class="fc" id="L24">public class JwtUtilTest {</span>
+	static User u1;
+	@Autowired
+    private MockMvc mvc;
+	
+	@InjectMocks
+	JwtUtil jwtUtil;
+	
+	@Before
+	public void setup() {
+<span class="fc" id="L34">		u1 = new User(12,26,0,true,null,&quot;admin@rss.com&quot;,&quot;Admin&quot;,&quot;Admin&quot;);</span>
+<span class="fc" id="L35">	}</span>
+	@Test
+    public void shouldGenerateAuthToken() throws Exception {
+<span class="fc" id="L38">        String token = jwtUtil.generateToken(u1);</span>
+<span class="fc" id="L39">        assertNotNull(token);</span>
+        //System.out.println(token);
+<span class="fc" id="L41">    }</span>
+	@Test
+    public void shouldGenerateAuthTokenAndBeAuthenticatedToRetreiveUser12() throws Exception {
+<span class="fc" id="L44">        String token = jwtUtil.generateToken(u1);</span>
+<span class="fc" id="L45">        assertNotNull(token);</span>
+<span class="fc" id="L46">        MvcResult result = mvc.perform(MockMvcRequestBuilders.get(&quot;/user/12&quot;).header(&quot;Authorization&quot;, &quot;Bearer &quot; + token)).andReturn();</span>
+<span class="fc" id="L47">        String content = result.getResponse().getContentAsString();</span>
+        //System.out.println(content + &quot;\n&quot; + result.getResponse().getStatus());
+<span class="fc" id="L49">        assertEquals(200, result.getResponse().getStatus());</span>
+<span class="fc" id="L50">        assertNotNull(content);</span>
+<span class="fc" id="L51">    }</span>
+	@Test
+    public void shouldGenerateAuthTokenAndReturn_403_UnauthorizedDueToNoBearerInToken() throws Exception {
+<span class="fc" id="L54">        String token = jwtUtil.generateToken(u1);</span>
+<span class="fc" id="L55">        assertNotNull(token);</span>
+<span class="fc" id="L56">        MvcResult result = mvc.perform(MockMvcRequestBuilders.get(&quot;/user/12&quot;).header(&quot;Authorization&quot;, token)).andReturn();</span>
+<span class="fc" id="L57">        assertEquals(403, result.getResponse().getStatus());</span>
+<span class="fc" id="L58">    }</span>
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span>project-3-back-end (Jul 22, 2020 12:16:10 PM)</div></body></html>

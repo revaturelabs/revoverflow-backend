@@ -2,6 +2,7 @@ package com.revature.controllers.test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -12,35 +13,62 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
+import com.revature.Application;
 import com.revature.controller.AnswerController;
 import com.revature.entities.Answer;
+import com.revature.entities.User;
 import com.revature.services.AnswerService;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(AnswerController.class)
+@ContextConfiguration
+@SpringBootTest(
+		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+		classes = Application.class)
+@AutoConfigureMockMvc
 public class AnswerControllerTest {
+	static User u1;
 	
 	@Autowired
 	private MockMvc mvc;
 	
+	@Autowired
+	private WebApplicationContext context;
+	
 	@MockBean
 	private AnswerService answerService;
 	
+	@Before                          
+    public void setUp() {  
+       u1 = new User(12,26,0,true,null,"admin@rss.com","Admin","Admin");
+   	   mvc = MockMvcBuilders
+   				.webAppContextSetup(context)
+   				.apply(springSecurity())
+   				.build();
+    }
+	
 	/**@author ken*/
 	@Test
+    @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testGetAnswers() throws Exception{
 		List<Answer> answers = new ArrayList<>();
 		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
@@ -75,6 +103,7 @@ public class AnswerControllerTest {
 	
 	/**@author ken*/
 	@Test
+    @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testGetAnswerByUserId() throws Exception {
 		List<Answer> answers = new ArrayList<>();
 		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
@@ -92,6 +121,7 @@ public class AnswerControllerTest {
 	
 	/** @author Natasha Poser */
 	@Test
+    @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testGetAnswerByQuestionId() throws Exception {
 		List<Answer> answers = new ArrayList<>();
 		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
@@ -109,6 +139,7 @@ public class AnswerControllerTest {
 	
 	/** @author Natasha Poser */
 	@Test
+    @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testGetAcceptedAnswerByQuestionId() throws Exception {
 		List<Answer> answers = new ArrayList<>();
 		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
@@ -125,6 +156,7 @@ public class AnswerControllerTest {
 	}
 	/** @author Natasha Poser */
 	@Test
+    @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testGetAnswerById() throws Exception {
 		List<Answer> answers = new ArrayList<>();
 		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));

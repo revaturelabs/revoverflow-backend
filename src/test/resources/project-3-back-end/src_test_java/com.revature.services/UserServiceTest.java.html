@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>UserServiceTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">project-3-back-end (Jul 22, 2020 12:16:10 PM)</a> &gt; <a href="../../index.html" class="el_group">project-3-back-end</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">com.revature.services</a> &gt; <span class="el_source">UserServiceTest.java</span></div><h1>UserServiceTest.java</h1><pre class="source lang-java linenums">package com.revature.services;
+
+
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Optional;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import com.revature.entities.User;
+import com.revature.repositories.UserRepository;
+
+<span class="fc" id="L25">public class UserServiceTest {</span>
+	static User u1, u2;
+
+	@Mock
+	UserRepository userRepository;
+	
+	@InjectMocks
+	UserService userService;
+	
+
+	
+	@Before
+	public void setup() {
+<span class="fc" id="L38">		u1 = (new User(12,26,0,true,null,&quot;admin@rss.com&quot;,&quot;Admin&quot;,&quot;Admin&quot;));</span>
+<span class="fc" id="L39">		u2 = (new User(13,26,0,false,null,&quot;user@rss.com&quot;,&quot;User&quot;,&quot;User&quot;));</span>
+		
+<span class="fc" id="L41">		MockitoAnnotations.initMocks(this);</span>
+<span class="fc" id="L42">	}</span>
+	
+	@Test
+	public void test_granted_authorities_for_admin_will_return_adminAndUserRoles() {
+<span class="fc" id="L46">		Collection&lt;GrantedAuthority&gt; adminRoles = new ArrayList&lt;GrantedAuthority&gt;();</span>
+<span class="fc" id="L47">		SimpleGrantedAuthority a= null; </span>
+<span class="fc" id="L48">		a = new SimpleGrantedAuthority(&quot;admin&quot;);</span>
+<span class="fc" id="L49">		adminRoles.add(a);</span>
+<span class="fc" id="L50">		a = new SimpleGrantedAuthority(&quot;user&quot;);</span>
+<span class="fc" id="L51">		adminRoles.add(a);</span>
+		
+<span class="fc" id="L53">		Mockito.when(userRepository.findById(u1.getUserID())).thenReturn(Optional.of(u1));</span>
+<span class="fc" id="L54">		Collection&lt;? extends GrantedAuthority&gt; result = userService.getAuthority(u1);</span>
+<span class="fc" id="L55">		assertEquals(adminRoles, result);</span>
+<span class="fc" id="L56">	}</span>
+	
+	@Test
+	public void test_granted_authorities_user_will_return_just_userRole() {
+<span class="fc" id="L60">		Collection&lt;GrantedAuthority&gt; userRoles = new ArrayList&lt;GrantedAuthority&gt;();</span>
+<span class="fc" id="L61">		SimpleGrantedAuthority b= null; </span>
+<span class="fc" id="L62">		b = new SimpleGrantedAuthority(&quot;user&quot;);</span>
+<span class="fc" id="L63">		userRoles.add(b);</span>
+		
+<span class="fc" id="L65">		Mockito.when(userRepository.findById(u2.getUserID())).thenReturn(Optional.of(u2));</span>
+<span class="fc" id="L66">		Collection&lt;? extends GrantedAuthority&gt; result = userService.getAuthority(u2);</span>
+<span class="fc" id="L67">		assertEquals(userRoles, result);</span>
+<span class="fc" id="L68">	}</span>
+	
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span>project-3-back-end (Jul 22, 2020 12:16:10 PM)</div></body></html>

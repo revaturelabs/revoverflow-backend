@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>RSSService.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">project-3-back-end (Jul 22, 2020 12:16:10 PM)</a> &gt; <a href="../../index.html" class="el_group">project-3-back-end</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.revature.services</a> &gt; <span class="el_source">RSSService.java</span></div><h1>RSSService.java</h1><pre class="source lang-java linenums">package com.revature.services;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.revature.DTOs.RSSAccountDTO;
+import com.revature.DTOs.RSSUserDTO;
+import com.revature.entities.User;
+import com.revature.repositories.UserRepository;
+import com.revature.util.JwtUtil;
+
+@Service
+public class RSSService {
+	
+	
+	@Autowired
+	UserRepository userRepository;
+
+	@Value(&quot;${environments.rss}&quot;)
+	String rssServiceUrl;
+	
+	RestTemplate restTemplate;
+	 
+	@Autowired
+<span class="fc" id="L38">	public RSSService(RestTemplateBuilder restTemplateBuilder) {</span>
+<span class="fc" id="L39">		this.restTemplate = restTemplateBuilder.build();</span>
+<span class="fc" id="L40">	}</span>
+	
+
+	
+	
+	
+	/**
+	 * @Author Ryan Clayton
+	 * @param u this takes in a RSSUserDto object with an email and password populated
+	 * @return User this user is authenticated with the RSS account service
+	 */
+	public User login(RSSUserDTO u) {
+		// create headers
+<span class="fc" id="L53">	    HttpHeaders headers = new HttpHeaders();</span>
+	    // set `content-type` header
+<span class="fc" id="L55">	    headers.setContentType(MediaType.APPLICATION_JSON);</span>
+	    // set `accept` header
+<span class="fc" id="L57">	    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));</span>
+<span class="fc" id="L58">	    String login = rssServiceUrl+&quot;/user/login/&quot;;</span>
+		//create map for user login post parameters
+<span class="fc" id="L60">		Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L61">		map.put(&quot;email&quot;, u.getEmail());</span>
+<span class="fc" id="L62">		map.put(&quot;password&quot;, u.getPassword());</span>
+		
+		//build the request
+<span class="fc" id="L65">		HttpEntity&lt;Map&lt;String,Object&gt;&gt; entity = new HttpEntity&lt;&gt;(map,headers);</span>
+		
+		//send Post Request
+<span class="fc" id="L68">		ResponseEntity&lt;RSSUserDTO&gt; response= this.restTemplate.postForEntity(login, entity, RSSUserDTO.class);</span>
+		
+		//Begin building User object
+<span class="fc" id="L71">		User user = new User();</span>
+<span class="fc" id="L72">		user.setEmail(u.getEmail());</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">		if(response.hasBody()) {	</span>
+			//continue building user from response body
+<span class="fc" id="L75">			RSSUserDTO body = response.getBody();</span>
+			
+			
+<span class="fc bfc" id="L78" title="All 2 branches covered.">			if(!userRepository.existsById(body.getUserId())) {</span>
+<span class="fc" id="L79">				user.setAdmin(body.getAdmin());</span>
+<span class="fc" id="L80">				user.setFirstName(body.getFirstName());</span>
+<span class="fc" id="L81">				user.setLastName(body.getLastName());</span>
+<span class="fc" id="L82">				user.setProfilePicture(body.getProfilePic());</span>
+<span class="fc" id="L83">				user.setUserID(body.getUserId());</span>
+				
+				
+				
+<span class="fc" id="L87">				String newAcc = rssServiceUrl+&quot;/account/new&quot;;</span>
+				//create map for new account post parameters
+<span class="fc" id="L89">				map.clear();</span>
+<span class="fc" id="L90">				map.put(&quot;userId&quot;,body.getUserId());</span>
+<span class="fc" id="L91">				map.put(&quot;accTypeId&quot;,3);</span>
+				
+				//build the request
+<span class="fc" id="L94">				entity = new HttpEntity&lt;&gt;(map,headers);</span>
+				//send the request
+<span class="fc" id="L96">				ResponseEntity&lt;RSSAccountDTO&gt; accResponse= this.restTemplate.postForEntity(newAcc, entity, RSSAccountDTO.class);</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">				if(accResponse.hasBody()) {</span>
+				
+					//finish building user object
+<span class="fc" id="L100">					RSSAccountDTO accBody = accResponse.getBody();</span>
+<span class="fc" id="L101">					user.setRSSAccountId(accBody.getAccId());</span>
+<span class="fc" id="L102">					user.setPoints(accBody.getPoints());</span>
+				
+				}
+				//create jwt for user
+<span class="fc" id="L106">				JwtUtil jwt = new JwtUtil();</span>
+<span class="fc" id="L107">				user.setJwt(jwt.generateToken(user));</span>
+				
+<span class="fc" id="L109">			}else {</span>
+<span class="fc" id="L110">				Optional&lt;User&gt; optUser = userRepository.findById(body.getUserId());</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">				if (optUser.isPresent()) {</span>
+					//get user data from our database
+<span class="fc" id="L113">					user = optUser.get();</span>
+					
+<span class="fc" id="L115">					String getPoints = rssServiceUrl+&quot;/account/account&quot;;</span>
+					//create url for rss points request
+					//create map for new account post parameters
+<span class="fc" id="L118">					map.clear();</span>
+<span class="fc" id="L119">					map.put(&quot;userId&quot;,user.getUserID());</span>
+<span class="fc" id="L120">					map.put(&quot;accId&quot;,user.getRSSAccountId());</span>
+					
+					//build the request
+<span class="fc" id="L123">					entity = new HttpEntity&lt;&gt;(map,headers);</span>
+				
+					//send the request
+<span class="fc" id="L126">					ResponseEntity&lt;RSSAccountDTO&gt; accResponse= this.restTemplate.postForEntity(getPoints, entity, RSSAccountDTO.class);</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">					if(accResponse.hasBody()) {</span>
+<span class="fc" id="L128">						user.setPoints(accResponse.getBody().getPoints());</span>
+					}
+					//create jwt token for our user
+<span class="fc" id="L131">					JwtUtil jwt = new JwtUtil();</span>
+<span class="fc" id="L132">					user.setJwt(jwt.generateToken(user));</span>
+
+				}
+			}
+			
+<span class="fc" id="L137">			return userRepository.save(user);</span>
+		}		
+		else {
+<span class="fc" id="L140">			return null;</span>
+		}
+	}
+
+	/**
+	 * @Author Kei
+	 * @param id  this is the user's id number
+	 * @return the number of points in a user's RSS account from the RSS account service
+	 */
+	public int getPoints(int id) {
+<span class="fc" id="L150">		HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L151">	    headers.setContentType(MediaType.APPLICATION_JSON);</span>
+<span class="fc" id="L152">	    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));</span>
+<span class="fc" id="L153">	    String getPoints = rssServiceUrl+&quot;/account/account&quot;;</span>
+
+<span class="fc" id="L155">	    Optional&lt;User&gt; optUser = userRepository.findById(id);</span>
+<span class="pc bpc" id="L156" title="1 of 4 branches missed.">	    if (optUser!=null &amp;&amp; optUser.isPresent()) {</span>
+<span class="fc" id="L157">	    	User user = optUser.get();</span>
+	    
+<span class="fc" id="L159">	    	Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L160">	    	map.put(&quot;accId&quot;, user.getRSSAccountId());</span>
+	    	
+<span class="fc" id="L162">	    	HttpEntity&lt;Map&lt;String,Object&gt;&gt; entity = new HttpEntity&lt;&gt;(map,headers);</span>
+	    	
+<span class="fc" id="L164">	    	ResponseEntity&lt;RSSAccountDTO&gt; response= this.restTemplate.postForEntity(getPoints, entity, RSSAccountDTO.class);</span>
+	    	
+<span class="fc" id="L166">	    	RSSAccountDTO account = response.getBody();</span>
+<span class="fc" id="L167">	    	return account.getPoints();</span>
+	    }else {
+<span class="fc" id="L169">	    	return 0;</span>
+	    }
+
+	}
+
+
+	/**
+	 * @Author Haji
+	 * @param acc  this takes in an RSSAccountDTO object with the userId and the number of points populated
+	 * @return the user with an updated number of points in both from our database as well as the RSS account service DB
+	 */
+
+	public User addPoints(RSSAccountDTO acc) {
+<span class="fc" id="L182">		 	HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L183">		    headers.setContentType(MediaType.APPLICATION_JSON);</span>
+<span class="fc" id="L184">		    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));</span>
+<span class="fc" id="L185">		    Optional&lt;User&gt; optUser = userRepository.findById(acc.getUserId());</span>
+<span class="pc bpc" id="L186" title="1 of 4 branches missed.">		    if (optUser!=null &amp;&amp; optUser.isPresent()) {</span>
+<span class="fc" id="L187">		    	User user = optUser.get();</span>
+		    	
+<span class="fc" id="L189">		    	String addPoints = rssServiceUrl+&quot;/account/points/a&quot;;</span>
+<span class="fc" id="L190">		    	Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L191">		    	map.put(&quot;accId&quot;, user.getRSSAccountId());</span>
+<span class="fc" id="L192">		    	map.put(&quot;points&quot;, acc.getPoints());</span>
+		    	
+<span class="fc" id="L194">		    	HttpEntity&lt;Map&lt;String,Object&gt;&gt; entity = new HttpEntity&lt;&gt;(map,headers);</span>
+		    	
+<span class="fc" id="L196">		    	ResponseEntity&lt;RSSAccountDTO&gt; response= this.restTemplate.postForEntity(addPoints, entity, RSSAccountDTO.class);</span>
+		    	
+<span class="fc bfc" id="L198" title="All 2 branches covered.">				if(response.getStatusCode()==HttpStatus.OK) {</span>
+<span class="fc" id="L199">					user.setPoints(user.getPoints()+acc.getPoints());</span>
+<span class="fc" id="L200">					return userRepository.save(user);</span>
+				}
+				else {
+<span class="fc" id="L203">					return null;</span>
+				}
+		    }
+		    else {
+<span class="fc" id="L207">		    	return null;</span>
+		    }
+
+	}
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span>project-3-back-end (Jul 22, 2020 12:16:10 PM)</div></body></html>

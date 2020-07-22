@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">project-3-back-end (Jul 22, 2020 12:16:10 PM)</a> &gt; <a href="../../index.html" class="el_group">project-3-back-end</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.revature.services</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package com.revature.services;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Service;
+
+import com.revature.entities.User;
+import com.revature.repositories.UserRepository;
+
+@Service
+<span class="fc" id="L16">public class UserService {</span>
+
+	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
+	RSSService rssService;
+	
+	/**
+	 * @author Ryan Clayton
+	 * @param id this is the user's Id
+	 * @return User this returns the user entity with updated RSS points
+	 */
+
+	public User getUserById(int id) {
+<span class="fc" id="L31">		Optional&lt;User&gt; optUser = userRepository.findById(id);</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">		if(optUser.isPresent()) {</span>
+<span class="fc" id="L33">			User user = optUser.get();</span>
+			try {
+				
+<span class="fc" id="L36">				user.setPoints(rssService.getPoints(id));</span>
+<span class="pc" id="L37">			}catch(Exception e){</span>
+				
+			}
+<span class="fc" id="L40">			return userRepository.save(user);</span>
+		}
+		else {
+<span class="fc" id="L43">			return null;</span>
+		}
+	}
+	public Collection&lt;? extends GrantedAuthority&gt; getAuthority(User u){
+<span class="fc" id="L47">		Collection&lt;GrantedAuthority&gt;auths = new ArrayList&lt;GrantedAuthority&gt;();</span>
+<span class="fc" id="L48">		Optional&lt;User&gt; optUser = userRepository.findById(u.getUserID());</span>
+<span class="fc" id="L49">		SimpleGrantedAuthority a= null; </span>
+		
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">		if (optUser.isPresent()) {</span>
+<span class="fc" id="L52">			User user = optUser.get();</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">			if(user.isAdmin()) {</span>
+<span class="fc" id="L54">				a = new SimpleGrantedAuthority(&quot;admin&quot;);</span>
+<span class="fc" id="L55">				auths.add(a);</span>
+<span class="fc" id="L56">				a = new SimpleGrantedAuthority(&quot;user&quot;);</span>
+<span class="fc" id="L57">				auths.add(a);</span>
+<span class="fc" id="L58">			}else {</span>
+<span class="fc" id="L59">				a = new SimpleGrantedAuthority(&quot;user&quot;);</span>
+<span class="fc" id="L60">				auths.add(a);</span>
+				
+			}
+		}
+<span class="fc" id="L64">		return auths;</span>
+		
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span>project-3-back-end (Jul 22, 2020 12:16:10 PM)</div></body></html>
