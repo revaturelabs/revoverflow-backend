@@ -30,6 +30,8 @@ import com.revature.entities.Answer;
 import com.revature.services.AnswerService;
 
 
+
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(AnswerController.class)
 public class AnswerControllerTest {
@@ -39,11 +41,6 @@ public class AnswerControllerTest {
 	
 	@MockBean
 	private AnswerService answerService;
-	
-	@Test
-	public void test() {
-		System.out.println("I am testing the AnswerControllerTest");
-	}
 	
 	/**@author ken*/
 	@Test
