@@ -77,6 +77,17 @@ public class AnswerServiceTest {
 		assertThat(result).contains(answer);	
 	}
 	
+	/** @author James */
+	@Test
+	public void updateAnswer() throws Exception {
+		Answer answer = new Answer();
+	
+		when(answerRepository.save(Mockito.any(Answer.class)))
+		.thenReturn(answer);
+		Answer result = answerService.save(answer);
+		assertEquals(result, answer);
+	}
+	
 	/** @author Natasha Poser  */
 	@Test
 	public void getAnswerByQuestionIdTest() throws Exception {
