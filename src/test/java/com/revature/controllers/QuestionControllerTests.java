@@ -113,7 +113,7 @@ public class QuestionControllerTests {
 		questions.add(new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1));
 		Page<Question> pageResult = new PageImpl<>(questions);
 		
-		// Stub getAllQuestions to return page of data
+		// Stub GetQuestionById to return page of data
 		when(questionService.getQuestionById(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn(pageResult);
 		
 		// Call API end point and assert result

@@ -29,9 +29,6 @@ import com.revature.controller.AnswerController;
 import com.revature.entities.Answer;
 import com.revature.services.AnswerService;
 
-
-
-
 @RunWith(SpringRunner.class)
 @WebMvcTest(AnswerController.class)
 public class AnswerControllerTest {
