@@ -15,7 +15,7 @@ public interface QuestionRepository extends JpaRepository<Question, Integer>{
 	Page<Question> getAllQuestionsByUserID(Pageable pageable, int id);
 
 	/**@author ken*/
-	@Query("FROM Question s WHERE :status = s.status")Page<Question> getQuestionsByStatus(Pageable pageable, boolean status);
+	@Query("FROM Question s WHERE :status = s.status")
 	Page<Question> getAllQuestionsByStatus(Pageable pageable, boolean status);
 
 	/** @author Natasha Poser */
