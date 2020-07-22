@@ -180,5 +180,4 @@ public class QuestionControllerTests {
         assertNotEquals(null, content);
             
     }
-		
 }
