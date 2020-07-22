@@ -39,7 +39,6 @@ public class QuestionController {
 		return questionService.getAllQuestions(pageable);
 	}
 
-	// issue Ambiguous handler method
 	/**@author ken*/
 	@GetMapping("/status/{status}")
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, @PathVariable boolean status)
@@ -74,13 +73,9 @@ public class QuestionController {
 	
 	/** @Author Natasha Poser */
 	@GetMapping("/id/{id}")
-	public Question getQuestionByQuestionId(@PathVariable int id) {
-		return questionService.findById(id);
+	public Page<Question> getQuestionById(Pageable pageable, @PathVariable int id) {
+		return questionService.getQuestionById(pageable, id);
 	}
 	
-	/** @author Hugh Thornhill */
-	@GetMapping("/recent")
-	public Page<Question> findAllByOrderByCreationDateDesc(Pageable creationDatePageable){
-		return questionService.findAllByOrderByCreationDateDesc(creationDatePageable);
-	}
+		
 }

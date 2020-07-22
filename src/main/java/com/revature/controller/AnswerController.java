@@ -1,7 +1,5 @@
 package com.revature.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,6 +35,13 @@ public class AnswerController {
 	public Page<Answer>getAnswers(Pageable pageable){
 			return answerService.getAnswers(pageable);
 	}
+
+	/** @author Natasha Poser */
+	@GetMapping("/{questionId}") 
+	public Page<Answer> getAnswersByQuestionId(Pageable pageable, @PathVariable int questionId){
+		return answerService.getAnswerByQuestionId(pageable, questionId);
+	}
+	
 
 	/** @Author James Walls */
 	@PostMapping
