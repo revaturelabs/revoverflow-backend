@@ -90,7 +90,7 @@ public class QuestionControllerTests {
 					.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			.andExpect(jsonPath("$.content[0].id", is(1)));
 			
-	}
+	} 
 	
 	/* @Author ken 	*/
 	@Test
