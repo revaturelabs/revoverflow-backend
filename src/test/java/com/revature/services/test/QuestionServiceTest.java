@@ -6,6 +6,8 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -64,6 +66,15 @@ public class QuestionServiceTest {
 				.thenReturn((pageResult));
 		Page<Question> result = questionService.getAllQuestionsByUserId(PageRequest.of(1, 5), 1);
 		assertThat(result).contains(question);
+	}
+	/** @author ken */
+	@Test
+	public void getAllQuestionsByID() throws Exception {
+		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);
+		when(questionRepository.findById( Mockito.anyInt()))
+		.thenReturn(Optional.of(question));
+		Question result = questionService.findById(1);
+		assertEquals(result, question);
 	}
 	
 	/** @author ken */

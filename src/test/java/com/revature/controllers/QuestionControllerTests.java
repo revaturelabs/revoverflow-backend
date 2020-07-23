@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -41,7 +40,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.Application;
-import com.revature.controller.QuestionController;
 import com.revature.entities.Question;
 import com.revature.entities.User;
 import com.revature.services.QuestionService;

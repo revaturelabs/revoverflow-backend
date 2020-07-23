@@ -34,7 +34,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.revature.Application;
-import com.revature.controller.AnswerController;
 import com.revature.entities.Answer;
 import com.revature.entities.User;
 import com.revature.services.AnswerService;
