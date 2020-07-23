@@ -54,6 +54,7 @@ public class QuestionController {
 	}
 
 	/** @Author James Walls */
+	/** Adds new questions and updates existing ones. */
 	@PostMapping
 	public Question saveQuestion(@Valid @RequestBody Question question) {
 		return questionService.save(question);
