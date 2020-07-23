@@ -71,13 +71,21 @@ public class QuestionController {
 		return questionService.save(question);
 	}
 
-	/**@author Hugh Thornhill*/
+	/** 
+	 * @author Hugh Thornhill 
+	 * @return This is the updateQuestionAcceptedAnswerId endpoint which updates the
+	 * acceptedId to the answer that is deemed the most acceptable.
+	 */
 	@PutMapping
 	public Question updateQuestionAcceptedAnswerId(@RequestBody Question question) {
 		return questionService.updateQuestionAcceptedAnswerId(question);
 	}
 
-	/**@author Hugh Thornhill*/
+	/** 
+	 * @author Hugh Thornhill 
+	 * @return This is the updateStatus endpoint which updates the question status and 
+	 * awards 20 points to the user who answered the question.
+	 */
 	@PutMapping("/status")
 	public Question updateStatus(@RequestBody Question question) {
 		return questionService.updateQuestionStatus(question, 20);
