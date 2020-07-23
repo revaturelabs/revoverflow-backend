@@ -22,6 +22,7 @@ public class AnswerService {
  
 	
 	/** @Author James Walls */
+ 	/** Adds new answers and updates existing ones. */
 	public Answer save(Answer answer) {
 		return answerRepository.save(answer);
 	} 
