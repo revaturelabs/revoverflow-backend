@@ -29,9 +29,6 @@ import com.revature.controller.AnswerController;
 import com.revature.entities.Answer;
 import com.revature.services.AnswerService;
 
-
-
-
 @RunWith(SpringRunner.class)
 @WebMvcTest(AnswerController.class)
 public class AnswerControllerTest {
@@ -92,5 +89,55 @@ public class AnswerControllerTest {
 						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.content[0].id", is(1)));
 	}
+	
+	/** @author Natasha Poser */
+	@Test
+	public void testGetAnswerByQuestionId() throws Exception {
+		List<Answer> answers = new ArrayList<>();
+		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
+		Page<Answer> pageResult = new PageImpl<>(answers);
+		
+		when(answerService.getAnswerByQuestionId(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn(pageResult);
+		
+		mvc.perform(get("/answers/1")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content()
+						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.content[0].id", is(1)));
+	}
+	
+	/** @author Natasha Poser */
+	@Test
+	public void testGetAcceptedAnswerByQuestionId() throws Exception {
+		List<Answer> answers = new ArrayList<>();
+		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
+		Page<Answer> pageResult = new PageImpl<>(answers);
+		
+		when(answerService.getAcceptedAnswerByQuestionId(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn(pageResult);
+		
+		mvc.perform(get("/answers/acceptedAnswers/1")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content()
+						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.content[0].id", is(1)));
+	}
+	/** @author Natasha Poser */
+	@Test
+	public void testGetAnswerById() throws Exception {
+		List<Answer> answers = new ArrayList<>();
+		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
+		Page<Answer> pageResult = new PageImpl<>(answers);
+		
+		when(answerService.getAnswerById(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn(pageResult);
+		
+		mvc.perform(get("/answers/id/1")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content()
+						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.content[0].id", is(1)));
+	} 
 	
 }
