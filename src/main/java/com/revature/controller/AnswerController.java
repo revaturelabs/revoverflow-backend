@@ -43,6 +43,7 @@ public class AnswerController {
 	
 
 	/** @Author James Walls */
+	/** Adds new answers and updates existing ones. */
 	@PostMapping
 	public Answer saveAnswer( @RequestBody Answer answer) {
 		return answerService.save(answer);
