@@ -121,7 +121,7 @@ public class QuestionControllerTests {
         questions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, false, 1);
         testQuestions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1);
 
-        when(questionService.updateQuestionStatus(Mockito.any(Question.class), Mockito.anyInt(),Mockito.anyInt())).thenReturn(testQuestions);
+        when(questionService.updateQuestionStatus(Mockito.any(Question.class), Mockito.anyInt())).thenReturn(testQuestions);
 
         String toUpdate = mapper.writeValueAsString(questions);
         org.springframework.test.web.servlet.MvcResult result = mvc.perform(MockMvcRequestBuilders.put("/questions/status")

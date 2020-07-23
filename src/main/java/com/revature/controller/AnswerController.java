@@ -49,6 +49,8 @@ public class AnswerController {
 	}
 	
 	/**@author ken*/
+	/**@param id = the id of the user
+	 * get all the Answers by the user id */
 	@GetMapping("/user/{id}")
 	public Page<Answer> getAllAnswersByUserID(Pageable pageable,@PathVariable int id){
 		return answerService.getAllAnswersByUserID(pageable, id);

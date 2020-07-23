@@ -102,8 +102,9 @@ public class QuestionServiceTest {
 		when(questionRepository.findById( Mockito.anyInt()))
 		.thenReturn(Optional.of(question));
 		Question result = questionService.findById(1);
+	}
 	
-		/** @author James */
+	/** @author James */
 	@Test
 	public void updateQuestion() throws Exception {
 		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);

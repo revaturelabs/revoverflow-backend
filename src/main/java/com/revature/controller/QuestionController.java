@@ -32,13 +32,18 @@ public class QuestionController {
 	@Autowired
 	QuestionService questionService;
 	
-	/**	 *@author ken */
+	/**	 *@author ken 
+	 * get all the questions*/
 	@GetMapping
 	public Page<Question> getAllQuestions(Pageable pageable)
 	{
 		return questionService.getAllQuestions(pageable);
 	}
 
+	/**
+	 * @param status = true/false
+	 * get all the questions by the status of the question
+	 */
 	/**@author ken*/
 	@GetMapping("/status/{status}")
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, @PathVariable boolean status)
@@ -47,6 +52,12 @@ public class QuestionController {
 	}
 
 	/**@author ken*/
+	/** @param id = user_id
+	 * get all the questions by user id
+	 * @param pageable
+	 * @param id = the id of the user
+	 * @return
+	 */
 	@GetMapping("/user/{id}")
 	public Page<Question> getAllQuestionsByUserId(Pageable pageable, @PathVariable int id)
 	{
