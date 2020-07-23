@@ -33,6 +33,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.revature.controller.QuestionController;
+import com.revature.entities.Answer;
 import com.revature.entities.Question;
 import com.revature.services.QuestionService;
 
@@ -177,6 +178,26 @@ public class QuestionControllerTests {
 			.andExpect(status().isOk())
 			.andExpect(content()
 					.contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+	}
+	
+	/** @author ken */
+	@Test
+	public void testSaveQuestion() throws Exception {
+		Question question = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1);
+
+		when(questionService.save(Mockito.any(Question.class))).thenReturn(question);
+		
+        String toUpdate = mapper.writeValueAsString(question);
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.post("/questions")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(toUpdate)
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                ).andReturn();
+        String content = result.getResponse().getContentAsString();
+        System.out.println("result = " + content);
+        assertEquals(200, result.getResponse().getStatus());
+        assertTrue("This return object conains the string", content.contains("content"));
+        assertNotEquals(null, content);
 	}
     
 }

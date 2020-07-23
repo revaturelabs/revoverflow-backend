@@ -2,6 +2,8 @@ package com.revature.controllers.test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -32,6 +34,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.net.HttpHeaders;
 import com.revature.controller.AnswerController;
 import com.revature.entities.Answer;
@@ -40,6 +43,9 @@ import com.revature.services.AnswerService;
 @RunWith(SpringRunner.class)
 @WebMvcTest(AnswerController.class)
 public class AnswerControllerTest {
+	
+	@Autowired
+    private ObjectMapper mapper;
 	
 	@Autowired
 	private MockMvc mvc;
@@ -64,34 +70,24 @@ public class AnswerControllerTest {
 				.andExpect(jsonPath("$.content[0].id", is(1)));
 	}
 	
-	
+	/** @author ken */
 	@Test
 	public void testSaveAnswer() throws Exception {
-		Answer answer = new Answer(2, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);
+		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);
 
 		when(answerService.save(Mockito.any(Answer.class))).thenReturn(answer);
 		
-	
-		String aString = answer.toString(); 
-		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.post("/answers")
-				.accept(MediaType.APPLICATION_JSON).content(aString)
-				.contentType(MediaType.APPLICATION_JSON);
-		
-	//ResultActions result = mvc.perform(requestBuilder).andExpect(jsonPath("$.content[0].id", is(1)));
-			//.accept(MediaType.APPLICATION_JSON).content(aString)
-				// .contentType(MediaType.APPLICATION_JSON)).andReturn();
-		 		// .andExpect(status().isOk())
-	           //  .andExpect(content()
-	     		//				.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-	            // .andExpect(jsonPath("$.content[0].content", is(2)));
-	//MockHttpServletResponse response = result.getResponse();
-	//System.out.println("what is the response" + response);
-	//System.out.println("result = " + result);
-	//assertEquals(HttpStatus.CREATED.value(), response.getStatus());
-	//assertEquals("http://localhost/answers",
-	//	response.getHeader(HttpHeaders.LOCATION));
+        String toUpdate = mapper.writeValueAsString(answer);
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.post("/answers")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(toUpdate)
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                ).andReturn();
+        String content = result.getResponse().getContentAsString();
+        System.out.println("result = " + content);
+        assertEquals(200, result.getResponse().getStatus());
+        assertTrue("This return object conains the string", content.contains("test content"));
+        assertNotEquals(null, content);
 	}
 	
 	
