@@ -18,6 +18,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
@@ -31,7 +32,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.Application;
+import com.revature.controller.AnswerController;
+
 import com.revature.entities.Answer;
 import com.revature.entities.User;
 import com.revature.services.AnswerService;
@@ -43,6 +47,8 @@ import com.revature.services.AnswerService;
 		classes = Application.class)
 @AutoConfigureMockMvc
 public class AnswerControllerTest {
+	@Autowired 
+	private ObjectMapper mapper;
 	static User u1;
 	
 	@Autowired
@@ -53,7 +59,7 @@ public class AnswerControllerTest {
 	
 	@MockBean
 	private AnswerService answerService;
-	
+
 	@Before                          
     public void setUp() {  
        u1 = new User(12,26,0,true,null,"admin@rss.com","Admin","Admin");
@@ -65,7 +71,7 @@ public class AnswerControllerTest {
 	
 	/**@author ken*/
 	@Test
-    @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
+  @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testGetAnswers() throws Exception{
 		List<Answer> answers = new ArrayList<>();
 		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
@@ -81,26 +87,29 @@ public class AnswerControllerTest {
 				.andExpect(jsonPath("$.content[0].id", is(1)));
 	}
 	
-	/*
+	
 	@Test
+	@WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testSaveAnswer() throws Exception {
+		
 		Answer answer = new Answer(2, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);
+		String content = mapper.writeValueAsString(answer);
 
 		when(answerService.save(Mockito.any(Answer.class))).thenReturn(answer);
 	
 		 mvc.perform(post("/answers")
 				 .contentType(MediaType.APPLICATION_JSON)
-				 .content(answer.toString()))
+				 .content(content))
 		 		 .andExpect(status().isOk())
 	             .andExpect(content()
-	     						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-	             .andExpect(jsonPath("$.content[0].content", is(2)));
+	     						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+	             //.andExpect(jsonPath("$.content[0].content", is(2)));
 	}
-	*/
+	
 	
 	/**@author ken*/
 	@Test
-    @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
+	@WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testGetAnswerByUserId() throws Exception {
 		List<Answer> answers = new ArrayList<>();
 		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
@@ -116,9 +125,10 @@ public class AnswerControllerTest {
 				.andExpect(jsonPath("$.content[0].id", is(1)));
 	}
 	
+
 	/** @author Natasha Poser */
 	@Test
-    @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
+   @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testGetAnswerByQuestionId() throws Exception {
 		List<Answer> answers = new ArrayList<>();
 		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
@@ -138,6 +148,7 @@ public class AnswerControllerTest {
 	@Test
     @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testGetAcceptedAnswerByQuestionId() throws Exception {
+
 		List<Answer> answers = new ArrayList<>();
 		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
 		Page<Answer> pageResult = new PageImpl<>(answers);
@@ -151,6 +162,7 @@ public class AnswerControllerTest {
 						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.content[0].id", is(1)));
 	}
+
 	/** @author Natasha Poser */
 	@Test
     @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
