@@ -11,7 +11,6 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -76,4 +75,66 @@ public class AnswerServiceTest {
 		Page<Answer> result = answerService.getAllAnswersByUserID(PageRequest.of(1, 5), 1);
 		assertThat(result).contains(answer);	
 	}
+	
+	/** @author James */
+	@Test
+	public void updateAnswer() throws Exception {
+		Answer answer = new Answer();
+	
+		when(answerRepository.save(Mockito.any(Answer.class)))
+		.thenReturn(answer);
+		Answer result = answerService.save(answer);
+		assertEquals(result, answer);
+	}
+	
+	/** @author Natasha Poser  */
+	@Test
+	public void getAnswerByQuestionIdTest() throws Exception {
+		
+		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
+		List<Answer> answers = new ArrayList<>();	
+		answers.add(answer);	
+
+		Page<Answer> pageResult = new PageImpl<Answer>(answers);	
+
+		when(answerRepository.getAnswerByQuestionId(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn((pageResult));	
+
+		Page<Answer> result = answerService.getAnswerByQuestionId(PageRequest.of(1, 5), 1);
+		assertThat(result).contains(answer);	
+	}
+	
+	/** @author Natasha Poser  */
+	@Test
+	public void getAcceptedAnswerByQuestionIdTest() throws Exception {
+		
+		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
+		List<Answer> answers = new ArrayList<>();	
+		answers.add(answer);	
+
+		Page<Answer> pageResult = new PageImpl<Answer>(answers);	
+
+		when(answerRepository.getAcceptedAnswerByQuestionId(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn((pageResult));	
+
+		Page<Answer> result = answerService.getAcceptedAnswerByQuestionId(PageRequest.of(1, 5), 1);
+		assertThat(result).contains(answer);	
+	}
+	
+	
+	
+	/** @author Natasha Poser  */
+	@Test
+	public void getAnswerByIdTest() throws Exception {
+		
+		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
+		List<Answer> answers = new ArrayList<>();	
+		answers.add(answer);	
+
+		Page<Answer> pageResult = new PageImpl<Answer>(answers);	
+
+		when(answerRepository.getAnswerById(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn((pageResult));	
+
+		Page<Answer> result = answerService.getAnswerById(PageRequest.of(1, 5), 1);
+		assertThat(result).contains(answer);	
+	}
+	
 }

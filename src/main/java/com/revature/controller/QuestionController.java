@@ -5,10 +5,12 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,10 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.entities.Question;
 import com.revature.services.QuestionService;
 
+
 @RestController
 @RequestMapping("/questions")
+@CrossOrigin(
+		origins = { "http://localhost:3000" }, 
+		methods = { RequestMethod.GET, RequestMethod.PUT, 
+					RequestMethod.PATCH, RequestMethod.POST },
+		allowedHeaders = { "content-type" }
+	)
 public class QuestionController {
-
+	
 	@Autowired
 	QuestionService questionService;
 	
@@ -59,12 +68,14 @@ public class QuestionController {
 	/**@author Hugh Thornhill*/
 	@PutMapping("/status")
 	public Question updateStatus(@RequestBody Question question) {
-		return questionService.save(question);
+		return questionService.updateQuestionStatus(question, 20);
 	}
 	
 	/** @Author Natasha Poser */
 	@GetMapping("/id/{id}")
-	public Question getQuestionByQuestionId(@PathVariable int id) {
+	public Question getQuestionById(@PathVariable int id) {
 		return questionService.findById(id);
 	}
+	
+		
 }
