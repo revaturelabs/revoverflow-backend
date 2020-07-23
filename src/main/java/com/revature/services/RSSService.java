@@ -151,7 +151,6 @@ public class RSSService {
 	    String getPoints = rssServiceUrl+"/account/account";
 
 	    Optional<User> optUser = userRepository.findById(id);
-	    System.out.println(optUser);
 	    if (optUser.isPresent()) {
 	    	User user = optUser.get();
 	    
