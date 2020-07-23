@@ -70,15 +70,11 @@ public class QuestionControllerTests {
 	@Autowired
 	private MockMvc mvc;
 	
-	@Autowired
-	private WebApplicationContext context;
-	
+
 	@MockBean
 	private QuestionService questionService;
 	
 
-	@Autowired
-    private ObjectMapper mapper;
 	
     @Before                          
     public void setUp() {  
