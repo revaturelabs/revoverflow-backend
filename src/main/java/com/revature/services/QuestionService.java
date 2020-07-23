@@ -4,9 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -21,7 +19,7 @@ import com.revature.repositories.QuestionRepository;
 @Service
 public class QuestionService {
 
-	@Autowired
+	@Autowired 
 	RSSService rssService;	
 	
 	@Autowired
@@ -46,7 +44,6 @@ public class QuestionService {
 	
 	/** @Author James Walls */
 	public Question save(Question question) {
-		System.out.println("I am the question = " + question.getTitle());
 		return questionRepository.save(question);
 	}
 
@@ -74,21 +71,17 @@ public class QuestionService {
 		if(question.getId() == 0) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
 		}
-		
 		// ensures someone isn't maliciously updating the question
 		Optional<Question> optQuestion = questionRepository.findById(question.getId());
 		if(optQuestion.isPresent()) {
-			
 			// This overwrites the question from the parameter above, and replaces it with the one from the database
 			question = optQuestion.get();
 		}
-		
 		// If the status is already true OR the accepted id is 0/null then it will throw an error
-		if(question.isStatus() == true || question.getAcceptedId() == 0) {
+		if(question.isStatus() || question.getAcceptedId() == 0) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
 		}
-		
-		// Sets the status as true
+		// Sets the status as true3
 		question.setStatus(true);
 		
 		Optional<Answer> optAnswer = answerRepository.findById(question.getAcceptedId());
@@ -103,7 +96,6 @@ public class QuestionService {
 		return save(question);
 	}
 	
-	
   /** @Author Natasha Poser */ 
 	public Question findById(int id) {
 		return questionRepository.findById(id)
@@ -112,12 +104,7 @@ public class QuestionService {
 
 	/**@author ken*/
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, boolean status){
-		return questionRepository.getAllQuestionsByStatus(pageable, status);
+		return questionRepository.getQuestionsByStatus(pageable, status);
 	}
 	
-	/** @author Hugh Thornhill */
-	public Page<Question> findAllByOrderByCreationDateDesc(Pageable pageable) {
-		Pageable pageableDate = PageRequest.of(0, 20, Sort.by("creationDate").descending());
-		return questionRepository.findAllByOrderByCreationDateDesc(pageableDate);
-	}
 }

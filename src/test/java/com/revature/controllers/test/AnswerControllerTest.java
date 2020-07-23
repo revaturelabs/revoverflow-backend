@@ -4,7 +4,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,12 +35,13 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.Application;
 import com.revature.controller.AnswerController;
+
 import com.revature.entities.Answer;
 import com.revature.entities.User;
 import com.revature.services.AnswerService;
 
-
 @RunWith(SpringRunner.class)
+@ContextConfiguration
 @SpringBootTest(
 		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
 		classes = Application.class)
@@ -49,22 +49,29 @@ import com.revature.services.AnswerService;
 public class AnswerControllerTest {
 	@Autowired 
 	private ObjectMapper mapper;
+	static User u1;
 	
 	@Autowired
 	private MockMvc mvc;
 	
+	@Autowired
+	private WebApplicationContext context;
+	
 	@MockBean
 	private AnswerService answerService;
-	
-	@Test
-	public void test() {
-		System.out.println("I am testing the AnswerControllerTest");
-	}
 
+	@Before                          
+    public void setUp() {  
+       u1 = new User(12,26,0,true,null,"admin@rss.com","Admin","Admin");
+   	   mvc = MockMvcBuilders
+   				.webAppContextSetup(context)
+   				.apply(springSecurity())
+   				.build();
+    }
 	
 	/**@author ken*/
 	@Test
-	@WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
+  @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testGetAnswers() throws Exception{
 		List<Answer> answers = new ArrayList<>();
 		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
@@ -118,9 +125,30 @@ public class AnswerControllerTest {
 				.andExpect(jsonPath("$.content[0].id", is(1)));
 	}
 	
+
+	/** @author Natasha Poser */
 	@Test
-	@WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
-	public void testGetAnswerAccepted() throws Exception {
+   @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
+	public void testGetAnswerByQuestionId() throws Exception {
+		List<Answer> answers = new ArrayList<>();
+		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
+		Page<Answer> pageResult = new PageImpl<>(answers);
+		
+		when(answerService.getAnswerByQuestionId(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn(pageResult);
+		
+		mvc.perform(get("/answers/1")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content()
+						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.content[0].id", is(1)));
+	}
+	
+	/** @author Natasha Poser */
+	@Test
+    @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
+	public void testGetAcceptedAnswerByQuestionId() throws Exception {
+
 		List<Answer> answers = new ArrayList<>();
 		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
 		Page<Answer> pageResult = new PageImpl<>(answers);
@@ -134,5 +162,23 @@ public class AnswerControllerTest {
 						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.content[0].id", is(1)));
 	}
+
+	/** @author Natasha Poser */
+	@Test
+    @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
+	public void testGetAnswerById() throws Exception {
+		List<Answer> answers = new ArrayList<>();
+		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
+		Page<Answer> pageResult = new PageImpl<>(answers);
+		
+		when(answerService.getAnswerById(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn(pageResult);
+		
+		mvc.perform(get("/answers/id/1")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content()
+						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.content[0].id", is(1)));
+	} 
 	
 }
