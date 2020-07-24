@@ -181,18 +181,16 @@ public class AnswerControllerTest {
 	@Test
     @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testGetAnswerById() throws Exception {
-		List<Answer> answers = new ArrayList<>();
-		answers.add(new Answer(1, 1, 1, "Test content", ts, ts));
-		Page<Answer> pageResult = new PageImpl<>(answers);
+		Answer answer = new Answer(1, 1, 1, "Test content", ts, ts);
 		
-		when(answerService.getAnswerById(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn(pageResult);
+		
+		when(answerService.getAnswerById(Mockito.anyInt())).thenReturn(answer);
 		
 		mvc.perform(get("/answers/id/1")
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content()
-						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.content[0].id", is(1)));
+						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 	} 
 	
 }
