@@ -129,6 +129,7 @@ public class AnswerServiceTest {
 		when(answerRepository.findById( Mockito.anyInt()))
 		.thenReturn(Optional.of(answer));
 		Answer result = answerService.getAnswerById(1);
+		assertEquals(result, answer);
 	} 
 	
 	
