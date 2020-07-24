@@ -3,11 +3,12 @@ package com.revature.services.test;
 import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import java.sql.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -46,10 +47,12 @@ public class QuestionServiceTest {
 	@MockBean
 	RSSService rssService;
 
+	private Timestamp ts = new Timestamp(100000);
+	
 	/** @author Hugh Thornhill */
 	@Test
 	public void getAllQuestionsTest() throws Exception {
-		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);
+		Question question = new Question(1, 0, "Title", "Content", ts, null, false, 1);
 		List<Question> questions = new ArrayList<>();
 		questions.add(question);
 		Page<Question> pageResult = new PageImpl<>(questions);
@@ -62,7 +65,7 @@ public class QuestionServiceTest {
 	/** @author Hugh Thornhill */
 	@Test
 	public void getAllQuestionsByUserID() throws Exception {
-		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);
+		Question question = new Question(1, 0, "Title", "Content", ts, null, false, 1);
 		List<Question> questions = new ArrayList<>();
 		questions.add(question);
 		Page<Question> pageResult = new PageImpl<Question>(questions);
@@ -74,7 +77,7 @@ public class QuestionServiceTest {
 	/** @author ken */
 	@Test
 	public void getAllQuestionsByID() throws Exception {
-		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);
+		Question question = new Question(1, 0, "Title", "Content", ts, null, false, 1);
 		when(questionRepository.findById( Mockito.anyInt()))
 		.thenReturn(Optional.of(question));
 		Question result = questionService.findById(1);
@@ -84,7 +87,7 @@ public class QuestionServiceTest {
 	/** @author ken */
 	@Test
 	public void getAllQuestionsByStatus() throws Exception {
-		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);
+		Question question = new Question(1, 0, "Title", "Content", ts, null, false, 1);
 		List<Question> questions = new ArrayList<>();
 		questions.add(question);
 		Page<Question> pageResult = new PageImpl<Question>(questions);
@@ -97,7 +100,7 @@ public class QuestionServiceTest {
 	/** @author ken */
 	@Test
 	public void updateQuestionAcceptedAnswerId() throws Exception {
-		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);
+		Question question = new Question(1, 0, "Title", "Content", ts, null, false, 1);
 	
 		when(questionRepository.save(Mockito.any(Question.class)))
 		.thenReturn(question);
@@ -108,7 +111,7 @@ public class QuestionServiceTest {
 	/** @author ken */
 	@Test
 	public void getQuestionByID() throws Exception {
-		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);
+		Question question = new Question(1, 0, "Title", "Content", ts, null, false, 1);
 
 		when(questionRepository.findById( Mockito.anyInt()))
 		.thenReturn(Optional.of(question));
@@ -119,7 +122,7 @@ public class QuestionServiceTest {
 	/** @author James */
 	@Test
 	public void updateQuestion() throws Exception {
-		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);
+		Question question = new Question(1, 0, "Title", "Content", ts, null, false, 1);
 	
 		when(questionRepository.save(Mockito.any(Question.class)))
 		.thenReturn(question);
@@ -129,8 +132,8 @@ public class QuestionServiceTest {
 	/**@author Bukadiri Trawally*/
 	@Test
 	public void updateQuestionAcceptedAnswerId_will_return_question() {
-		Question q = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, false, 1);
-		Question q1 = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1);
+		Question q = new Question(1,1,"title","content", ts, ts, false, 1);
+		Question q1 = new Question(1,1,"title","content", ts, ts, true, 1);
 		Mockito.when(questionRepository.save(q)).thenReturn(q1);
 		
 		Question q2 = questionService.updateQuestionAcceptedAnswerId(q);
@@ -143,7 +146,7 @@ public class QuestionServiceTest {
 	@Test(expected = HttpClientErrorException.class)
 	public void updateQuestionAcceptedAnswerId_will_return_bad_request() {
 		//Intentional send question with id = 0
-		Question q2 = new Question(0,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1);
+		Question q2 = new Question(0,1,"title","content", ts, ts, true, 1);
 		Mockito.when(questionRepository.save(Mockito.any(Question.class))).thenReturn(null);
 		
 		Question q3 = questionService.updateQuestionAcceptedAnswerId(q2);
@@ -155,7 +158,7 @@ public class QuestionServiceTest {
 	@Test(expected = HttpClientErrorException.class)
 	public void updateQuestionStatus_will_return_bad_request() {
 		//Intentional send question with id = 0
-		Question q2 = new Question(0,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1);
+		Question q2 = new Question(0,1,"title","content", ts, ts, true, 1);
 		Mockito.when(questionRepository.save(Mockito.any(Question.class))).thenReturn(null);
 		
 		Question q3 = questionService.updateQuestionStatus(q2, 0);
@@ -166,9 +169,10 @@ public class QuestionServiceTest {
 	@Test
 	public void update_question_status_return_the_question() {
 		RSSAccountDTO mew = new RSSAccountDTO(12, 20);
-		Answer a = new Answer(1, 12, 1,"hail sithis",LocalDate.MIN, LocalDate.MIN );
-		Question q = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, false, 12);
-		Question q1 = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 12);
+
+		Answer a = new Answer(1, 12, 1,"hail sithis", ts, ts );
+		Question q = new Question(1,1,"title","content", ts, ts, false, 12);
+		Question q1 = new Question(1,1,"title","content", ts, ts, true, 12);
 		Mockito.when(questionRepository.save(q)).thenReturn(q1);
 		Mockito.when(questionRepository.findById(q.getId())).thenReturn(Optional.of(q));
 		//Mockito.doReturn(q).when(questionRepository.findById(q.getId()));

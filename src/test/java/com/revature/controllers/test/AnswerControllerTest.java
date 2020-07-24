@@ -11,7 +11,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.LocalDate;
+import java.sql.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +69,8 @@ public class AnswerControllerTest {
 	@MockBean
 	private AnswerService answerService;
 
+	private Timestamp ts = new Timestamp(100000);
+	
 	@Before                          
     public void setUp() {  
        u1 = new User(12,26,0,true,null,"admin@rss.com","Admin","Admin");
@@ -76,13 +79,13 @@ public class AnswerControllerTest {
    				.apply(springSecurity())
    				.build();
     }
-	
+
 	/**@author ken*/
 	@Test
     @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testGetAnswers() throws Exception{
 		List<Answer> answers = new ArrayList<>();
-		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
+		answers.add(new Answer(1, 1, 1, "Test content", ts, ts));
 		Page<Answer> pageResult = new PageImpl<>(answers);
 		
 		when(answerService.getAnswers(Mockito.any(Pageable.class))).thenReturn(pageResult);
@@ -99,7 +102,7 @@ public class AnswerControllerTest {
 	@Test
 	@WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testSaveAnswer() throws Exception {
-		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);
+		Answer answer = new Answer(1, 1, 1, "test content", ts, ts);
 
 		when(answerService.save(Mockito.any(Answer.class))).thenReturn(answer);
 		
@@ -123,7 +126,7 @@ public class AnswerControllerTest {
 	@WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testGetAnswerByUserId() throws Exception {
 		List<Answer> answers = new ArrayList<>();
-		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
+		answers.add(new Answer(1, 1, 1, "Test content", ts, ts));
 		Page<Answer> pageResult = new PageImpl<>(answers);
 		
 		when(answerService.getAllAnswersByUserID(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn(pageResult);
@@ -142,7 +145,7 @@ public class AnswerControllerTest {
     @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testGetAnswerByQuestionId() throws Exception {
 		List<Answer> answers = new ArrayList<>();
-		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
+		answers.add(new Answer(1, 1, 1, "Test content", ts, ts));
 		Page<Answer> pageResult = new PageImpl<>(answers);
 		
 		when(answerService.getAnswerByQuestionId(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn(pageResult);
@@ -161,7 +164,7 @@ public class AnswerControllerTest {
 	public void testGetAcceptedAnswerByQuestionId() throws Exception {
 
 		List<Answer> answers = new ArrayList<>();
-		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
+		answers.add(new Answer(1, 1, 1, "Test content", ts, ts));
 		Page<Answer> pageResult = new PageImpl<>(answers);
 		
 		when(answerService.getAcceptedAnswerByQuestionId(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn(pageResult);
@@ -179,7 +182,7 @@ public class AnswerControllerTest {
     @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
 	public void testGetAnswerById() throws Exception {
 		List<Answer> answers = new ArrayList<>();
-		answers.add(new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN));
+		answers.add(new Answer(1, 1, 1, "Test content", ts, ts));
 		Page<Answer> pageResult = new PageImpl<>(answers);
 		
 		when(answerService.getAnswerById(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn(pageResult);

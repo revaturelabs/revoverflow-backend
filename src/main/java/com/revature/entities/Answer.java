@@ -1,6 +1,6 @@
 package com.revature.entities;
 
-import java.time.LocalDate;
+import java.sql.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,10 +28,10 @@ public class Answer {
 	private String content;
 
 	// add the not null check in the service layer
-	private LocalDate creationDate;
+	private Timestamp creationDate;
 
 
-	private LocalDate editDate;
+	private Timestamp editDate;
 
 
 	public int getId() {
@@ -74,22 +74,22 @@ public class Answer {
 	}
 
 
-	public LocalDate getCreationDate() {
+	public Timestamp getCreationDate() {
 		return creationDate;
 	}
 
 
-	public void setCreationDate(LocalDate creationDate) {
+	public void setCreationDate(Timestamp creationDate) {
 		this.creationDate = creationDate;
 	}
 
 
-	public LocalDate getEditDate() {
+	public Timestamp getEditDate() {
 		return editDate;
 	}
 
 
-	public void setEditDate(LocalDate editDate) {
+	public void setEditDate(Timestamp editDate) {
 		this.editDate = editDate;
 	}
 
@@ -150,8 +150,8 @@ public class Answer {
 
 
 	public Answer(int id, int userId, int questionId,
-			@NotBlank(message = "Content must have a string value") String content, LocalDate creationDate,
-			LocalDate editDate) {
+			@NotBlank(message = "Content must have a string value") String content, Timestamp creationDate,
+			Timestamp editDate) {
 		super();
 		this.id = id;
 		this.userId = userId;

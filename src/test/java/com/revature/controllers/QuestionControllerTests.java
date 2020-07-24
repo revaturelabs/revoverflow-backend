@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.sql.*;	
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -67,6 +68,8 @@ public class QuestionControllerTests {
 	@MockBean
 	private QuestionService questionService;
 	
+	private Timestamp ts = new Timestamp(100000);
+	
     @Before                          
     public void setUp() {  
        u1 = new User(12,26,0,true,null,"admin@rss.com","Admin","Admin");
@@ -83,7 +86,7 @@ public class QuestionControllerTests {
 		
 		// Create page of data
 		List<Question> questions = new ArrayList<>();
-		questions.add(new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1));
+		questions.add(new Question(1,1,"title","content", ts, ts, true, 1));
 		Page<Question> pageResult = new PageImpl<>(questions);
 		
 		// Stub getAllQuestions to return page of data
@@ -105,7 +108,7 @@ public class QuestionControllerTests {
 	public void testGetAllQuestionsByUserId() throws Exception {
 		// Create page of data
 		List<Question> questions = new ArrayList<>();
-		questions.add(new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1));
+		questions.add(new Question(1,1,"title","content", ts, ts, true, 1));
 		Page<Question> pageResult = new PageImpl<>(questions);
 		
 		// Stub getAllQuestions to return page of data
@@ -129,7 +132,7 @@ public class QuestionControllerTests {
 		
 		// Create page of data
 		List<Question> questions = new ArrayList<>();
-		questions.add(new Question(1,1,"title", "content", LocalDate.MIN, LocalDate.MIN, false, 1));
+		questions.add(new Question(1,1,"title", "content", ts, ts, false, 1));
 		Page<Question> pageResult = new PageImpl<>(questions);
 		
 		// Stub getAllQuestions to return page of data
@@ -150,8 +153,8 @@ public class QuestionControllerTests {
     @WithMockUser(username = "admin@rss.com", password = "Password123!", authorities = "admin")
     public void updateStatus() throws Exception {
         Question questions, testQuestions;
-        questions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, false, 1);
-        testQuestions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1);
+        questions = new Question(1,1,"title","content", ts, ts, false, 1);
+        testQuestions = new Question(1,1,"title","content", ts, ts, true, 1);
 
         when(questionService.updateQuestionStatus(Mockito.any(Question.class), Mockito.anyInt())).thenReturn(testQuestions);
         String toUpdate = mapper.writeValueAsString(questions);
@@ -169,8 +172,8 @@ public class QuestionControllerTests {
     @WithMockUser(username = "admin@rss.com", password = "Password123!", authorities = "user")
     public void updateQuestionAcceptedAnswerId() throws Exception {
         Question questions, testQuestions;
-        questions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, false, 1);
-        testQuestions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1);
+        questions = new Question(1,1,"title","content", ts, ts, false, 1);
+        testQuestions = new Question(1,1,"title","content", ts, ts, true, 1);
         when(questionService.updateQuestionAcceptedAnswerId(Mockito.any(Question.class))).thenReturn(testQuestions);
         String toUpdate = mapper.writeValueAsString(questions);
         MvcResult result = mvc.perform(MockMvcRequestBuilders.put("/questions")
@@ -190,7 +193,7 @@ public class QuestionControllerTests {
 	public void testGetQuestionByQuestionId() throws Exception {
 		
 		// Create page of data
-		Question question = new Question(1,1,"title", "content", LocalDate.MIN, LocalDate.MIN, false, 1);
+		Question question = new Question(1,1,"title", "content", ts, ts, false, 1);
 		//Page<Question> pageResult = new PageImpl<>(question);
 		
 		// Stub getAllQuestions to return page of data
@@ -208,7 +211,7 @@ public class QuestionControllerTests {
 	@Test
     @WithMockUser(username = "admin@rss.com", password = "Password123!", authorities = "user")
 	public void testSaveQuestion() throws Exception {
-		Question question = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1);
+		Question question = new Question(1,1,"title","content", ts, ts, true, 1);
 
 		when(questionService.save(Mockito.any(Question.class))).thenReturn(question);
 		

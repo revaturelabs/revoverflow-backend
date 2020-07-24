@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,11 +42,13 @@ public class AnswerServiceTest {
 	@Autowired
 	RSSService rssservice;
 	
+	private Timestamp ts = new Timestamp(100000);
+
 	/** @author ken */
 	@Test
 	public void getAllAnswersTest() throws Exception {
 		
-		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
+		Answer answer = new Answer(1, 1, 1, "test content", ts, ts);	
 		List<Answer> answers = new ArrayList<>();	
 		answers.add(answer);	
 
@@ -63,7 +66,7 @@ public class AnswerServiceTest {
 	@Test
 	public void getAllAnswersByUserIDTest() throws Exception {
 		
-		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
+		Answer answer = new Answer(1, 1, 1, "test content", ts, ts);	
 		List<Answer> answers = new ArrayList<>();	
 		answers.add(answer);	
 
@@ -90,7 +93,7 @@ public class AnswerServiceTest {
 	@Test
 	public void getAnswerByQuestionIdTest() throws Exception {
 		
-		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
+		Answer answer = new Answer(1, 1, 1, "test content", ts, ts);	
 		List<Answer> answers = new ArrayList<>();	
 		answers.add(answer);	
 
@@ -106,7 +109,7 @@ public class AnswerServiceTest {
 	@Test
 	public void getAcceptedAnswerByQuestionIdTest() throws Exception {
 		
-		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
+		Answer answer = new Answer(1, 1, 1, "test content", ts, ts);	
 		List<Answer> answers = new ArrayList<>();	
 		answers.add(answer);	
 
@@ -124,7 +127,7 @@ public class AnswerServiceTest {
 	@Test
 	public void getAnswerByIdTest() throws Exception {
 		
-		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
+		Answer answer = new Answer(1, 1, 1, "test content", ts, ts);	
 		List<Answer> answers = new ArrayList<>();	
 		answers.add(answer);	
 
