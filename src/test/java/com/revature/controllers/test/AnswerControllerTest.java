@@ -69,7 +69,7 @@ public class AnswerControllerTest {
 	@MockBean
 	private AnswerService answerService;
 
-	private Timestamp ts = new Timestamp(100000);
+	private Date ts = new Date(100000);
 	
 	@Before                          
     public void setUp() {  

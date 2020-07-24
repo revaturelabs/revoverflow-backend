@@ -28,10 +28,9 @@ public class Answer {
 	private String content;
 
 	// add the not null check in the service layer
-	private Timestamp creationDate;
+	private Date creationDate;
 
-
-	private Timestamp editDate;
+	private Date editDate;
 
 
 	public int getId() {
@@ -74,22 +73,22 @@ public class Answer {
 	}
 
 
-	public Timestamp getCreationDate() {
+	public Date getCreationDate() {
 		return creationDate;
 	}
 
 
-	public void setCreationDate(Timestamp creationDate) {
+	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
 
 
-	public Timestamp getEditDate() {
+	public Date getEditDate() {
 		return editDate;
 	}
 
 
-	public void setEditDate(Timestamp editDate) {
+	public void setEditDate(Date editDate) {
 		this.editDate = editDate;
 	}
 
@@ -150,8 +149,8 @@ public class Answer {
 
 
 	public Answer(int id, int userId, int questionId,
-			@NotBlank(message = "Content must have a string value") String content, Timestamp creationDate,
-			Timestamp editDate) {
+			@NotBlank(message = "Content must have a string value") String content, Date creationDate,
+			Date editDate) {
 		super();
 		this.id = id;
 		this.userId = userId;

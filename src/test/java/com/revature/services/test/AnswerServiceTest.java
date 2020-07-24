@@ -44,7 +44,7 @@ public class AnswerServiceTest {
 	@Autowired
 	RSSService rssservice;
 	
-	private Timestamp ts = new Timestamp(100000);
+	private Date ts = new Date(100000);
 
 	/** @author ken */
 	@Test

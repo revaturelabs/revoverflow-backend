@@ -47,7 +47,7 @@ public class QuestionServiceTest {
 	@MockBean
 	RSSService rssService;
 
-	private Timestamp ts = new Timestamp(100000);
+	private Date ts = new Date(100000);
 	
 	/** @author Hugh Thornhill */
 	@Test

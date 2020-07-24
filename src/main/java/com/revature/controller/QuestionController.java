@@ -1,5 +1,7 @@
 package com.revature.controller;
 
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +74,8 @@ public class QuestionController {
 	@PostMapping
 	@PreAuthorize("hasAuthority('user')")
 	public Question saveQuestion(@Valid @RequestBody Question question) {
+		System.out.println("what is the time creation date = " + question.getCreationDate());
+		System.out.println("what is the time now " + new Date());
 		return questionService.save(question);
 	}
 

@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +68,7 @@ public class QuestionControllerTests {
 	@MockBean
 	private QuestionService questionService;
 	
-	private Timestamp ts = new Timestamp(100000);
+	private Date ts = new Date(100000);
 	
     @Before                          
     public void setUp() {  
@@ -148,7 +148,9 @@ public class QuestionControllerTests {
 			
 	}
 	
-	/**@author James */
+	/**@author James
+	 * @return Checks to make sure that the Question Controller method for the update accepted id method works.
+	 */
 	@Test
     @WithMockUser(username = "admin@rss.com", password = "Password123!", authorities = "admin")
     public void updateStatus() throws Exception {
@@ -167,7 +169,9 @@ public class QuestionControllerTests {
         assertEquals(200, result.getResponse().getStatus());
     }
 
-	/**@author James */
+	/**@author James
+	 * @return Tests to ensure that the Question Controller method for the update status method works.
+	 */
     @Test
     @WithMockUser(username = "admin@rss.com", password = "Password123!", authorities = "user")
     public void updateQuestionAcceptedAnswerId() throws Exception {
