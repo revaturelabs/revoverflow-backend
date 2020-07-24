@@ -168,6 +168,7 @@ public class QuestionServiceTest {
 		
 		
 		Question q3 = questionService.updateQuestionStatus(q, 20);
+		assertTrue(q3.isStatus());
 	}
 	
 }
