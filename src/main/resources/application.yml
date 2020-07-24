@@ -1,5 +1,7 @@
+spring:  datasource:    url: "jdbc:h2:file:C:/data/test"    driver-class-name: org.h2.Driver    username: "sa"    password: ""  h2:    console:      enabled: true      settings:        trace: false  jpa:    database-platform: org.hibernate.dialect.H2Dialect    hibernate:      ddl-auto: update
 server:
   port: 8080
 
 environments:
   rss: "http://ec2-34-203-75-254.compute-1.amazonaws.com:10001"
+  secret: "haishdoijocewpok"

@@ -18,6 +18,7 @@ import com.revature.entities.User;
 import com.revature.repositories.UserRepository;
 import com.revature.services.UserService;
 
+
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 

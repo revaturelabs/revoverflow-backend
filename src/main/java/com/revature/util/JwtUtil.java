@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import com.revature.entities.User;
@@ -15,20 +19,25 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
+@EnableConfigurationProperties
+@ConfigurationProperties(prefix = "environments")
 public class JwtUtil implements Serializable {
 	
 	/**@Author Ryan Clayton
 	 * 
 	 */
 	private static final long serialVersionUID = 5855530699107877768L;
-	private String secret = "haishdoijocewpok";
-
+	
+	@Value("${environments.secret}")
+	private String secret;
+	
 	
 	public String generateToken(User user) {
 		Map<String, Object> claims = new HashMap<>();
 		return doGenerateToken(claims, user.getEmail());
 	}
 	private String doGenerateToken(Map<String, Object> claims, String subject) {
+		System.out.println(secret);
 		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + 5 * 60 * 60 * 1000))
 				.signWith(SignatureAlgorithm.HS512, secret).compact();

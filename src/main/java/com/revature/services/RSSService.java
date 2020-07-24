@@ -22,9 +22,12 @@ import com.revature.entities.User;
 import com.revature.repositories.UserRepository;
 import com.revature.util.JwtUtil;
 
+
 @Service
 public class RSSService {
 	
+	@Autowired
+	JwtUtil jwtUtil;
 	
 	@Autowired
 	UserRepository userRepository;
@@ -103,8 +106,7 @@ public class RSSService {
 				
 				}
 				//create jwt for user
-				JwtUtil jwt = new JwtUtil();
-				user.setJwt(jwt.generateToken(user));
+				user.setJwt(jwtUtil.generateToken(user));
 				
 			}else {
 				Optional<User> optUser = userRepository.findById(body.getUserId());
@@ -128,8 +130,7 @@ public class RSSService {
 						user.setPoints(accResponse.getBody().getPoints());
 					}
 					//create jwt token for our user
-					JwtUtil jwt = new JwtUtil();
-					user.setJwt(jwt.generateToken(user));
+					user.setJwt(jwtUtil.generateToken(user));
 
 				}
 			}
