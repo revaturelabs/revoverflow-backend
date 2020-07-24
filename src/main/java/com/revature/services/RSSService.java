@@ -32,11 +32,14 @@ public class RSSService {
 	@Value("${environments.rss}")
 	String rssServiceUrl;
 	
-	private RestTemplate restTemplate;
-	
+	RestTemplate restTemplate;
+	 
+	@Autowired
 	public RSSService(RestTemplateBuilder restTemplateBuilder) {
 		this.restTemplate = restTemplateBuilder.build();
 	}
+	
+
 	
 	
 	
@@ -67,7 +70,6 @@ public class RSSService {
 		//Begin building User object
 		User user = new User();
 		user.setEmail(u.getEmail());
-		
 		if(response.hasBody()) {	
 			//continue building user from response body
 			RSSUserDTO body = response.getBody();
@@ -134,9 +136,7 @@ public class RSSService {
 			
 			return userRepository.save(user);
 		}		
-		else {
-			return null;
-		}
+		return null;
 	}
 
 	/**
@@ -163,9 +163,8 @@ public class RSSService {
 	    	
 	    	RSSAccountDTO account = response.getBody();
 	    	return account.getPoints();
-	    }else {
-	    	return 0;
 	    }
+	    return 0;
 
 	}
 
@@ -181,7 +180,7 @@ public class RSSService {
 		    headers.setContentType(MediaType.APPLICATION_JSON);
 		    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		    Optional<User> optUser = userRepository.findById(acc.getUserId());
-		    if (optUser.isPresent()) {
+		    if ( optUser.isPresent()) {
 		    	User user = optUser.get();
 		    	
 		    	String addPoints = rssServiceUrl+"/account/points/a";
@@ -197,13 +196,11 @@ public class RSSService {
 					user.setPoints(user.getPoints()+acc.getPoints());
 					return userRepository.save(user);
 				}
-				else {
-					return null;
-				}
+
 		    }
-		    else {
-		    	return null;
-		    }
+		    return null;
+
+		   
 
 	}
 
