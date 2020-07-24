@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -27,7 +28,7 @@ public class JwtUtilTest {
 	@Autowired
     private MockMvc mvc;
 	
-	@InjectMocks
+	@Autowired
 	JwtUtil jwtUtil;
 	
 	@Before
@@ -37,8 +38,8 @@ public class JwtUtilTest {
 	@Test
     public void shouldGenerateAuthToken() throws Exception {
         String token = jwtUtil.generateToken(u1);
+        System.out.println(token);
         assertNotNull(token);
-        //System.out.println(token);
     }
 	@Test
     public void shouldGenerateAuthTokenAndBeAuthenticatedToRetreiveUser12() throws Exception {

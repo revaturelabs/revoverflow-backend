@@ -26,13 +26,9 @@ public class JwtUtil implements Serializable {
 	 */
 	private static final long serialVersionUID = 5855530699107877768L;
 	
+	@Value("${environments.secret}")
 	private String secret;
 	
-	@Autowired
-	public JwtUtil(@Value("${environments.secret}") String secret){
-		this.secret = secret;
-	}
-
 	
 	public String generateToken(User user) {
 		Map<String, Object> claims = new HashMap<>();
