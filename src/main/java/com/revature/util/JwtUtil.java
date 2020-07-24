@@ -37,7 +37,6 @@ public class JwtUtil implements Serializable {
 		return doGenerateToken(claims, user.getEmail());
 	}
 	private String doGenerateToken(Map<String, Object> claims, String subject) {
-		System.out.println(secret);
 		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + 5 * 60 * 60 * 1000))
 				.signWith(SignatureAlgorithm.HS512, secret).compact();
