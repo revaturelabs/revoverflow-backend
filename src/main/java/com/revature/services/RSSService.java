@@ -78,12 +78,12 @@ public class RSSService {
 			RSSUserDTO body = response.getBody();
 			
 			
+			user.setAdmin(body.getAdmin());
+			user.setFirstName(body.getFirstName());
+			user.setLastName(body.getLastName());
+			user.setProfilePicture(body.getProfilePic());
+			user.setUserID(body.getUserId());
 			if(!userRepository.existsById(body.getUserId())) {
-				user.setAdmin(body.getAdmin());
-				user.setFirstName(body.getFirstName());
-				user.setLastName(body.getLastName());
-				user.setProfilePicture(body.getProfilePic());
-				user.setUserID(body.getUserId());
 				
 				
 				
@@ -111,8 +111,9 @@ public class RSSService {
 			}else {
 				Optional<User> optUser = userRepository.findById(body.getUserId());
 				if (optUser.isPresent()) {
-					//get user data from our database
-					user = optUser.get();
+					//get RSSAccountId from our database
+					User userTemp = optUser.get();
+					user.setRSSAccountId(userTemp.getRSSAccountId());
 					
 					String getPoints = rssServiceUrl+"/account/account";
 					//create url for rss points request
