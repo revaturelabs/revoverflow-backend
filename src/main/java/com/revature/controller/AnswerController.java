@@ -43,12 +43,15 @@ public class AnswerController {
 	
 
 	/** @Author James Walls */
+	/** Adds new answers and updates existing ones. */
 	@PostMapping
 	public Answer saveAnswer( @RequestBody Answer answer) {
 		return answerService.save(answer);
 	}
 	
 	/**@author ken*/
+	/**@param id = the id of the user
+	 * get all the Answers by the user id */
 	@GetMapping("/user/{id}")
 	public Page<Answer> getAllAnswersByUserID(Pageable pageable,@PathVariable int id){
 		return answerService.getAllAnswersByUserID(pageable, id);

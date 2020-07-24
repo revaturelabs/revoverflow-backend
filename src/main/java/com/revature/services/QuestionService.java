@@ -43,11 +43,18 @@ public class QuestionService {
 	}
 	
 	/** @Author James Walls */
+	/** Adds new questions and updates existing ones. */
 	public Question save(Question question) {
 		return questionRepository.save(question);
 	}
 
-	/**@author Hugh Thornhill*/
+	/** 
+	 * @author Hugh Thornhill 
+	 * @return This updates the AcceptedAnswerId on the Questions table.
+	 * This indicates that the user who posted the question has accepted an
+	 * answer as the best one. The comments below indicate how the rest of the
+	 * implementation can be written out.
+	 */
 	public Question updateQuestionAcceptedAnswerId(Question question) {
 		if(question.getId() == 0) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
@@ -64,7 +71,12 @@ public class QuestionService {
 		return save(question);
 	}
 	
-	/**@author Hugh Thornhill, Ryan Clayton*/
+	/**
+	 * @author Hugh Thornhill, Ryan Clayton
+	 * @return This method is for updating the status of the question, indicating
+	 * an admin finds the answer chosen for the question acceptable. The points are
+	 * then added to the user who's answer was chosen.
+	 * */
 	public Question updateQuestionStatus(Question question, int points) {
 
 		// check the question accepted answer id is there
