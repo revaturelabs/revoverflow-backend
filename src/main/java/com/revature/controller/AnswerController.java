@@ -32,7 +32,7 @@ public class AnswerController {
 	
 /** @Author Natasha Poser */
 	@GetMapping
-	//@PreAuthorize("hasAuthority('user')")
+	@PreAuthorize("hasAuthority('user')")
 	public Page<Answer>getAnswers(Pageable pageable){
 			return answerService.getAnswers(pageable);
 	}
@@ -48,7 +48,7 @@ public class AnswerController {
 	/** @Author James Walls */
 	/** Adds new answers and updates existing ones. */
 	@PostMapping
-	//@PreAuthorize("hasAuthority('user')")
+	@PreAuthorize("hasAuthority('user')")
 	public Answer saveAnswer( @RequestBody Answer answer) {
 		return answerService.save(answer);
 	}
