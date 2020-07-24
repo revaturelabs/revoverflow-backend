@@ -48,7 +48,7 @@ public class AnswerService {
 	
 	/** @author Natasha Poser 
 	 * @return retrieves a specific Answer by using it's ID*/
-	public Answer findById(int id) {
+	public Answer getAnswerById(int id) {
 		return answerRepository.findById(id)
 				// If no answer is found by the particular ID then HTTP Status is given 
 				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));

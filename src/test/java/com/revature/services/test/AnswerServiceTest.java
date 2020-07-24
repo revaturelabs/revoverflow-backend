@@ -128,7 +128,7 @@ public class AnswerServiceTest {
 
 		when(answerRepository.findById( Mockito.anyInt()))
 		.thenReturn(Optional.of(answer));
-		Answer result = answerService.findById(1);
+		Answer result = answerService.getAnswerById(1);
 	} 
 	
 	

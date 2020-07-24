@@ -141,7 +141,19 @@ public class AnswerControllerTest {
 						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.content[0].id", is(1)));
 	}
-	
-	
+	/** @author Natasha Poser */
+	@Test
+	public void testGetAnswerById() throws Exception {
+		Answer answer = new Answer(1, 1, 1, "Test content", LocalDate.MIN, LocalDate.MIN);
+		
+		
+		when(answerService.getAnswerById(Mockito.anyInt())).thenReturn(answer);
+		
+		mvc.perform(get("/answers/id/1")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content()
+						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+	} 
 	
 }

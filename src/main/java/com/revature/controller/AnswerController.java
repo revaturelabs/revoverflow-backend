@@ -73,7 +73,7 @@ public class AnswerController {
 	 * @return This is the GetAnswerById end-point. It retrieves the answer by it's own unique ID*/
 	@GetMapping("/id/{id}")
 	public Answer getAnswerById(@PathVariable int id){
-		return answerService.findById(id);
+		return answerService.getAnswerById(id);
 	}
 }
  
