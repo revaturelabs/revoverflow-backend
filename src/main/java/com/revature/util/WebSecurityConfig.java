@@ -21,7 +21,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	    protected void configure(HttpSecurity httpSecurity) throws Exception {
 	 		httpSecurity.headers().frameOptions().disable();
 	        httpSecurity.cors().and().
-	        	csrf().disable().authorizeRequests().antMatchers("/login","/h2-console/**","/swagger-ui**/**").permitAll().
+	        	csrf().disable().authorizeRequests().antMatchers("/login","/h2-console/**","/v2/api-docs", "/swagger-resources/configuration/ui", 
+	        			"/swagger-resources", "/swagger-resources/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll().
 	        	anyRequest().authenticated()
 	        	.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
