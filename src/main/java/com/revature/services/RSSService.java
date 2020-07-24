@@ -105,8 +105,7 @@ public class RSSService {
 					user.setPoints(accBody.getPoints());
 				
 				}
-				//create jwt for user
-				user.setJwt(jwtUtil.generateToken(user));
+
 				
 			}else {
 				Optional<User> optUser = userRepository.findById(body.getUserId());
@@ -130,13 +129,13 @@ public class RSSService {
 					if(accResponse.hasBody()) {
 						user.setPoints(accResponse.getBody().getPoints());
 					}
-					//create jwt token for our user
-					user.setJwt(jwtUtil.generateToken(user));
 
 				}
 			}
-			
-			return userRepository.save(user);
+			user = userRepository.saveAndFlush(user);			
+			//create jwt token for our user
+			user.setJwt(jwtUtil.generateToken(user));
+			return user;
 		}		
 		return null;
 	}
