@@ -91,7 +91,8 @@ public class QuestionController {
 		return questionService.updateQuestionStatus(question, 20);
 	}
 	
-	/** @Author Natasha Poser */
+	/** @Author Natasha Poser 
+	 * @return the is the GetQuestionById end-point. It retrieves a question by it's ID*/
 	@GetMapping("/id/{id}")
 	public Question getQuestionById(@PathVariable int id) {
 		return questionService.findById(id);

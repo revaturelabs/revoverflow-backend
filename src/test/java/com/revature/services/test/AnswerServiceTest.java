@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.revature.entities.Answer;
+import com.revature.entities.Question;
 import com.revature.repositories.AnswerRepository;
 import com.revature.services.AnswerService;
 import com.revature.services.RSSService;
@@ -119,22 +121,16 @@ public class AnswerServiceTest {
 		assertThat(result).contains(answer);	
 	}
 	
-	
-	
 	/** @author Natasha Poser  */
 	@Test
-	public void getAnswerByIdTest() throws Exception {
-		
-		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
-		List<Answer> answers = new ArrayList<>();	
-		answers.add(answer);	
+	public void getAnswerById() throws Exception {
+		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);
 
-		Page<Answer> pageResult = new PageImpl<Answer>(answers);	
-
-		when(answerRepository.getAnswerById(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn((pageResult));	
-
-		Page<Answer> result = answerService.getAnswerById(PageRequest.of(1, 5), 1);
-		assertThat(result).contains(answer);	
-	}
+		when(answerRepository.findById( Mockito.anyInt()))
+		.thenReturn(Optional.of(answer));
+		Answer result = answerService.getAnswerById(1);
+		assertEquals(result, answer);
+	} 
+	
 	
 }
