@@ -43,6 +43,7 @@ public class QuestionService {
 	}
 	
 	/** @Author James Walls */
+	/** Adds new questions and updates existing ones. */
 	public Question save(Question question) {
 		return questionRepository.save(question);
 	}

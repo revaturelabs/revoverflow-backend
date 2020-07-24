@@ -46,6 +46,7 @@ public class AnswerController {
 	
 
 	/** @Author James Walls */
+	/** Adds new answers and updates existing ones. */
 	@PostMapping
 	@PreAuthorize("hasAuthority('user')")
 	public Answer saveAnswer( @RequestBody Answer answer) {
@@ -53,6 +54,8 @@ public class AnswerController {
 	}
 	
 	/**@author ken*/
+	/**@param id = the id of the user
+	 * get all the Answers by the user id */
 	@GetMapping("/user/{id}")
 	@PreAuthorize("hasAuthority('user')")
 	public Page<Answer> getAllAnswersByUserID(Pageable pageable,@PathVariable int id){

@@ -99,11 +99,20 @@ public class QuestionServiceTest {
 	public void updateQuestionAcceptedAnswerId() throws Exception {
 		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);
 	
-		//Question pageResult = new PageImpl<Question>(questions);
 		when(questionRepository.save(Mockito.any(Question.class)))
 		.thenReturn(question);
 		Question result = questionService.updateQuestionAcceptedAnswerId(question);
-		//assertThat(result).contains(question);
+		assertEquals(result, question);
+	}
+	
+	/** @author ken */
+	@Test
+	public void getQuestionByID() throws Exception {
+		Question question = new Question(1, 0, "Title", "Content", LocalDate.MIN, null, false, 1);
+
+		when(questionRepository.findById( Mockito.anyInt()))
+		.thenReturn(Optional.of(question));
+		Question result = questionService.findById(1);
 		assertEquals(result, question);
 	}
 	

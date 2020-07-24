@@ -33,7 +33,8 @@ public class QuestionController {
 	@Autowired
 	QuestionService questionService;
 	
-	/**	 *@author ken */
+	/**	 *@author ken 
+	 * get all the questions*/
 	@GetMapping
 	@PreAuthorize("hasAuthority('user')")
 	public Page<Question> getAllQuestions(Pageable pageable)
@@ -41,6 +42,10 @@ public class QuestionController {
 		return questionService.getAllQuestions(pageable);
 	}
 
+	/**
+	 * @param status = true/false
+	 * get all the questions by the status of the question
+	 */
 	/**@author ken*/
 	@GetMapping("/status/{status}")
 	@PreAuthorize("hasAuthority('admin')")
@@ -50,6 +55,11 @@ public class QuestionController {
 	}
 
 	/**@author ken*/
+	/** get all the questions by user id
+	 * @param pageable
+	 * @param id = the id of the user
+	 * @return
+	 */
 	@GetMapping("/user/{id}")
 	@PreAuthorize("hasAuthority('user')")
 	public Page<Question> getAllQuestionsByUserId(Pageable pageable, @PathVariable int id)
@@ -58,6 +68,7 @@ public class QuestionController {
 	}
 
 	/** @Author James Walls */
+	/** Adds new questions and updates existing ones. */
 	@PostMapping
 	@PreAuthorize("hasAuthority('user')")
 	public Question saveQuestion(@Valid @RequestBody Question question) {
