@@ -19,8 +19,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
-@EnableConfigurationProperties
-@ConfigurationProperties(prefix = "environments")
 public class JwtUtil implements Serializable {
 	
 	/**@Author Ryan Clayton
