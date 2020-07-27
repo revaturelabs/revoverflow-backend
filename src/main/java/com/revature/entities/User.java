@@ -65,6 +65,21 @@ public class User {
 		this.lastName = lastName;
 	}
 
+	public User(int userID, int rSSAccountId, int points, boolean admin, byte[] profilePicture,
+			@Valid @NotBlank @Email(message = "Should be a valid email") String email, String firstName,
+			String lastName, String jwt) {
+		super();
+		this.userID = userID;
+		RSSAccountId = rSSAccountId;
+		this.points = points;
+		this.admin = admin;
+		this.profilePicture = profilePicture;
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.jwt = jwt;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userID=" + userID + ", RSSAccountId=" + RSSAccountId + ", points=" + points + ", admin=" + admin

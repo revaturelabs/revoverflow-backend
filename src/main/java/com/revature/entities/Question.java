@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "Questions")
+@Table(name = "questions")
 public class Question {
 
 	@Id
@@ -19,7 +19,7 @@ public class Question {
 	private int id;
 
 	@Column(name = "accepted_id")
-	private int acceptedId;
+	private Integer acceptedId;
 
 	@NotBlank(message = "Title requires a string value")
 	private String title;
@@ -34,8 +34,6 @@ public class Question {
 	@Column(name = "edit_date")
 	private LocalDate editDate;
 
-	// closed or open
-	@NotBlank(message = "Status requires a string value")
 	private boolean status;
 
 	// add the not null check in the service layer
@@ -50,11 +48,11 @@ public class Question {
 		this.id = id;
 	}
 
-	public int getAcceptedId() {
+	public Integer getAcceptedId() {
 		return acceptedId;
 	}
 
-	public void setAcceptedId(int acceptedId) {
+	public void setAcceptedId(Integer acceptedId) {
 		this.acceptedId = acceptedId;
 	}
 
@@ -110,7 +108,7 @@ public class Question {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + acceptedId;
+		result = prime * result + ((acceptedId == null) ? 0 : acceptedId.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((editDate == null) ? 0 : editDate.hashCode());
@@ -130,7 +128,10 @@ public class Question {
 		if (getClass() != obj.getClass())
 			return false;
 		Question other = (Question) obj;
-		if (acceptedId != other.acceptedId)
+		if (acceptedId == null) {
+			if (other.acceptedId != null)
+				return false;
+		} else if (!acceptedId.equals(other.acceptedId))
 			return false;
 		if (content == null) {
 			if (other.content != null)
@@ -161,15 +162,9 @@ public class Question {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Question [id=" + id + ", acceptedId=" + acceptedId + ", title=" + title + ", content=" + content
-				+ ", creationDate=" + creationDate + ", editDate=" + editDate + ", status=" + status + ", userID="
-				+ userID + "]";
-	}
-
-	public Question(int id, int acceptedId, String title, String content, LocalDate creationDate, LocalDate editDate,
-			boolean status, int userID) {
+	public Question(int id, Integer acceptedId, @NotBlank(message = "Title requires a string value") String title,
+			@NotBlank(message = "Content requires a string value") String content, LocalDate creationDate,
+			LocalDate editDate, boolean status, int userID) {
 		super();
 		this.id = id;
 		this.acceptedId = acceptedId;
@@ -179,6 +174,13 @@ public class Question {
 		this.editDate = editDate;
 		this.status = status;
 		this.userID = userID;
+	}
+
+	@Override
+	public String toString() {
+		return "Question [id=" + id + ", acceptedId=" + acceptedId + ", title=" + title + ", content=" + content
+				+ ", creationDate=" + creationDate + ", editDate=" + editDate + ", status=" + status + ", userID="
+				+ userID + "]";
 	}
 
 	public Question() {

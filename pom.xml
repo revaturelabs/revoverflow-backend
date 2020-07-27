@@ -7,6 +7,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>RevOverflow</name>
 	<description>This is the back end for RevOverflow, group 200427's project 3.</description>
+	<packaging>jar</packaging>
+
 	<!-- Java 1.8 -->
 	<properties>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -35,8 +37,8 @@
 	<!-- Add typical dependencies for a web application -->
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
 		</dependency>
 		<!-- Default dependency for a spring boot webapp -->
 		<dependency>
@@ -50,7 +52,11 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.2.8</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
 		</dependency>
 		<!-- Web tools allows for live reloading of the server -->
 		<dependency>
@@ -59,10 +65,6 @@
 		</dependency>
 		<!-- Actuator enables actuator endpoints (used for integratino with other 
 			web applications) -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
 		<!-- Swagger dependencies -->
 		<dependency>
@@ -89,11 +91,37 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+				<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
 		</dependency>
+		<dependency>
+		<groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>5.1.6.RELEASE</version>
+            </dependency>
+		<dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>5.1.6.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>5.1.6.RELEASE</version>
+        </dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -101,7 +129,12 @@
 			<version>2.1.1.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-test</artifactId>
+		    <version>4.2.2.RELEASE</version>
+		    <scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<!-- Package as an executable jar -->
@@ -138,10 +171,32 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+  				<groupId>com.spotify</groupId>
+  				<artifactId>dockerfile-maven-plugin</artifactId>
+  				<version>1.4.13</version>
+  				<executions>
+					<execution>
+      					<id>default</id>
+      					<goals>
+        					<!-- Build Goals - Currently only build to local docker repository,
+								could add push to also push to a remote docker repository -->
+							<goal>build</goal>
+      					</goals>
+    				</execution>
+  				</executions>
+  				<configuration>
+					<repository>revature/revoverflow-backend</repository>
+					<tag>${project.version}</tag>
+					<buildArgs>
+						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+					</buildArgs>
+  				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<!-- Add Spring repositories -->
-	<!-- (you don't need this if you are using a .RELEASE version) -->
+	<!-- (you don't need this if you are using a .RELEASE version)  -->
 	<repositories>
 		<repository>
 			<id>spring-snapshots</id>
@@ -165,4 +220,12 @@
 			<url>https://repo.spring.io/milestone</url>
 		</pluginRepository>
 	</pluginRepositories>
+	<distributionManagement>
+		<repository>
+			<id>dockerhub</id>
+			<name>Dockerhub</name>
+			<url>docker.io</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
 </project>

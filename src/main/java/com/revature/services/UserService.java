@@ -1,8 +1,12 @@
 package com.revature.services;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.User;
@@ -24,20 +28,42 @@ public class UserService {
 	 */
 
 	public User getUserById(int id) {
-		Optional<User> optUser = userRepository.findById(id);
-		if(optUser.isPresent()) {
-			User user = optUser.get();
 			try {
+				Optional<User> optUser = userRepository.findById(id);
+				if(optUser.isPresent()) {
+					User user = optUser.get();
 				
 				user.setPoints(rssService.getPoints(id));
-			}catch(Exception e){
-				System.out.println(e.getLocalizedMessage());
+				return userRepository.save(user);
+				}
+			}catch(Exception e) {
+				//add logger
+				return null;
 			}
-			return userRepository.save(user);
-		}
-		else {
 			return null;
+		
+		
+	}
+	public Collection<GrantedAuthority> getAuthority(User u){
+		Collection<GrantedAuthority>auths = new ArrayList<>();
+		Optional<User> optUser = userRepository.findById(u.getUserID());
+		SimpleGrantedAuthority a= null; 
+		
+		if (optUser.isPresent()) {
+			User user = optUser.get();
+			if(user.isAdmin()) {
+				a = new SimpleGrantedAuthority("admin");
+				auths.add(a);
+				a = new SimpleGrantedAuthority("user");
+				auths.add(a);
+			}else {
+				a = new SimpleGrantedAuthority("user");
+				auths.add(a);
+				
+			}
 		}
+		return auths;
+		
 	}
 
 }
