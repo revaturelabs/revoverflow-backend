@@ -74,6 +74,7 @@ public class RssServiceTest {
 		assertEquals(u.getPoints(),u1.getPoints());
 		
 	}
+	
 	@Test
 	public void add_points_null() {
 		int points = 20;
