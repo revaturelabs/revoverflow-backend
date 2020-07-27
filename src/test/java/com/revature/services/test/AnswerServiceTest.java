@@ -4,14 +4,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +22,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.revature.entities.Answer;
-import com.revature.entities.Question;
 import com.revature.repositories.AnswerRepository;
 import com.revature.services.AnswerService;
 import com.revature.services.RSSService;
@@ -43,12 +41,12 @@ public class AnswerServiceTest {
 
 	@Autowired
 	RSSService rssservice;
-	
+
 	/** @author ken */
 	@Test
 	public void getAllAnswersTest() throws Exception {
 		
-		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
+		Answer answer = new Answer(1, 1, 1, "test content", LocalDateTime.MIN, LocalDateTime.MIN);	
 		List<Answer> answers = new ArrayList<>();	
 		answers.add(answer);	
 
@@ -66,7 +64,7 @@ public class AnswerServiceTest {
 	@Test
 	public void getAllAnswersByUserIDTest() throws Exception {
 		
-		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
+		Answer answer = new Answer(1, 1, 1, "test content", LocalDateTime.MIN, LocalDateTime.MIN);	
 		List<Answer> answers = new ArrayList<>();	
 		answers.add(answer);	
 
@@ -93,7 +91,7 @@ public class AnswerServiceTest {
 	@Test
 	public void getAnswerByQuestionIdTest() throws Exception {
 		
-		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
+		Answer answer = new Answer(1, 1, 1, "test content", LocalDateTime.MIN, LocalDateTime.MIN);	
 		List<Answer> answers = new ArrayList<>();	
 		answers.add(answer);	
 
@@ -109,7 +107,7 @@ public class AnswerServiceTest {
 	@Test
 	public void getAcceptedAnswerByQuestionIdTest() throws Exception {
 		
-		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);	
+		Answer answer = new Answer(1, 1, 1, "test content", LocalDateTime.MIN, LocalDateTime.MIN);	
 		List<Answer> answers = new ArrayList<>();	
 		answers.add(answer);	
 
@@ -124,7 +122,7 @@ public class AnswerServiceTest {
 	/** @author Natasha Poser  */
 	@Test
 	public void getAnswerById() throws Exception {
-		Answer answer = new Answer(1, 1, 1, "test content", LocalDate.MIN, LocalDate.MIN);
+		Answer answer = new Answer(1, 1, 1, "test content", LocalDateTime.MIN, LocalDateTime.MIN);
 
 		when(answerRepository.findById( Mockito.anyInt()))
 		.thenReturn(Optional.of(answer));

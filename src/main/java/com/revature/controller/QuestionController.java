@@ -1,10 +1,13 @@
 package com.revature.controller;
 
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +38,7 @@ public class QuestionController {
 	/**	 *@author ken 
 	 * get all the questions*/
 	@GetMapping
+	@PreAuthorize("hasAuthority('user')")
 	public Page<Question> getAllQuestions(Pageable pageable)
 	{
 		return questionService.getAllQuestions(pageable);
@@ -46,19 +50,20 @@ public class QuestionController {
 	 */
 	/**@author ken*/
 	@GetMapping("/status/{status}")
+	@PreAuthorize("hasAuthority('admin')")
 	public Page<Question> getAllQuestionsByStatus(Pageable pageable, @PathVariable boolean status)
 	{
 		return questionService.getAllQuestionsByStatus(pageable, status);
 	}
 
 	/**@author ken*/
-	/** @param id = user_id
-	 * get all the questions by user id
+	/** get all the questions by user id
 	 * @param pageable
 	 * @param id = the id of the user
 	 * @return
 	 */
 	@GetMapping("/user/{id}")
+	@PreAuthorize("hasAuthority('user')")
 	public Page<Question> getAllQuestionsByUserId(Pageable pageable, @PathVariable int id)
 	{
 		return questionService.getAllQuestionsByUserId(pageable, id);
@@ -67,6 +72,7 @@ public class QuestionController {
 	/** @Author James Walls */
 	/** Adds new questions and updates existing ones. */
 	@PostMapping
+	@PreAuthorize("hasAuthority('user')")
 	public Question saveQuestion(@Valid @RequestBody Question question) {
 		return questionService.save(question);
 	}
@@ -77,6 +83,7 @@ public class QuestionController {
 	 * acceptedId to the answer that is deemed the most acceptable.
 	 */
 	@PutMapping
+	@PreAuthorize("hasAuthority('user')")
 	public Question updateQuestionAcceptedAnswerId(@RequestBody Question question) {
 		return questionService.updateQuestionAcceptedAnswerId(question);
 	}
@@ -87,6 +94,7 @@ public class QuestionController {
 	 * awards 20 points to the user who answered the question.
 	 */
 	@PutMapping("/status")
+	@PreAuthorize("hasAuthority('admin')")
 	public Question updateStatus(@RequestBody Question question) {
 		return questionService.updateQuestionStatus(question, 20);
 	}
@@ -94,6 +102,7 @@ public class QuestionController {
 	/** @Author Natasha Poser 
 	 * @return the is the GetQuestionById end-point. It retrieves a question by it's ID*/
 	@GetMapping("/id/{id}")
+	@PreAuthorize("hasAuthority('user')")
 	public Question getQuestionById(@PathVariable int id) {
 		return questionService.findById(id);
 	}
