@@ -48,7 +48,7 @@ public class Question {
 		this.id = id;
 	}
 
-	public Integer getAcceptedId() {
+	public int getAcceptedId() {
 		return acceptedId;
 	}
 
