@@ -18,6 +18,7 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	// Changed to wrapper class on line 23 so that it could hold a null/0 value
 	@Column(name = "accepted_id")
 	private Integer acceptedId;
 
