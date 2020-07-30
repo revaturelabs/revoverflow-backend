@@ -60,13 +60,16 @@ public class QuestionService {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
 		}
 		
-		// get question from database
-		// ensure that only the answerId is updated
-		// Question q = optQuestion.get()
-		// if q.getAnswerId is null, set the answerId
-		// q.setAnswer(question.getAnswer)
-		// line 89 and up pretty similar
-		// you will be saving q NOT question
+		/*
+		 * Here's how you can finish the implementation of this method
+		 * Very similar to the updateStatus method below, minus the RSSService logic
+			- Get question from database
+			- Ensure that only the answerId is updated
+	 		- Question q = optQuestion.get()
+			- If q.getAnswerId is null, set the answerId
+			- q.setAnswer(question.getAnswer)
+			- You will be saving q, and NOT question 
+		*/
 
 		return save(question);
 	}
