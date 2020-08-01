@@ -21,6 +21,4 @@ public interface AnswerRepository extends JpaRepository<Answer, Integer>{
 	@Query("FROM Question q INNER JOIN Answer a ON q.acceptedId = a.id WHERE q.acceptedId = :acceptedId")
 	Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, int acceptedId);
 	
-	/** @author Natasha Poser */
-	Page<Answer> getAnswerById(Pageable pageable, int id);
 } 

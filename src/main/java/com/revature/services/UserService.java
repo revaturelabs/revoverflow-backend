@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,7 +38,9 @@ public class UserService {
 				return userRepository.save(user);
 				}
 			}catch(Exception e) {
-				//add logger
+
+				Logger logger = Logger.getLogger(UserService.class);
+				logger.error("error in UserService getUserById", e);
 				return null;
 			}
 			return null;

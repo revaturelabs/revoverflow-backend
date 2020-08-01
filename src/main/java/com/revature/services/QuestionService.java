@@ -48,24 +48,38 @@ public class QuestionService {
 		return questionRepository.save(question);
 	}
 
-	/**@author Hugh Thornhill*/
+	/** 
+	 * @author Hugh Thornhill 
+	 * @return This updates the AcceptedAnswerId on the Questions table.
+	 * This indicates that the user who posted the question has accepted an
+	 * answer as the best one. The comments below indicate how the rest of the
+	 * implementation can be written out.
+	 */
 	public Question updateQuestionAcceptedAnswerId(Question question) {
 		if(question.getId() == 0) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
 		}
 		
-		// get question from database
-		// ensure that only the answerId is updated
-		// Question q = optQuestion.get()
-		// if q.getAnswerId is null, set the answerId
-		// q.setAnswer(question.getAnswer)
-		// line 89 and up pretty similar
-		// you will be saving q NOT question
+		/*
+		 * Here's how you can finish the implementation of this method
+		 * Very similar to the updateStatus method below, minus the RSSService logic
+			- Get question from database
+			- Ensure that only the answerId is updated
+	 		- Question q = optQuestion.get()
+			- If q.getAnswerId is null, set the answerId
+			- q.setAnswer(question.getAnswer)
+			- You will be saving q, and NOT question 
+		*/
 
 		return save(question);
 	}
 	
-	/**@author Hugh Thornhill, Ryan Clayton*/
+	/**
+	 * @author Hugh Thornhill, Ryan Clayton
+	 * @return This method is for updating the status of the question, indicating
+	 * an admin finds the answer chosen for the question acceptable. The points are
+	 * then added to the user who's answer was chosen.
+	 * */
 	public Question updateQuestionStatus(Question question, int points) {
 
 		// check the question accepted answer id is there
@@ -97,9 +111,11 @@ public class QuestionService {
 		return save(question);
 	}
 	
-  /** @Author Natasha Poser */ 
+  /** @Author Natasha Poser
+   * @return retrieves a specific question by using it's specific ID */ 
 	public Question findById(int id) {
 		return questionRepository.findById(id)
+				// If no question is found by the particular ID then HTTP Status is provided. 
 				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
 

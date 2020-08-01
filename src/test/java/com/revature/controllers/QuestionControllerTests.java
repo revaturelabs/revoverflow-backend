@@ -12,9 +12,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -83,7 +85,7 @@ public class QuestionControllerTests {
 		
 		// Create page of data
 		List<Question> questions = new ArrayList<>();
-		questions.add(new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1));
+		questions.add(new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, 1));
 		Page<Question> pageResult = new PageImpl<>(questions);
 		
 		// Stub getAllQuestions to return page of data
@@ -105,7 +107,7 @@ public class QuestionControllerTests {
 	public void testGetAllQuestionsByUserId() throws Exception {
 		// Create page of data
 		List<Question> questions = new ArrayList<>();
-		questions.add(new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1));
+		questions.add(new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, 1));
 		Page<Question> pageResult = new PageImpl<>(questions);
 		
 		// Stub getAllQuestions to return page of data
@@ -129,7 +131,7 @@ public class QuestionControllerTests {
 		
 		// Create page of data
 		List<Question> questions = new ArrayList<>();
-		questions.add(new Question(1,1,"title", "content", LocalDate.MIN, LocalDate.MIN, false, 1));
+		questions.add(new Question(1,1,"title", "content", LocalDateTime.MIN, LocalDateTime.MIN, false, 1));
 		Page<Question> pageResult = new PageImpl<>(questions);
 		
 		// Stub getAllQuestions to return page of data
@@ -145,13 +147,15 @@ public class QuestionControllerTests {
 			
 	}
 	
-	/**@author James */
+	/**@author James
+	 * @return Checks to make sure that the Question Controller method for the update accepted id method works.
+	 */
 	@Test
     @WithMockUser(username = "admin@rss.com", password = "Password123!", authorities = "admin")
     public void updateStatus() throws Exception {
         Question questions, testQuestions;
-        questions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, false, 1);
-        testQuestions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1);
+        questions = new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, false, 1);
+        testQuestions = new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, 1);
 
         when(questionService.updateQuestionStatus(Mockito.any(Question.class), Mockito.anyInt())).thenReturn(testQuestions);
         String toUpdate = mapper.writeValueAsString(questions);
@@ -164,13 +168,15 @@ public class QuestionControllerTests {
         assertEquals(200, result.getResponse().getStatus());
     }
 
-	/**@author James */
+	/**@author James
+	 * @return Tests to ensure that the Question Controller method for the update status method works.
+	 */
     @Test
     @WithMockUser(username = "admin@rss.com", password = "Password123!", authorities = "user")
     public void updateQuestionAcceptedAnswerId() throws Exception {
         Question questions, testQuestions;
-        questions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, false, 1);
-        testQuestions = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1);
+        questions = new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, false, 1);
+        testQuestions = new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, 1);
         when(questionService.updateQuestionAcceptedAnswerId(Mockito.any(Question.class))).thenReturn(testQuestions);
         String toUpdate = mapper.writeValueAsString(questions);
         MvcResult result = mvc.perform(MockMvcRequestBuilders.put("/questions")
@@ -190,7 +196,7 @@ public class QuestionControllerTests {
 	public void testGetQuestionByQuestionId() throws Exception {
 		
 		// Create page of data
-		Question question = new Question(1,1,"title", "content", LocalDate.MIN, LocalDate.MIN, false, 1);
+		Question question = new Question(1,1,"title", "content", LocalDateTime.MIN, LocalDateTime.MIN, false, 1);
 		//Page<Question> pageResult = new PageImpl<>(question);
 		
 		// Stub getAllQuestions to return page of data
@@ -208,7 +214,7 @@ public class QuestionControllerTests {
 	@Test
     @WithMockUser(username = "admin@rss.com", password = "Password123!", authorities = "user")
 	public void testSaveQuestion() throws Exception {
-		Question question = new Question(1,1,"title","content", LocalDate.MIN, LocalDate.MIN, true, 1);
+		Question question = new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, 1);
 
 		when(questionService.save(Mockito.any(Question.class))).thenReturn(question);
 		
