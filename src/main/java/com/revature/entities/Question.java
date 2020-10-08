@@ -8,7 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "questions")
@@ -22,10 +23,10 @@ public class Question {
 	@Column(name = "accepted_id")
 	private Integer acceptedId;
 
-	@NotBlank(message = "Title requires a string value")
+	@NotNull
 	private String title;
 
-	@NotBlank(message = "Content requires a string value")
+	@NotNull
 	private String content;
 
 	// add the not null check in the service layer
@@ -163,8 +164,8 @@ public class Question {
 		return true;
 	}
 
-	public Question(int id, Integer acceptedId, @NotBlank(message = "Title requires a string value") String title,
-			@NotBlank(message = "Content requires a string value") String content, LocalDateTime creationDate,
+	public Question(int id, Integer acceptedId, @NotNull String title,
+			@NotNull String content, LocalDateTime creationDate,
 			LocalDateTime editDate, boolean status, int userID) {
 		super();
 		this.id = id;

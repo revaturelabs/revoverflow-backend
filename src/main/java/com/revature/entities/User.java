@@ -5,13 +5,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
-
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "users")
@@ -33,8 +28,8 @@ public class User {
 	@Column(name = "profile_picture")
 	private byte[] profilePicture;
 	
-	@Valid
-	@NotBlank @Email(message = "Should be a valid email") @Column(name="email",unique=true, nullable=false)
+	@NotNull
+	@Column(name="email",unique=true, nullable=false)
 	private String email;
 	
 	@Column(name = "first_name")
@@ -43,17 +38,17 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	
-	@Transient
-	private String jwt;
+	@Column(name = "PASSWORD")
+	private String password;
 
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(@NotNull int userID, int rSSAccountId, int points, boolean admin, byte[] profilePicture,
-			@Valid @NotBlank @Email(message = "Should be a valid email") String email, String firstName,
-			String lastName) {
+	public User(int userID, int rSSAccountId, int points, boolean admin, byte[] profilePicture,
+			@NotNull String email, String firstName,
+			String lastName, String password) {
 		super();
 		this.userID = userID;
 		this.RSSAccountId = rSSAccountId;
@@ -63,28 +58,14 @@ public class User {
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
-	}
-
-	public User(int userID, int rSSAccountId, int points, boolean admin, byte[] profilePicture,
-			@Valid @NotBlank @Email(message = "Should be a valid email") String email, String firstName,
-			String lastName, String jwt) {
-		super();
-		this.userID = userID;
-		RSSAccountId = rSSAccountId;
-		this.points = points;
-		this.admin = admin;
-		this.profilePicture = profilePicture;
-		this.email = email;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.jwt = jwt;
+		this.password = password;
 	}
 
 	@Override
 	public String toString() {
 		return "User [userID=" + userID + ", RSSAccountId=" + RSSAccountId + ", points=" + points + ", admin=" + admin
 				+ ", profilePicture=" + Arrays.toString(profilePicture) + ", email=" + email + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", jwt=" + jwt + "]";
+				+ firstName + ", lastName=" + lastName + "]";
 	}
 
 	@Override
@@ -95,8 +76,8 @@ public class User {
 		result = prime * result + (admin ? 1231 : 1237);
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((jwt == null) ? 0 : jwt.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + points;
 		result = prime * result + Arrays.hashCode(profilePicture);
 		result = prime * result + userID;
@@ -126,15 +107,15 @@ public class User {
 				return false;
 		} else if (!firstName.equals(other.firstName))
 			return false;
-		if (jwt == null) {
-			if (other.jwt != null)
-				return false;
-		} else if (!jwt.equals(other.jwt))
-			return false;
 		if (lastName == null) {
 			if (other.lastName != null)
 				return false;
 		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
 			return false;
 		if (points != other.points)
 			return false;
@@ -208,15 +189,12 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
-	public String getJwt() {
-		return jwt;
-	}
-
-	public void setJwt(String jwt) {
-		this.jwt = jwt;
-	}
-
-
 	
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }
