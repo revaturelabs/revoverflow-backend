@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.repositories.UserRepository;
 import com.revature.security.jwt.DefaultTokenManager;
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	private final UserDetailsService clientUserDetailsService;

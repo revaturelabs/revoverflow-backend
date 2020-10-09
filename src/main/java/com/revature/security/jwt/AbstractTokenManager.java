@@ -40,7 +40,7 @@ public abstract class AbstractTokenManager implements TokenParser, TokenSigner{
 
 	  @Override
 	  public Authentication parse(String token) {
-	    if (StringUtils.hasText(token)) {
+	    if (!StringUtils.hasText(token)) {
 	      return null;
 	    }
 	    Claims claims = Jwts.parser().setSigningKey(signingKey).parseClaimsJws(token).getBody();
@@ -56,7 +56,7 @@ public abstract class AbstractTokenManager implements TokenParser, TokenSigner{
 	    Date expiresAt = Date.from(issuedAt.toInstant().plus(1L, ChronoUnit.DAYS));
 	    List<String> authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
 	    final String token = Jwts.builder()
-	               .signWith(signatureAlgorithm, signingKey)
+	    		   .signWith(signingKey, signatureAlgorithm)
 	               .setSubject(authentication.getName())
 	               .setIssuedAt(issuedAt)
 	               .setExpiration(expiresAt)
@@ -73,7 +73,7 @@ public abstract class AbstractTokenManager implements TokenParser, TokenSigner{
 
 	  private Collection<? extends GrantedAuthority> getClientRole(Claims claims) {
 	    String roles = (String) claims.get("roles");
-	    if (StringUtils.hasText(roles)) {
+	    if (!StringUtils.hasText(roles)) {
 	      throw new RuntimeException();
 	    }
 	    return Arrays.stream(roles.split(",")).map(RevOverflowRole::valueOf).collect(Collectors.toList());

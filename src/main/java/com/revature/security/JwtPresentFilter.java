@@ -45,7 +45,7 @@ public class JwtPresentFilter extends OncePerRequestFilter{
 	    String header = request.getHeader(HttpHeaders.AUTHORIZATION);
 
 	    Authentication authentication = null;
-	    if (!StringUtils.hasText(header)) {
+	    if (StringUtils.hasText(header)) {
 	      final String token = header.replace(AbstractTokenManager.TOKEN_HEADER_PREFIX, "");
 	      authentication = tokenParser.parse(token);
 	    }
