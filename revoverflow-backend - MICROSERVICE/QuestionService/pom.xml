@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.revature</groupId>
-	<artifactId>QuestionService</artifactId>
+	<artifactId>questionservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>QuestionService</name>
 	<description>Question microservice for RevOverflow</description>
