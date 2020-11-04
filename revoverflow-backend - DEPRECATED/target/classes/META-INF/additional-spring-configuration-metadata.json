@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "environments.rss",
+    "type": "java.lang.String",
+    "description": "A description for 'environments.rss'"
+  },
+  {
+    "name": "environments.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'environments.secret'"
+  }
+]}
