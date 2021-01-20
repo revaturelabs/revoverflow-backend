@@ -1,7 +1,5 @@
 package com.revature.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,12 +20,7 @@ import com.revature.services.QuestionService;
 
 @RestController
 @RequestMapping("/questions")
-@CrossOrigin(
-		origins = { "http://localhost:3000" }, 
-		methods = { RequestMethod.GET, RequestMethod.PUT, 
-					RequestMethod.PATCH, RequestMethod.POST },
-		allowedHeaders = { "content-type" }
-	)
+
 public class QuestionController {
 	
 	@Autowired
@@ -71,7 +64,7 @@ public class QuestionController {
 	/** Adds new questions and updates existing ones. */
 	@PostMapping
 	@PreAuthorize("hasAuthority('user')")
-	public Question saveQuestion(@Valid @RequestBody Question question) {
+	public Question saveQuestion(@RequestBody Question question) {
 		return questionService.save(question);
 	}
 

@@ -70,7 +70,7 @@ public class AnswerControllerTest {
 	
 	@Before                          
     public void setUp() {  
-       u1 = new User(12,26,0,true,null,"admin@rss.com","Admin","Admin");
+       u1 = new User(12,26,0,true,null,"admin@rss.com","Admin","Admin", "password");
    	   mvc = MockMvcBuilders
    				.webAppContextSetup(context)
    				.apply(springSecurity())

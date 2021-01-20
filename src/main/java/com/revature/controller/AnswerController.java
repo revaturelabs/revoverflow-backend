@@ -19,12 +19,6 @@ import com.revature.services.AnswerService;
 
 @RestController
 @RequestMapping("/answers")
-@CrossOrigin(
-		origins = { "http://localhost:3000" }, 
-		methods = { RequestMethod.GET, RequestMethod.PUT, 
-					RequestMethod.PATCH, RequestMethod.POST },
-		allowedHeaders = { "content-type" }
-	)
 public class AnswerController {
 	
 	@Autowired

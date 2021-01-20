@@ -44,8 +44,8 @@ public class RssServiceTest {
 	
 	@Before
 	public void setup() {
-		u1 = (new User(12,26,0,true,null,"admin@rss.com","Admin","Admin"));
-		u2 = (new User(13,26,0,false,null,"user@rss.com","User","User"));
+		u1 = (new User(12,26,0,true,null,"admin@rss.com","Admin","Admin", "password"));
+		u2 = (new User(13,26,0,false,null,"user@rss.com","User","User", "password"));
 		testService.restTemplate =mock(RestTemplate.class);
 
 	}

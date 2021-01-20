@@ -20,14 +20,9 @@ import com.revature.DTOs.RSSAccountDTO;
 import com.revature.DTOs.RSSUserDTO;
 import com.revature.entities.User;
 import com.revature.repositories.UserRepository;
-import com.revature.util.JwtUtil;
-
 
 @Service
 public class RSSService {
-	
-	@Autowired
-	JwtUtil jwtUtil;
 	
 	@Autowired
 	UserRepository userRepository;
@@ -133,8 +128,6 @@ public class RSSService {
 				}
 			}
 			user = userRepository.saveAndFlush(user);			
-			//create jwt token for our user
-			user.setJwt(jwtUtil.generateToken(user));
 			return user;
 		}		
 		return null;
