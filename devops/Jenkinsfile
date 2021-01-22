@@ -5,9 +5,7 @@ pipeline{
     stages{
         stage("Prepare Environment"){
             steps{
-                publishChecks{ conclusion: "NONE" status: "IN_PROGRESS"}
                 sh "mvn clean"
-                
             }
         }
         stage("Test Code"){
@@ -63,10 +61,10 @@ pipeline{
            echo "this happens"
         }
         success{
-            publishChecks conclusion: "SUCCESS"
+            echo "SUCCESS"
         }
         failure{
-            publishChecks conclusion: "FAILURE"
+            echo "FAILURE"
         }
     }
 }
