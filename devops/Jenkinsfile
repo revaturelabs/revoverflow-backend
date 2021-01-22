@@ -58,13 +58,17 @@ pipeline{
     }
     post{
         always{
-            echo "========always========"
+           
         }
         success{
-            echo "========pipeline executed successfully ========"
+            publishChecks{
+                conclusion 'SUCCESS'
+            }
         }
         failure{
-            echo "========pipeline execution failed========"
+            publishChecks{
+                conclusion 'FAILURE'
+            }
         }
     }
 }
