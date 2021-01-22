@@ -5,7 +5,7 @@ pipeline{
     stages{
         stage("Prepare Environment"){
             steps{
-                publishChecks conclusion: "NONE" status: "IN_PROGRESS"
+                publishChecks{ conclusion: "NONE" status: "IN_PROGRESS"}
                 sh "mvn clean"
                 
             }
