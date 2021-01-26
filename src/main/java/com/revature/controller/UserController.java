@@ -4,6 +4,7 @@ package com.revature.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,13 +29,13 @@ public class UserController {
 	 * @return User this returns the user entity with updated RSS points
 	 */
 	@GetMapping("/{id}")
-	@PreAuthorize("hasAuthority('user')")
-	public User getUserById(@PathVariable int id) {
+	//@PreAuthorize("hasAuthority('user')")
+	public User getUserById(@AuthenticationPrincipal String user, @PathVariable int id) {
 		return userService.getUserById(id);
 	}
 
 	@GetMapping("/login/{token}")
-	public User login(@PathVariable("token") String token){
+	public User login(@AuthenticationPrincipal String user, @PathVariable("token") String token){
 
 		return null;
 	}

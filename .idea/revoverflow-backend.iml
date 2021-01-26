@@ -212,7 +212,6 @@
     <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.43.Final" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-transport:4.1.43.Final" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.43.Final" level="project" />
-    <orderEntry type="library" name="Maven: co.elastic.apm:apm-agent-api:1.18.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:20.0" level="project" />
   </component>
 </module>

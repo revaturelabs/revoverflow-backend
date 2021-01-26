@@ -6,9 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.elastic.apm.api.ElasticApm;
-import co.elastic.apm.api.Span;
-import co.elastic.apm.api.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,13 +42,9 @@ public class TokenPresentFilter extends OncePerRequestFilter {
         String token = null;
         Authentication authentication = null;
         if (header != null && header.startsWith("Bearer ")) {
-            Transaction transaction = ElasticApm.currentTransaction();
-            transaction.ensureParentId();
-            Span authenticationSpan = transaction.startSpan();
-            authenticationSpan.setName("Token Authentication");
-            token = header.replace("Bearer ", "");
+
+            token = header.replace("Bearer Access Token outside_________", "");
             authentication = authenticationManager.authenticate(new UnauthenticatedLibraryCard(token));
-            authenticationSpan.end();
         } else {
             logger.info("No JWT Token present. Ignoring header");
         }
