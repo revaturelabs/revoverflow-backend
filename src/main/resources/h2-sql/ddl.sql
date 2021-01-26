@@ -29,3 +29,11 @@ create table questions (
 	status BOOLEAN NOT NULL,
 	user_id INTEGER references users(user_id)
 );
+
+
+DROP TABLE IF EXISTS faq CASCADE;
+create table faq (
+	id INTEGER generated always as identity primary key,
+	question_id INTEGER references questions(id),
+    location VARCHAR(50)
+);
