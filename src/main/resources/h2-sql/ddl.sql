@@ -38,6 +38,12 @@ create table locations (
 
 );
 
+DROP TABLE IF EXISTS faq CASCADE;
+create table faq (
+	id INTEGER generated always as identity primary key,
+	question_id INTEGER references questions(id),
+    location VARCHAR(50)
+);
 
 begin;
 begin;
