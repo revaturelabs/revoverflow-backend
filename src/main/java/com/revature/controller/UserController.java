@@ -32,4 +32,10 @@ public class UserController {
 	public User getUserById(@PathVariable int id) {
 		return userService.getUserById(id);
 	}
+
+	@GetMapping("/login/{token}")
+	public User login(@PathVariable("token") String token){
+
+		return null;
+	}
 }

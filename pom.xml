@@ -17,6 +17,10 @@
 		<!-- Jacoco Configuration -->
 		<coverage.reports.dir>${basedir}/target/coverage-reports</coverage.reports.dir>
 
+		<!-- APM -->
+		<elastic-apm.version>1.18.1</elastic-apm.version>
+
+
 		<!-- Sonar Configuration -->
 		<sonar.projectKey>${env.SONAR_PROJECT_KEY}</sonar.projectKey>
 		<sonar.organization>${env.SONAR_ORGANIZATION}</sonar.organization>
@@ -135,9 +139,22 @@
 			<version>0.10.6</version>
 			<scope>runtime</scope>
 		</dependency>
-		
-		
-	    <dependency>
+
+		<dependency>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>7.0.0</version>
+		</dependency>
+
+		<!-- APM -->
+		<dependency>
+			<groupId>co.elastic.apm</groupId>
+			<artifactId>apm-agent-api</artifactId>
+			<version>${elastic-apm.version}</version>
+		</dependency>
+
+
+		<dependency>
       		<groupId>com.google.guava</groupId>
       		<artifactId>guava</artifactId>
       		<version>20.0</version>
