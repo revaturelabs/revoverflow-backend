@@ -3,3 +3,5 @@
 /target
 /RemoteSystemsTempFiles
 /bin
+# firebase
+**/915-alec-batson.json
