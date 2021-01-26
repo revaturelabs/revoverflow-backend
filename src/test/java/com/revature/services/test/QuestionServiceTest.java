@@ -32,21 +32,21 @@ import com.revature.repositories.QuestionRepository;
 import com.revature.services.QuestionService;
 import com.revature.services.RSSService;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class QuestionServiceTest {
-	
-	@Autowired
-	QuestionService questionService;
-	
-	@MockBean
-	QuestionRepository questionRepository;
-	
-	@MockBean
-	AnswerRepository answerRepository;
-	
-	@MockBean
-	RSSService rssService;
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
+//public class QuestionServiceTest {
+//	
+//	@Autowired
+//	QuestionService questionService;
+//	
+//	@MockBean
+//	QuestionRepository questionRepository;
+//	
+//	@MockBean
+//	AnswerRepository answerRepository;
+//	
+//	@MockBean
+//	RSSService rssService;
 	
 //	/** @author Hugh Thornhill */
 //	@Test
@@ -182,5 +182,5 @@ public class QuestionServiceTest {
 //		Question q3 = questionService.updateQuestionStatus(q, 20);
 //		assertTrue(q3.isStatus());
 //	}
-	
-}
+//	
+//}

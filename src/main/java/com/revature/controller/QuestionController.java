@@ -20,7 +20,6 @@ import com.revature.services.QuestionService;
 
 @RestController
 @RequestMapping("/questions")
-
 public class QuestionController {
 	
 	@Autowired

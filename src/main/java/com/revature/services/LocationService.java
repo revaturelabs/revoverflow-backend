@@ -20,12 +20,23 @@ public class LocationService {
 		this.locationRepository = locationRepository;
 	}
 	
+	/**
+	 * @author Kelvin Trinh
+	 * @return all available locations in the database
+	 */
 	public List<Location> getAllLocations() {
 		return locationRepository.findAll();
 	}
 	
+	/**
+	 * @author Kelvin Trinh
+	 * @param location
+	 * @description add a new location
+	 * @return location object
+	 */
 	@Transactional
 	public Location addLocation(Location location) {
+		//location.setId(0);
 		return locationRepository.save(location);
 	}
 
