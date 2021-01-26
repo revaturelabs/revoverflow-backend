@@ -42,7 +42,6 @@ public class Question {
 	private int userID;
 	
 	@Column(name="location_id")
-	@NotNull
 	private int locationID;
 
 	
@@ -59,7 +58,7 @@ public class Question {
 
 
 	public Question(int id, Integer acceptedId, @NotNull String title, @NotNull String content,
-			LocalDateTime creationDate, LocalDateTime editDate, boolean status, int userID, @NotNull int locationID) {
+			LocalDateTime creationDate, LocalDateTime editDate, boolean status, int userID, int locationID) {
 		super();
 		this.id = id;
 		this.acceptedId = acceptedId;
