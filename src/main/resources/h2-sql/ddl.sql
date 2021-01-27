@@ -26,6 +26,7 @@ create table questions (
 	content VARCHAR(1000) NOT NULL,
 	creation_date TIMESTAMP NOT NULL,
 	edit_date TIMESTAMP,
+	revaturequestion BOOLEAN DEFAULT FALSE, 
 	status BOOLEAN NOT NULL,
 	user_id INTEGER references users(user_id),
 	location_id INTEGER references locations(id)
