@@ -1,8 +1,9 @@
+DROP TABLE if exists questions CASCADE;
 DROP TABLE IF EXISTS answers CASCADE;
-DROP TABLE IF EXISTS locations CASCADE;
 DROP TABLE IF EXISTS faq CASCADE;
-DROP TABLE IF EXISTS questions CASCADE;
-DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS users;
+DROP TABLE if exists locations CASCADE;
+
 CREATE TABLE users (
   user_id int PRIMARY KEY,
   account_id int NOT NULL,
@@ -27,7 +28,7 @@ create table questions (
 	content VARCHAR(1000) NOT NULL,
 	creation_date TIMESTAMP NOT NULL,
 	edit_date TIMESTAMP,
-	revaturequestion BOOLEAN DEFAULT FALSE, 
+	revature_question BOOLEAN DEFAULT FALSE, 
 	status BOOLEAN NOT NULL,
 	user_id INTEGER references users(user_id),
 	location_id INTEGER references locations(id)
@@ -46,7 +47,7 @@ create table answers (
 create table faq (
 	id INTEGER generated always as identity primary key,
 	question_id INTEGER references questions(id),
-    "location" VARCHAR(50)
+    location VARCHAR(50)
 );
 
 INSERT INTO users (user_id,account_id, points, admin_role, profile_picture, email, first_name, last_name, "PASSWORD") 
@@ -59,4 +60,3 @@ values ('Reston'),
 ('Dallas'),
 ('Orlando'),
 ('Morgantown');
-
