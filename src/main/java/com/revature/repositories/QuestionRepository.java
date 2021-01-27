@@ -18,6 +18,12 @@ public interface QuestionRepository extends JpaRepository<Question, Integer>{
 	@Query("FROM Question s WHERE :status = s.status")
 	Page<Question> getQuestionsByStatus(Pageable pageable, boolean status);
 	
+	/**@author Hammad*/
+	Page<Question> findByLocationID(Pageable pageable, int locationID);
+	
+	/**@author Hammad*/
+	Page<Question> findByRevatureQuestionAndLocationID(Pageable pageable, boolean isRevature, int locationID);
+	
 	///**@author Arjun*/
 	//@Query("FROM Question s WHERE :status = s.status and :revature = s.revaturequestion")
 	//Page<Question> getQuestionsBasedOnRevature(Pageable pageable, boolean status, boolean revature);

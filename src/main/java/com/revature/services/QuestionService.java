@@ -124,4 +124,18 @@ public class QuestionService {
 		return questionRepository.getQuestionsByStatus(pageable, status);
 	}
 	
+	/**@author Hammad
+	 * @return This method retrieves all the questions based on the specific location they are related to.
+	 * There is a location field that is "all" and it will return all the questions*/
+	public Page<Question> getAllQuestionsByLocationID(Pageable pageable, int locationID){
+		return questionRepository.findByLocationID(pageable, locationID);
+	}
+	
+	/**@author Hammad
+	 * @return This method retrieves all the questions based on the specific location they are related to
+	 * and whether or not they are company based.*/
+	public Page<Question> getAllQuestionsByRevatureStatusAndLocationID(Pageable pageable, boolean isRevature, int locationID){
+		return questionRepository.findByRevatureQuestionAndLocationID(pageable, isRevature, locationID);
+	}
+	
 }
