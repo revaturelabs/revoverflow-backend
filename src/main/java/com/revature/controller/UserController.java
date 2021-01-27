@@ -36,7 +36,7 @@ public class UserController {
 
 	@GetMapping("/login/{token}")
 	public User login(@AuthenticationPrincipal String user, @PathVariable("token") String token){
-
+		System.out.println("hi");
 		return null;
 	}
 }

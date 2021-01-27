@@ -6,8 +6,6 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -24,7 +22,7 @@ public class FirebaseConfig {
 
     public FirebaseConfig() {
         try {
-            Resource serviceAccount = new ClassPathResource("creds.json");
+            Resource serviceAccount = new ClassPathResource("915-alec-batson.json");
             FirebaseOptions options = FirebaseOptions.builder().setCredentials(GoogleCredentials.fromStream(serviceAccount.getInputStream())).build();
             this.firebaseAuth = FirebaseAuth.getInstance(FirebaseApp.initializeApp(options));
            // logger.info("Successfully initialized Firebase and FirebaseAuth!");

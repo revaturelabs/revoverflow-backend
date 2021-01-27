@@ -41,9 +41,9 @@ public class TokenPresentFilter extends OncePerRequestFilter {
         final String header = httpServletRequest.getHeader("Authorization");
         String token = null;
         Authentication authentication = null;
-        if (header != null && header.startsWith("Bearer ")) {
+        if (header != null && header.startsWith("Bearer")) {
 
-            token = header.replace("Bearer Access Token outside_________", "");
+            token = header.replace("Bearer ", "");
             authentication = authenticationManager.authenticate(new UnauthenticatedLibraryCard(token));
         } else {
             logger.info("No JWT Token present. Ignoring header");
