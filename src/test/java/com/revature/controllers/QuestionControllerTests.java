@@ -79,27 +79,55 @@ public class QuestionControllerTests {
     }
 	
 	
-//	@Test
-//    @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
-//	public void testGetAllQuestionsHappyPath() throws Exception {
-//		
-//		// Create page of data
-//		List<Question> questions = new ArrayList<>();
-//		questions.add(new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, 1));
-//		Page<Question> pageResult = new PageImpl<>(questions);
-//		
-//		// Stub getAllQuestions to return page of data
-//		when(questionService.getAllQuestions(Mockito.any(Pageable.class))).thenReturn(pageResult);
-//		
-//		// Call API end point and assert result
-//		mvc.perform(get("/questions")
-//			.accept(MediaType.APPLICATION_JSON))
-//			.andExpect(status().isOk())
-//			.andExpect(content()
-//					.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-//			.andExpect(jsonPath("$.content[0].title", is("title")));
-//			
-//	}
+	@Test
+    @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
+	public void testGetAllQuestionsHappyPath() throws Exception {
+		
+		// Create page of data
+		List<Question> questions = new ArrayList<>();
+		questions.add(new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, false, 1, 0));
+		Page<Question> pageResult = new PageImpl<>(questions);
+		
+		// Stub getAllQuestions to return page of data
+		when(questionService.getAllQuestions(Mockito.any(Pageable.class))).thenReturn(pageResult);
+		
+		// Call API end point and assert result
+	mvc.perform(get("/questions")
+			.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+			.andExpect(content()
+				.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+		.andExpect(jsonPath("$.content[0].title", is("title")));
+		
+	}
+	
+	/* @Author Arjun */
+	@Test
+    @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
+	public void testGetAllRevatureQuestionsPath() throws Exception {
+		
+		// Create page of data
+		List<Question> questions = new ArrayList<>();
+		questions.add(new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, true, 1, 0));
+		Page<Question> pageResult = new PageImpl<>(questions);
+		
+		// Stub getAllQuestions to return page of data just from revature question
+		when(questionService.getQuestionsBasedOnRevature(Mockito.any(Pageable.class), Mockito.anyBoolean())).thenReturn(pageResult);
+		
+		// Call API end point and assert result
+		mvc.perform(get("/questions/revature/true")
+			.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+			.andExpect(content()
+				.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+		.andExpect(jsonPath("$.content[0].title", is("title")));
+		
+	}
+	
+
+	
+	
+	
 //	
 //	/* @Author ken */
 //	@Test
