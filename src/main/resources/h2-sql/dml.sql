@@ -42,6 +42,15 @@ VALUES(14, 1, 'answer content 1', '2012-12-13', NULL),
 (13, 2, 'answer content 4', '2012-12-13', NULL),  
 (13, 2, 'answer content 5', '2012-12-13', NULL);
 
+insert into locations (id, location_name)
+values (1, 'Reston'),
+(2, 'Toronto'),
+(3, 'Tampa'),
+(4, 'New York'),
+(5, 'Dallas'),
+(6, 'Orlando'),
+(7, 'Morgantown');
+
 insert into faq (faq_id, question_id, answer_id, location) values(1,1,1,'Toronto');
 insert into faq (faq_id, question_id, answer_id, location) values(2,2,2,'Ottawa');
 
