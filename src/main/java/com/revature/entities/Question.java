@@ -37,29 +37,26 @@ public class Question {
 
 	private boolean status;
 
+	
+	// if this value is true then it is the revature base question 
+	// by default it is false 
+	@Column(name = "revaturequestion")
+	private boolean revatureQuestion;
+	
 	// add the not null check in the service layer
 	@Column(name = "user_id")
 	private int userID;
 	
 	@Column(name="location_id")
-	@NotNull
 	private int locationID;
 
-	
-	
-
-	@Override
-	public String toString() {
-		return "Question [id=" + id + ", acceptedId=" + acceptedId + ", title=" + title + ", content=" + content
-				+ ", creationDate=" + creationDate + ", editDate=" + editDate + ", status=" + status + ", userID="
-				+ userID + ", locationID=" + locationID + "]";
+	public Question() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-
-
-
-	public Question(int id, Integer acceptedId, @NotNull String title, @NotNull String content,
-			LocalDateTime creationDate, LocalDateTime editDate, boolean status, int userID, @NotNull int locationID) {
+	public Question(int id, Integer acceptedId, @NotNull String title, @NotNull String content, LocalDateTime creationDate,
+			LocalDateTime editDate, boolean status, boolean revatureQuestion, int userID, @NotNull int locationID) {
 		super();
 		this.id = id;
 		this.acceptedId = acceptedId;
@@ -68,12 +65,17 @@ public class Question {
 		this.creationDate = creationDate;
 		this.editDate = editDate;
 		this.status = status;
+		this.revatureQuestion = revatureQuestion;
 		this.userID = userID;
 		this.locationID = locationID;
 	}
 
-
-
+	@Override
+	public String toString() {
+		return "Question [id=" + id + ", acceptedId=" + acceptedId + ", title=" + title + ", content=" + content
+				+ ", creationDate=" + creationDate + ", editDate=" + editDate + ", status=" + status
+				+ ", revatureQuestion=" + revatureQuestion + ", userID=" + userID + ", locationID=" + locationID + "]";
+	}
 
 	@Override
 	public int hashCode() {
@@ -85,14 +87,12 @@ public class Question {
 		result = prime * result + ((editDate == null) ? 0 : editDate.hashCode());
 		result = prime * result + id;
 		result = prime * result + locationID;
+		result = prime * result + (revatureQuestion ? 1231 : 1237);
 		result = prime * result + (status ? 1231 : 1237);
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + userID;
 		return result;
 	}
-
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -127,6 +127,8 @@ public class Question {
 			return false;
 		if (locationID != other.locationID)
 			return false;
+		if (revatureQuestion != other.revatureQuestion)
+			return false;
 		if (status != other.status)
 			return false;
 		if (title == null) {
@@ -139,138 +141,87 @@ public class Question {
 		return true;
 	}
 
-
-
-
 	public int getId() {
 		return id;
 	}
-
-
-
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
-
-
 	public Integer getAcceptedId() {
 		return acceptedId;
 	}
-
-
-
 
 	public void setAcceptedId(Integer acceptedId) {
 		this.acceptedId = acceptedId;
 	}
 
-
-
-
 	public String getTitle() {
 		return title;
 	}
-
-
-
 
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-
-
-
 	public String getContent() {
 		return content;
 	}
-
-
-
 
 	public void setContent(String content) {
 		this.content = content;
 	}
 
-
-
-
 	public LocalDateTime getCreationDate() {
 		return creationDate;
 	}
-
-
-
 
 	public void setCreationDate(LocalDateTime creationDate) {
 		this.creationDate = creationDate;
 	}
 
-
-
-
 	public LocalDateTime getEditDate() {
 		return editDate;
 	}
-
-
-
 
 	public void setEditDate(LocalDateTime editDate) {
 		this.editDate = editDate;
 	}
 
-
-
-
 	public boolean isStatus() {
 		return status;
 	}
-
-
-
 
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
 
+	public boolean isRevatureQuestion() {
+		return revatureQuestion;
+	}
 
-
+	public void setRevatureQuestion(boolean revatureQuestion) {
+		this.revatureQuestion = revatureQuestion;
+	}
 
 	public int getUserID() {
 		return userID;
 	}
 
-
-
-
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
-
-
-
 
 	public int getLocationID() {
 		return locationID;
 	}
 
-
-
-
 	public void setLocationID(int locationID) {
 		this.locationID = locationID;
 	}
 
-
-
-
-	public Question() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
+	
 
 }
