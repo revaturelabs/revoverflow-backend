@@ -40,7 +40,7 @@ public class Question {
 	
 	// if this value is true then it is the revature base question 
 	// by default it is false 
-	@Column(name = "revaturequestion")
+	@Column(name = "revature_question")
 	private boolean revatureQuestion;
 	
 	// add the not null check in the service layer
