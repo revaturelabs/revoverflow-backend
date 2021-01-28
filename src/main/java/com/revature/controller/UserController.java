@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import com.revature.services.UserService;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin("*")
 
 public class UserController {
 
@@ -34,8 +36,8 @@ public class UserController {
 		return userService.getUserById(id);
 	}
 
-	@GetMapping("/login/{token}")
-	public User login(@AuthenticationPrincipal String user, @PathVariable("token") String token){
+	@GetMapping("/login")
+	public User login(@AuthenticationPrincipal String user){
 		System.out.println("hi");
 		return null;
 	}

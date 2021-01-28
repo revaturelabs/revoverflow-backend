@@ -5,11 +5,11 @@ import org.springframework.security.core.authority.AuthorityUtils;
 
 import java.util.Map;
 
-public class LibraryCard extends AbstractAuthenticationToken {
+public class FirebaseUser extends AbstractAuthenticationToken {
 
     private final Map<String, Object> claims;
 
-    public LibraryCard(Map<String, Object> claims) {
+    public FirebaseUser(Map<String, Object> claims) {
         super(AuthorityUtils.NO_AUTHORITIES);
         this.claims = claims;
     }

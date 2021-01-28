@@ -11,6 +11,6 @@ public class SimpleAuthenticationManager implements AuthenticationManager {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        return new LibraryCard(Collections.singletonMap("email", "mock@test.com"));
+        return new FirebaseUser(Collections.singletonMap("email", "mock@test.com"));
     }
 }

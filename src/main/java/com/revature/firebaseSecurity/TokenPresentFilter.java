@@ -44,12 +44,12 @@ public class TokenPresentFilter extends OncePerRequestFilter {
         if (header != null && header.startsWith("Bearer")) {
 
             token = header.replace("Bearer ", "");
-            authentication = authenticationManager.authenticate(new UnauthenticatedLibraryCard(token));
+            authentication = authenticationManager.authenticate(new UnauthenticatedFirebaseUser(token));
         } else {
             logger.info("No JWT Token present. Ignoring header");
         }
 
-        if (authentication instanceof LibraryCard) {
+        if (authentication instanceof FirebaseUser) {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                     authentication.getName(), "", AuthorityUtils.createAuthorityList("ROLE_USER"));
             auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
