@@ -1,7 +1,5 @@
 package com.revature.controller;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.revature.entities.User;
 import com.revature.services.UserService;
@@ -31,14 +30,15 @@ public class UserController {
 	 * @return User this returns the user entity with updated RSS points
 	 */
 	@GetMapping("/{id}")
-	//@PreAuthorize("hasAuthority('user')")
+	@PreAuthorize("hasAuthority('user')")
 	public User getUserById(@AuthenticationPrincipal String user, @PathVariable int id) {
 		return userService.getUserById(id);
 	}
 
 	@PostMapping("/login")
+	@PreAuthorize("hasAuthority('user')")
 	public User login(@AuthenticationPrincipal String user){
-		System.out.println("hi");
-		return null;
+		return userService.getByEmail(user);
+
 	}
 }
