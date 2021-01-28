@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "questions")
 public class Question {
@@ -40,7 +42,7 @@ public class Question {
 	
 	// if this value is true then it is the revature base question 
 	// by default it is false 
-	@Column(name = "revaturequestion")
+	@Column(name = "revature_question")
 	private boolean revatureQuestion;
 	
 	// add the not null check in the service layer
@@ -48,7 +50,8 @@ public class Question {
 	private int userID;
 	
 	@Column(name="location_id")
-	private int locationID;
+	//@JsonIgnore
+	private Integer locationID;
 
 	public Question() {
 		super();
@@ -56,7 +59,7 @@ public class Question {
 	}
 
 	public Question(int id, Integer acceptedId, @NotNull String title, @NotNull String content, LocalDateTime creationDate,
-			LocalDateTime editDate, boolean status, boolean revatureQuestion, int userID, @NotNull int locationID) {
+			LocalDateTime editDate, boolean status, boolean revatureQuestion, int userID,Integer locationID) {
 		super();
 		this.id = id;
 		this.acceptedId = acceptedId;
@@ -213,11 +216,11 @@ public class Question {
 		this.userID = userID;
 	}
 
-	public int getLocationID() {
+	public Integer getLocationID() {
 		return locationID;
 	}
 
-	public void setLocationID(int locationID) {
+	public void setLocationID(Integer locationID) {
 		this.locationID = locationID;
 	}
 
