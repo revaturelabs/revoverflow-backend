@@ -46,6 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable()
                 .formLogin().disable()
                 .authorizeRequests()
+                .mvcMatchers("/user/login", HttpMethod.POST.toString()).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
