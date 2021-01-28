@@ -16,25 +16,10 @@ CREATE TABLE users (
   "PASSWORD" varchar(250) NOT NULL
 );
 
-INSERT INTO users (user_id,account_id, points, admin_role, profile_picture, email, first_name, last_name, "PASSWORD") 
-VALUES (13, 15, 100, false, NULL, 'user@rss.com', 'User', 'User', '$2a$10$97GCVEL7iXNgR8MuSltN9.pHHXnNNjU0c.uoVpuYWHMgRKOljdS26'), (12, 26, 20, true, NULL, 'admin@rss.com', 'Admin', 'Admin', '$2a$10$97GCVEL7iXNgR8MuSltN9.pHHXnNNjU0c.uoVpuYWHMgRKOljdS26');
-
 create table locations (
 	id INTEGER generated always as identity primary key,
 	location_name VARCHAR(50) NOT NULL
-
 );
-
-insert into locations (location_name)
-values ('AllLocations'),
-('Reston'),
-('Toronto'),
-('Tampa'),
-('New York'),
-('Dallas'),
-('Orlando'),
-('Morgantown');
-
 
 create table questions (
 	id INTEGER generated always as identity primary key,
@@ -59,9 +44,20 @@ create table answers (
 );
 
 
-
 create table faq (
 	id INTEGER generated always as identity primary key,
 	question_id INTEGER references questions(id),
     location VARCHAR(50)
 );
+
+INSERT INTO users (user_id,account_id, points, admin_role, profile_picture, email, first_name, last_name, "PASSWORD") 
+VALUES (13, 15, 100, false, NULL, 'user@rss.com', 'User', 'User', '$2a$10$97GCVEL7iXNgR8MuSltN9.pHHXnNNjU0c.uoVpuYWHMgRKOljdS26'), (12, 26, 20, true, NULL, 'admin@rss.com', 'Admin', 'Admin', '$2a$10$97GCVEL7iXNgR8MuSltN9.pHHXnNNjU0c.uoVpuYWHMgRKOljdS26');
+insert into locations (location_name)
+values ('AllLocations'),
+('Reston'),
+('Toronto'),
+('Tampa'),
+('New York'),
+('Dallas'),
+('Orlando'),
+('Morgantown');

@@ -16,6 +16,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.context.junit.jupiter.DisabledIf;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.entities.Location;
@@ -37,6 +38,7 @@ public class QuestionServiceTest {
 	
 	
 //	@Test
+//	@Disabled("Disabled until it is known how to use jUnit with Pages")
 //	/**@Author Hammad*/
 //	public void testGetAllQuestionsByLocationID() {
 //		
@@ -46,7 +48,7 @@ public class QuestionServiceTest {
 //		expectedResult.add(q1);
 //		expectedResult.add(q2);
 //		
-//		Page<Question> expectedResultPage = new PageImpl<Question>(expectedResult, Mockito.any(Pageable.class), 1);
+//		Page<Question> expectedResultPage = new PageImpl<Question>(expectedResult); //, Mockito.any(Pageable.class), 1
 //
 //		Mockito.when(questionRepository.findByLocationID(Mockito.any(Pageable.class), 2)).thenReturn(expectedResultPage);
 //		

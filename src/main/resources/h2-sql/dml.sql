@@ -1,9 +1,4 @@
-insert into questions (title, content, creation_date, status, user_id)
-VALUES ('question 1', 'question 1 content', '2012-12-12', false, 13),
-('question 2', 'question 2 content', '2012-12-12', false, 13),
-('question 3', 'question 3 content', '2012-12-12', false, 13),
-('question 4', 'question 4 content', '2012-12-12', false, 14),
-('question 5', 'question 5 content', '2012-12-12', false, 14);
+
 insert into questions (title, content, creation_date, status, user_id)
 VALUES ('question 6', 'question 6 content', '2012-12-12', false, 13),
 ('question 7', 'question 7 content', '2012-12-12', false, 13),
