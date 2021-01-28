@@ -26,7 +26,8 @@ create table locations (
 );
 
 insert into locations (location_name)
-values ('Reston'),
+values ('AllLocations'),
+('Reston'),
 ('Toronto'),
 ('Tampa'),
 ('New York'),

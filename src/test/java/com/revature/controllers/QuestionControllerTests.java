@@ -147,6 +147,48 @@ public class QuestionControllerTests {
 			
 	}
 	
+	/* @Author Hammad */
+	@Test
+	@WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
+	public void testGetAllQuestionsByLocationID() throws Exception {
+		// Create page of data
+		List<Question> questions = new ArrayList<>();
+		questions.add(new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, false, 1,3));
+		Page<Question> pageResult = new PageImpl<>(questions);
+		
+		// Stub getAllQuestions to return page of data
+		when(questionService.getAllQuestionsByLocationID(Mockito.any(Pageable.class), Mockito.anyInt())).thenReturn(pageResult);
+		
+		// Call API end point and assert result
+		mvc.perform(get("/questions/location/3")
+			.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content()
+					.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			.andExpect(jsonPath("$.content[0].locationID", is(3)));	
+	}
+	
+	/* @Author Hammad */
+	@Test
+	@WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
+	public void testGetAllQuestionsByRevatureBasedAndLocationID() throws Exception {
+		// Create page of data
+		List<Question> questions = new ArrayList<>();
+		questions.add(new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, false, 1,3));
+		Page<Question> pageResult = new PageImpl<>(questions);
+		
+		// Stub getAllQuestions to return page of data
+		when(questionService.getAllQuestionsByRevatureStatusAndLocationID(Mockito.any(Pageable.class), Mockito.anyBoolean(), Mockito.anyInt())).thenReturn(pageResult);
+		
+		// Call API end point and assert result
+		mvc.perform(get("/questions/location/3/false")
+			.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			.andExpect(jsonPath("$.content[0].revatureQuestion", is(false)))
+			.andExpect(jsonPath("$.content[0].locationID", is(3)));	
+	}
+	
 	/**@author James
 	 * @return Checks to make sure that the Question Controller method for the update accepted id method works.
 	 */
@@ -160,9 +202,9 @@ public class QuestionControllerTests {
         when(questionService.updateQuestionStatus(Mockito.any(Question.class), Mockito.anyInt())).thenReturn(testQuestions);
         String toUpdate = mapper.writeValueAsString(questions);
         org.springframework.test.web.servlet.MvcResult result = mvc.perform(MockMvcRequestBuilders.put("/questions/status")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON) //removed _UTF8
                 .content(toUpdate)
-                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON)
                 ).andReturn();
 
         assertEquals(200, result.getResponse().getStatus());
@@ -180,9 +222,9 @@ public class QuestionControllerTests {
         when(questionService.updateQuestionAcceptedAnswerId(Mockito.any(Question.class))).thenReturn(testQuestions);
         String toUpdate = mapper.writeValueAsString(questions);
         MvcResult result = mvc.perform(MockMvcRequestBuilders.put("/questions")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(toUpdate)
-                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON)
                 ).andReturn();
         String content = result.getResponse().getContentAsString();
         assertEquals(200, result.getResponse().getStatus());
@@ -220,9 +262,9 @@ public class QuestionControllerTests {
 		
         String toUpdate = mapper.writeValueAsString(question);
         MvcResult result = mvc.perform(MockMvcRequestBuilders.post("/questions")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(toUpdate)
-                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON)
                 ).andReturn();
         String content = result.getResponse().getContentAsString();
         System.out.println("result = " + content);
