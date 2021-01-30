@@ -23,7 +23,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.repositories.UserRepository;
 import com.revature.security.jwt.DefaultTokenManager;
-@Configuration
+
+/*@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
@@ -91,4 +92,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	      .addFilterAfter(new LoginFilter(mapper, authenticationProvider(), defaultTokenManager, userRepository), UsernamePasswordAuthenticationFilter.class);
 	  }
 
+}*/
+
+@Configuration
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.authorizeRequests().antMatchers("/").permitAll().and()
+                .authorizeRequests().antMatchers("/console/**").permitAll();
+
+        httpSecurity.csrf().disable();
+        httpSecurity.headers().frameOptions().disable();
+    }
 }

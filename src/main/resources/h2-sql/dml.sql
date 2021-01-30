@@ -51,10 +51,11 @@ values ('Reston'),
 ('Orlando'),
 ('Morgantown');
 
-insert into faq (faq_id, question_id, answer_id, location) values(1,1,1,'Toronto');
-insert into faq (faq_id, question_id, answer_id, location) values(2,2,2,'Ottawa');
+insert into faq (question_id, answer_id, location_id) values(1,1,1);
+insert into faq (question_id, answer_id, location_id) values(2,2,2);
 
 SELECT questions.* from questions;
 SELECT answers.* from answers;
 SELECT users.* from users;
 SELECT faq.* from faq;
+SELECT locations.* from locations;

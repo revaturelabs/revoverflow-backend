@@ -2,8 +2,6 @@ package com.revature.controllers;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -23,14 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -38,6 +34,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.Application;
 import com.revature.entities.Answer;
 import com.revature.entities.Faq;
+import com.revature.entities.Location;
 import com.revature.entities.Question;
 import com.revature.entities.User;
 import com.revature.services.FaqService;
@@ -84,20 +81,19 @@ public class FaqControllerTest {
 		Answer a = new Answer();
 		a.setId(1);
 		
-		faqList.add(new Faq(6,q,a,"Toronto"));
+		
+		faqList.add(new Faq(6,q,a,2));
 
 		// Stub getAllQuestions to return page of data
 		when(faqService.getAllFaq()).thenReturn(faqList);
 		
 		// Call API end point and assert result
-		MvcResult result = mvc.perform(get("/faq/all")
+		mvc.perform(get("/faq/all")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content()
 			.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("$[0].faqId", is(6))).andReturn();
-		System.out.println("Result testGetAllFaq : "+result.getResponse().getContentAsString());
-        assertEquals(200, result.getResponse().getStatus());
+			.andExpect(jsonPath("$[0].id", is(6)));
 	}
 	
 	@Test
@@ -112,20 +108,50 @@ public class FaqControllerTest {
 		Answer a = new Answer();
 		a.setId(1);
 		
-		faqList.add(new Faq(6,q,a,"Toronto"));
+		faqList.add(new Faq(6,q,a,1));
 
 		// Stub getAllQuestions to return page of data
 		when(faqService.getFaqByLocation("Toronto")).thenReturn(faqList);
 		
 		// Call API end point and assert result
-		MvcResult result = mvc.perform(get("/faq/Toronto")
+		 mvc.perform(get("/faq/Toronto")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content()
 			.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("$[0].location", is("Toronto"))).andReturn();
-		System.out.println("Result testGetFaqByLocation : "+result.getResponse().getContentAsString());
-        assertEquals(200, result.getResponse().getStatus());
+			.andExpect(jsonPath("$[0].id", is(6)));
+	}
+	
+	@Test
+    @WithMockUser(username = "admin@rss.com", password = "Password123!", authorities = "user")
+	public void testSaveFaq() throws Exception {
+		
+		Question q = new Question();
+		q.setId(1);
+		q.setAcceptedId(1);
+		q.setContent("quest content");
+		q.setCreationDate(LocalDateTime.MIN);
+		q.setEditDate(LocalDateTime.MIN);
+		q.setStatus(true);
+		q.setUserID(13);
+		
+		Answer a = new Answer();
+		a.setId(1);
+		a.setContent("quest content");
+		a.setCreationDate(LocalDateTime.MIN);
+		a.setEditDate(LocalDateTime.MIN);
+		a.setUserId(13);
+		
+		Faq faq = new Faq(1, q, a, 1);
+
+		when(faqService.save(Mockito.any(Faq.class))).thenReturn(faq);
+		
+        String toUpdate = mapper.writeValueAsString(faq);
+         mvc.perform(MockMvcRequestBuilders.post("/faq")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(toUpdate)
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                );
 	}
 }
 

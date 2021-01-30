@@ -43,7 +43,7 @@ DROP TABLE IF EXISTS faq CASCADE;
 create table faq (
 	id INTEGER generated always as identity primary key,
 	question_id INTEGER references questions(id),
-    location VARCHAR(50)
+    location_id INTEGER references locations(id)
 );
 
 begin;
@@ -92,3 +92,4 @@ VALUES(14, 1, 'answer content 1', '2012-12-13', NULL),
 (13, 2, 'answer content 4', '2012-12-13', NULL),  
 (13, 2, 'answer content 5', '2012-12-13', NULL);
 commit;
+
