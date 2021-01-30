@@ -1,11 +1,16 @@
 package com.revature.services;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
 
 import org.junit.Before;
 import org.junit.Test;
@@ -35,6 +40,42 @@ public class QuestionServiceTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);	
 	}
+	
+	
+	/**@author Arjun*/
+	@Test
+	public void getQuestionsBasedOnRevatureWillReturnRevaturBaseQuestion() {
+		
+		
+		List<Question> questions = new ArrayList<>();
+		Page<Question> expectedResult = new PageImpl<>(questions);
+		
+		questionRepository.save(new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, true, 1, 0));
+		questionRepository.save(new Question(2,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, false, 1, 0));
+		
+		
+		Mockito.when(questionRepository.getQuestionsBasedOnRevature(Mockito.any(Pageable.class), Mockito.anyBoolean())).thenReturn(expectedResult);
+		
+		Page<Question> actualResult = questionService.getQuestionsBasedOnRevature(Mockito.any(Pageable.class), Mockito.anyBoolean());
+		
+		System.out.println(Mockito.anyBoolean());
+		assertEquals(expectedResult, actualResult );
+		
+		
+		
+//		questions.add(question);
+//		
+//		when(questionRepository.findAll(Mockito.any(Pageable.class))).thenReturn((pageResult));
+//		Page<Question> result = questionService.getAllQuestions(PageRequest.of(1, 5));
+//		assertThat(pageResult).contains(question);
+//		assertEquals(pageResult, result);
+		
+		
+		
+		
+	}
+	
+	
 	
 	
 //	@Test

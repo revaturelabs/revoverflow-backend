@@ -136,6 +136,9 @@ public class QuestionService {
 	 * and whether or not they are company based.*/
 	public Page<Question> getAllQuestionsByRevatureStatusAndLocationID(Pageable pageable, boolean isRevature, int locationID){
 		return questionRepository.findByRevatureQuestionAndLocationID(pageable, isRevature, locationID);
+	//author Tristan
+	public Page<Question> getQuestionsBasedOnRevature(Pageable pageable, boolean revature){
+		return questionRepository.getQuestionsBasedOnRevature(pageable, revature);
 	}
 	
 }
