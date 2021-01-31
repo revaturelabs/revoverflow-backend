@@ -35,6 +35,12 @@ public class FaqController {
 		return faqService.getFaqByLocation(location);
 	}
 	
+	@GetMapping("/revature/question")
+	@PreAuthorize("hasAuthority('admin')")
+	public List<Faq> getFaqByRevQuestion(){
+		return faqService.getFaqByRevQuestion();
+	}
+	
 	@PostMapping
 	@PreAuthorize("hasAuthority('admin')")
 	public Faq saveQuestion(@RequestBody Faq faq) {
