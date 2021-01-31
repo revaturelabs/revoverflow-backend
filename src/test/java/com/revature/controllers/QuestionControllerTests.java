@@ -270,14 +270,9 @@ public class QuestionControllerTests {
         System.out.println("result = " + content);
         assertEquals(200, result.getResponse().getStatus());
 	}
-	mvc.perform(get("/questions")
-			.accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isOk())
-			.andExpect(content()
-				.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.content[0].title", is("title")));
+	
 		
-	}
+	
 	
 	/* @Author Arjun */
 	@Test
