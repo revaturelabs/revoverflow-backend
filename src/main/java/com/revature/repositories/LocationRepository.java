@@ -8,4 +8,6 @@ import com.revature.entities.Location;
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Integer> {
 
+	public Location findByLocationName(String location);
+	
 }

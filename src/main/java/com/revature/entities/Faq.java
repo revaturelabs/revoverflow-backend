@@ -21,60 +21,67 @@ public class Faq {
 	
 	@OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "question_id")
-	private Question questionId;
+	private Question question;
 	
 	
 	@OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "answer_id")
-	private Answer answerId;
+	private Answer answer;
 	
-    @JoinColumn(name = "location_id")
-	private int locationId;
- 
 	
+	public Faq() {
+		super();
+	
+	}
+
+
+	public Faq(Question questionId, Answer answerId) {
+		super();
+		this.question = questionId;
+		this.answer = answerId;
+		}
+
 
 	public int getId() {
 		return id;
 	}
 
+
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public Question getQuestionId() {
-		return questionId;
+
+	public Question getQuestion() {
+		return question;
 	}
 
-	public void setQuestionId(Question questionId) {
-		this.questionId = questionId;
+
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
 
-	public Answer getAnswerId() {
-		return answerId;
+
+	public Answer getAnswer() {
+		return answer;
 	}
 
-	public void setAnswerId(Answer answerId) {
-		this.answerId = answerId;
+
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
 	}
 
-	public int getLocationId() {
-		return locationId;
-	}
-
-	public void setLocationId(int locationId) {
-		this.locationId = locationId;
-	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((answerId == null) ? 0 : answerId.hashCode());
+		result = prime * result + ((answer == null) ? 0 : answer.hashCode());
 		result = prime * result + id;
-		result = prime * result + locationId;
-		result = prime * result + ((questionId == null) ? 0 : questionId.hashCode());
+		result = prime * result + ((question == null) ? 0 : question.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -85,40 +92,27 @@ public class Faq {
 		if (getClass() != obj.getClass())
 			return false;
 		Faq other = (Faq) obj;
-		if (answerId == null) {
-			if (other.answerId != null)
+		if (answer == null) {
+			if (other.answer != null)
 				return false;
-		} else if (!answerId.equals(other.answerId))
+		} else if (!answer.equals(other.answer))
 			return false;
 		if (id != other.id)
 			return false;
-		if (locationId != other.locationId)
-			return false;
-		if (questionId == null) {
-			if (other.questionId != null)
+		if (question == null) {
+			if (other.question != null)
 				return false;
-		} else if (!questionId.equals(other.questionId))
+		} else if (!question.equals(other.question))
 			return false;
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Faq [id=" + id + ", questionId=" + questionId + ", answerId=" + answerId + ", locationId=" + locationId
-				+ "]";
+		return "Faq [id=" + id + ", question=" + question + ", answer=" + answer + "]";
 	}
 
-	public Faq(int id, Question questionId, Answer answerId, int locationId) {
-		super();
-		this.id = id;
-		this.questionId = questionId;
-		this.answerId = answerId;
-		this.locationId = locationId;
-	}
 
-	public Faq() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 }
