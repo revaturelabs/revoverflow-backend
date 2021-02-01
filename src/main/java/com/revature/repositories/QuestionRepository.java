@@ -18,13 +18,10 @@ public interface QuestionRepository extends JpaRepository<Question, Integer>{
 	@Query("FROM Question s WHERE :status = s.status")
 	Page<Question> getQuestionsByStatus(Pageable pageable, boolean status);
 	
-//	/**@author Arjun*/
-//	@Query("FROM Question s WHERE :status = s.status and :revature = s.revaturequestion")
-//	Page<Question> getQuestionsBasedOnRevatureWithStatusTest(Pageable pageable, boolean status, boolean revature);
+	/**@author Hammad*/
+	@Query("From Question l WHERE l.locationID is not null")
+	Page<Question> findByLocation(Pageable pageable);
 	
-	/**@author Arjun+Tristan*/
-	@Query("FROM Question s WHERE s.revatureQuestion = :revature")
-	Page<Question> getQuestionsBasedOnRevature(Pageable pageable, boolean revature);
 	/**@author Hammad*/
 	Page<Question> findByLocationID(Pageable pageable, int locationID);
 	
@@ -34,5 +31,12 @@ public interface QuestionRepository extends JpaRepository<Question, Integer>{
 	///**@author Arjun*/
 	//@Query("FROM Question s WHERE :status = s.status and :revature = s.revaturequestion")
 	//Page<Question> getQuestionsBasedOnRevature(Pageable pageable, boolean status, boolean revature);
+//	/**@author Arjun*/
+//	@Query("FROM Question s WHERE :status = s.status and :revature = s.revaturequestion")
+//	Page<Question> getQuestionsBasedOnRevatureWithStatusTest(Pageable pageable, boolean status, boolean revature);
+	
+	/**@author Arjun+Tristan*/
+	@Query("FROM Question s WHERE s.revatureQuestion = :revature")
+	Page<Question> getQuestionsBasedOnRevature(Pageable pageable, boolean revature);
 	
 }

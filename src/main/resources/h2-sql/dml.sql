@@ -1,16 +1,15 @@
-
-insert into questions (title, content, creation_date, status, user_id)
-VALUES ('question 6', 'question 6 content', '2012-12-12', false, 13),
-('question 7', 'question 7 content', '2012-12-12', false, 13),
-('question 8', 'question 8 content', '2012-12-12', false, 13),
-('question 9', 'question 9 content', '2012-12-12', false, 14),
-('question 10', 'question 10 content', '2012-12-12', false, 14);
-insert into questions (title, content, creation_date, status, user_id)
-VALUES ('question 11', 'question 11 content', '2012-12-12', false, 13),
-('question 12', 'question 12 content', '2012-12-12', false, 13),
-('question 13', 'question 13 content', '2012-12-12', false, 13),
-('question 14', 'question 14 content', '2012-12-12', false, 13),
-('question 15', 'question 15 content', '2012-12-12', false, 13);
+insert into questions (title, content, creation_date, status, user_id, revature_question, location_id)
+VALUES ('question 6', 'question 6 content', '2012-12-12', false, 13, false, 1),
+('question 7', 'question 7 content', '2012-12-12', false, 13, false, 2),
+('question 8', 'question 8 content', '2012-12-12', false, 13, true, 2),
+('question 9', 'question 9 content', '2012-12-12', false, 13, true, 1),
+('question 10', 'question 10 content', '2012-12-12', false, 13, true, 3);
+insert into questions (title, content, creation_date, status, user_id, revature_question)
+VALUES ('question 11', 'question 6 content', '2012-12-12', false, 13, false),
+('question 12', 'question 7 content', '2012-12-12', false, 13, false),
+('question 13', 'question 8 content', '2012-12-12', false, 13, true),
+('question 14', 'question 9 content', '2012-12-12', false, 13, true),
+('question 15', 'question 10 content', '2012-12-12', false, 13, true);
 insert into questions (title, content, creation_date, status, user_id)
 VALUES ('question 16', 'question 16 content', '2012-12-12', false, 13),
 ('question 18', 'question 18 content', '2012-12-12', false, 13),
