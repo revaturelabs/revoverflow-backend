@@ -124,6 +124,9 @@ public class QuestionService {
 		return questionRepository.getQuestionsByStatus(pageable, status);
 	}
 	
+	//author Tristan
+	public Page<Question> getQuestionsBasedOnRevature(Pageable pageable, boolean revature){
+		return questionRepository.getQuestionsBasedOnRevature(pageable, revature);
 	/**@author Hammad
 	 * @return This method retrieves all the questions based on the specific location they are related to.
 	 * There is a location field that is "all" and it will return all the questions*/
