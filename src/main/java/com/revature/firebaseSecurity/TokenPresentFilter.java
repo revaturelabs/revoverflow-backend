@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -43,6 +44,10 @@ public class TokenPresentFilter extends OncePerRequestFilter {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
             return;
         }
+        if (HttpMethod.POST.name().equals(httpServletRequest.getMethod()) && "/login".equals(httpServletRequest.getRequestURI())) {
+  		  filterChain.doFilter(httpServletRequest, httpServletResponse);
+  		  return;
+  		}
         final String header = httpServletRequest.getHeader("Authorization");
         String token = null;
         Authentication authentication = null;
