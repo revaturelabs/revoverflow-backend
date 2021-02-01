@@ -20,8 +20,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import com.google.common.collect.Lists;
 import com.revature.entities.Question;
 import com.revature.repositories.QuestionRepository;
+
+import io.jsonwebtoken.lang.Arrays;
 
 public class QuestionServiceTest {
 
@@ -42,7 +46,9 @@ public class QuestionServiceTest {
 	
 		Question q1 = new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, true, 1, 0);
 		Question q2 = new Question(2,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, false, 1, 0);
-		List<Question> questions = List.of(q1, q2);
+		
+		List<Question> questions = Lists.newArrayList(q1, q2);
+		
 		Page<Question> pageResult = new PageImpl<Question>(questions);
 		
 		Mockito.when(questionRepository.getQuestionsBasedOnRevature(Mockito.any(Pageable.class), Mockito.anyBoolean())).thenReturn(pageResult);
