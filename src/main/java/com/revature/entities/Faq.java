@@ -1,5 +1,6 @@
 package com.revature.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,64 +10,69 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * @authors Mahesh Kalle & Jeevan Selvagunarajah
+ *
+ */
 @Entity
 @Table(name = "faq")
 public class Faq {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int faqId;
+	@Column(name = "id")
+	private int id;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "question_id")
-	private Question questionId;
+	private Question question;
 	
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "answer_id")
-	private Answer answerId;
+	private Answer answer;
 	
-	@Column(name = "location")
-	private String location;
-
-
-	public int getFaqId() {
-		return faqId;
+	
+	public Faq() {
+		super();
+	
 	}
 
 
-	public void setFaqId(int faqId) {
-		this.faqId = faqId;
+	public Faq(Question questionId, Answer answerId) {
+		super();
+		this.question = questionId;
+		this.answer = answerId;
+		}
+
+
+	public int getId() {
+		return id;
 	}
 
 
-	public Question getQuestionId() {
-		return questionId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
-	public void setQuestionId(Question questionId) {
-		this.questionId = questionId;
+	public Question getQuestion() {
+		return question;
 	}
 
 
-	public Answer getAnswerId() {
-		return answerId;
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
 
 
-	public void setAnswerId(Answer answerId) {
-		this.answerId = answerId;
+	public Answer getAnswer() {
+		return answer;
 	}
 
 
-	public String getLocation() {
-		return location;
-	}
-
-
-	public void setLocation(String location) {
-		this.location = location;
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
 	}
 
 
@@ -74,10 +80,9 @@ public class Faq {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((answerId == null) ? 0 : answerId.hashCode());
-		result = prime * result + faqId;
-		result = prime * result + ((location == null) ? 0 : location.hashCode());
-		result = prime * result + ((questionId == null) ? 0 : questionId.hashCode());
+		result = prime * result + ((answer == null) ? 0 : answer.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((question == null) ? 0 : question.hashCode());
 		return result;
 	}
 
@@ -91,22 +96,17 @@ public class Faq {
 		if (getClass() != obj.getClass())
 			return false;
 		Faq other = (Faq) obj;
-		if (answerId == null) {
-			if (other.answerId != null)
+		if (answer == null) {
+			if (other.answer != null)
 				return false;
-		} else if (!answerId.equals(other.answerId))
+		} else if (!answer.equals(other.answer))
 			return false;
-		if (faqId != other.faqId)
+		if (id != other.id)
 			return false;
-		if (location == null) {
-			if (other.location != null)
+		if (question == null) {
+			if (other.question != null)
 				return false;
-		} else if (!location.equals(other.location))
-			return false;
-		if (questionId == null) {
-			if (other.questionId != null)
-				return false;
-		} else if (!questionId.equals(other.questionId))
+		} else if (!question.equals(other.question))
 			return false;
 		return true;
 	}
@@ -114,24 +114,9 @@ public class Faq {
 
 	@Override
 	public String toString() {
-		return "Faq [faqId=" + faqId + ", questionId=" + questionId + ", answerId=" + answerId + ", location="
-				+ location + "]";
+		return "Faq [id=" + id + ", question=" + question + ", answer=" + answer + "]";
 	}
 
 
-	public Faq(int faqId, Question questionId, Answer answerId, String location) {
-		super();
-		this.faqId = faqId;
-		this.questionId = questionId;
-		this.answerId = answerId;
-		this.location = location;
-	}
 
-
-	public Faq() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	
 }

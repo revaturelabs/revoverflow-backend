@@ -43,3 +43,4 @@ SELECT questions.* from questions;
 SELECT answers.* from answers;
 SELECT users.* from users;
 SELECT faq.* from faq;
+SELECT locations.* from locations;
