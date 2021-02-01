@@ -24,52 +24,58 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.repositories.UserRepository;
 import com.revature.security.jwt.DefaultTokenManager;
 
-/*@Configuration
+@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-	
+
 	private final UserDetailsService clientUserDetailsService;
-	  private final ObjectMapper mapper;
-	  private final DefaultTokenManager defaultTokenManager;
-	  private final UserRepository userRepository;
+	private final ObjectMapper mapper;
+	private final DefaultTokenManager defaultTokenManager;
+	private final UserRepository userRepository;
 
-	  public SecurityConfiguration(UserDetailsService clientUserDetailsService, ObjectMapper mapper, DefaultTokenManager defaultTokenManager, UserRepository userRepository) {
-	    this.clientUserDetailsService = clientUserDetailsService;
-	    this.mapper = mapper;
-	    this.defaultTokenManager = defaultTokenManager;
-	    this.userRepository = userRepository;
-	  }
+	public SecurityConfiguration(UserDetailsService clientUserDetailsService, ObjectMapper mapper,
+			DefaultTokenManager defaultTokenManager, UserRepository userRepository) {
+		this.clientUserDetailsService = clientUserDetailsService;
+		this.mapper = mapper;
+		this.defaultTokenManager = defaultTokenManager;
+		this.userRepository = userRepository;
+	}
 
-	  @Bean
-	  public PasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
-	  }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-	  @Override
-	  @Bean
-	  public AuthenticationManager authenticationManagerBean() throws Exception {
-	    return super.authenticationManagerBean();
-	  }
+	@Override
+	@Bean
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 
-	  private CorsConfigurationSource corsConfigurationSource() {
-	    CorsConfiguration config = new CorsConfiguration();
-	    config.setAllowCredentials(true);
-	    config.setAllowedOrigins(Collections.singletonList("*"));
-	    config.setAllowedMethods(Arrays.stream(HttpMethod.values()).map(HttpMethod::name).collect(Collectors.toList()));
-	    config.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
-	    config.applyPermitDefaultValues();
-	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	    source.registerCorsConfiguration("/**", config);
-	    return source;
-	  }
+	private CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowCredentials(true);
+		config.setAllowedOrigins(Collections.singletonList("*"));
+		config.setAllowedMethods(Arrays.stream(HttpMethod.values()).map(HttpMethod::name).collect(Collectors.toList()));
+		config.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
+		config.applyPermitDefaultValues();
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", config);
+		return source;
+	}
 
-	  @Bean
-	  public AuthenticationProvider authenticationProvider() {
-	    return new RevOverflowAuthenticationProvider(clientUserDetailsService, passwordEncoder());
-	  }
+	@Bean
+	public AuthenticationProvider authenticationProvider() {
+		return new RevOverflowAuthenticationProvider(clientUserDetailsService, passwordEncoder());
+	}
 
-	  @Override
-	  protected void configure(HttpSecurity http) throws Exception {
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		//Enable these lines of code if needing to access h2 console
+//		http.authorizeRequests().antMatchers("/").permitAll();
+//
+//		http.csrf().disable();
+//		http.headers().frameOptions().disable();
 	    http
 	      .cors(customizer -> {
 	        customizer.configurationSource(corsConfigurationSource());
@@ -87,22 +93,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	          .permitAll()
 	        .anyRequest()
 	          .authenticated()
-	        .and()
+	      .and()
 	      .addFilterAt(new JwtPresentFilter(defaultTokenManager, clientUserDetailsService), UsernamePasswordAuthenticationFilter.class)
 	      .addFilterAfter(new LoginFilter(mapper, authenticationProvider(), defaultTokenManager, userRepository), UsernamePasswordAuthenticationFilter.class);
-	  }
+	}
 
-}*/
-
-@Configuration
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-    @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests().antMatchers("/").permitAll().and()
-                .authorizeRequests().antMatchers("/console/**").permitAll();
-
-        httpSecurity.csrf().disable();
-        httpSecurity.headers().frameOptions().disable();
-    }
 }
