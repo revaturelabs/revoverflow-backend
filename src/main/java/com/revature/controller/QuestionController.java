@@ -60,6 +60,26 @@ public class QuestionController {
 	{
 		return questionService.getAllQuestionsByUserId(pageable, id);
 	}
+	
+	/**@author Hammad
+	 * @return This method retrieves all the questions based on the specific location they are related to
+	 * and whether or not they are company based.*/
+	@GetMapping("/location/{id}")
+	@PreAuthorize("hasAuthority('user')")
+	public Page<Question> getAllQuestionsByLocationID(Pageable pageable, @PathVariable int id)
+	{
+		return questionService.getAllQuestionsByLocationID(pageable, id);
+	}
+	
+	/**@author Hammad
+	 * @return This method retrieves all the questions based on the specific location they are related to
+	 * and whether or not they are company based.*/
+	@GetMapping("/location/{id}/{isRevature}")
+	@PreAuthorize("hasAuthority('user')")
+	public Page<Question> getAllQuestionsByRevatureBasedAndLocationID(Pageable pageable, @PathVariable boolean isRevature, @PathVariable int id)
+	{
+		return questionService.getAllQuestionsByRevatureStatusAndLocationID(pageable, isRevature, id);
+	}
 
 	/** @Author James Walls */
 	/** Adds new questions and updates existing ones. */

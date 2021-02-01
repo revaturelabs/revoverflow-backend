@@ -25,5 +25,14 @@ public interface QuestionRepository extends JpaRepository<Question, Integer>{
 	/**@author Arjun+Tristan*/
 	@Query("FROM Question s WHERE s.revatureQuestion = :revature")
 	Page<Question> getQuestionsBasedOnRevature(Pageable pageable, boolean revature);
+	/**@author Hammad*/
+	Page<Question> findByLocationID(Pageable pageable, int locationID);
+	
+	/**@author Hammad*/
+	Page<Question> findByRevatureQuestionAndLocationID(Pageable pageable, boolean isRevature, int locationID);
+	
+	///**@author Arjun*/
+	//@Query("FROM Question s WHERE :status = s.status and :revature = s.revaturequestion")
+	//Page<Question> getQuestionsBasedOnRevature(Pageable pageable, boolean status, boolean revature);
 	
 }
