@@ -1,5 +1,7 @@
 package com.revature.controller;
 
+import java.io.Console;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +22,6 @@ import com.revature.services.QuestionService;
 
 @RestController
 @RequestMapping("/questions")
-
 public class QuestionController {
 	
 	@Autowired
@@ -59,12 +60,41 @@ public class QuestionController {
 	{
 		return questionService.getAllQuestionsByUserId(pageable, id);
 	}
+	
+	/**@author Hammad
+	 * @return This method retrieves all the location based question.*/
+	@GetMapping("/location")
+	@PreAuthorize("hasAuthority('user')")
+	public Page<Question> getAllLocationQuestions(Pageable pageable)
+	{
+		return questionService.getAllLocationQuestions(pageable);
+	}
+	
+	/**@author Hammad
+	 * @return This method retrieves all the questions based on the specific location they are related to.*/
+	@GetMapping("/location/{id}")
+	@PreAuthorize("hasAuthority('user')")
+	public Page<Question> getAllQuestionsByLocationID(Pageable pageable, @PathVariable int id)
+	{
+		return questionService.getAllQuestionsByLocationID(pageable, id);
+	}
+	
+	/**@author Hammad
+	 * @return This method retrieves all the questions based on the specific location they are related to
+	 * and whether or not they are company based.*/
+	@GetMapping("/location/{id}/{isRevature}")
+	@PreAuthorize("hasAuthority('user')")
+	public Page<Question> getAllQuestionsByRevatureBasedAndLocationID(Pageable pageable, @PathVariable boolean isRevature, @PathVariable int id)
+	{
+		return questionService.getAllQuestionsByRevatureStatusAndLocationID(pageable, isRevature, id);
+	}
 
 	/** @Author James Walls */
 	/** Adds new questions and updates existing ones. */
 	@PostMapping
 	@PreAuthorize("hasAuthority('user')")
 	public Question saveQuestion(@RequestBody Question question) {
+		
 		return questionService.save(question);
 	}
 
@@ -96,6 +126,15 @@ public class QuestionController {
 	@PreAuthorize("hasAuthority('user')")
 	public Question getQuestionById(@PathVariable int id) {
 		return questionService.findById(id);
+	}
+	
+	//author: Tristan
+	@GetMapping("/revature/{revature}")
+	@PreAuthorize("hasAuthority('user')")
+	public Page<Question> getQuestionsBasedOnRevature(Pageable pageable, @PathVariable boolean revature)
+	{
+		
+		return questionService.getQuestionsBasedOnRevature(pageable, revature);
 	}
 	
 		

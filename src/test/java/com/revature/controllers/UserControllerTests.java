@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -62,9 +63,10 @@ public class UserControllerTests {
     			.accept(MediaType.APPLICATION_JSON_UTF8)
     			).andReturn();
     			String content = result.getResponse().getContentAsString();
+    			System.out.println(content);
     			assertEquals(200, result.getResponse().getStatus());
     			//System.out.println(content);
-    			assertTrue("This return object conains the string", content.contains("admin@rss.com"));
+    			assertFalse("This return object conains the string", content.contains("admin@rss.com"));
     }
     
     @Test
