@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "answers")
@@ -24,7 +24,7 @@ public class Answer {
 	@Column(name = "question_id")
 	private int questionId;
 
-	@NotBlank(message = "Content must have a string value")
+	@NotNull
 	private String content;
 
 	// add the not null check in the service layer
@@ -133,7 +133,7 @@ public class Answer {
 	}
 
 	public Answer(int id, int userId, int questionId,
-			@NotBlank(message = "Content must have a string value") String content, LocalDateTime creationDate,
+			@NotNull String content, LocalDateTime creationDate,
 			LocalDateTime editDate) {
 		super();
 		this.id = id;

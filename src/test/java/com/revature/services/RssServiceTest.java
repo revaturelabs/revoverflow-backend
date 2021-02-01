@@ -44,15 +44,15 @@ public class RssServiceTest {
 	
 	@Before
 	public void setup() {
-		u1 = (new User(12,26,0,true,null,"admin@rss.com","Admin","Admin"));
-		u2 = (new User(13,26,0,false,null,"user@rss.com","User","User"));
+		u1 = (new User(12,26,0,true,null,"admin@rss.com","Admin","Admin", "password"));
+		u2 = (new User(13,26,0,false,null,"user@rss.com","User","User", "password"));
 		testService.restTemplate =mock(RestTemplate.class);
 
 	}
 	
 
 	@Test
-	public void add_points_success() {
+	public void addPointsSuccess() {
 		int points = 20;
 		
 		RSSAccountDTO dto = new RSSAccountDTO(u1.getUserID(),points);
@@ -76,7 +76,7 @@ public class RssServiceTest {
 	}
 	
 	@Test
-	public void add_points_null() {
+	public void addPointsNull() {
 		int points = 20;
 		
 		RSSAccountDTO dto = new RSSAccountDTO(u1.getUserID(),points);

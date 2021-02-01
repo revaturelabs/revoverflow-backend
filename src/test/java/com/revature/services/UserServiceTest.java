@@ -33,14 +33,14 @@ public class UserServiceTest {
 	
 	@Before
 	public void setup() {
-		u1 = (new User(12,26,0,true,null,"admin@rss.com","Admin","Admin"));
-		u2 = (new User(13,26,0,false,null,"user@rss.com","User","User"));
+		u1 = (new User(12,26,0,true,null,"admin@rss.com","Admin","Admin", "password"));
+		u2 = (new User(13,26,0,false,null,"user@rss.com","User","User", "password"));
 		
 		MockitoAnnotations.initMocks(this);
 	}
 	
 	@Test
-	public void test_granted_authorities_for_admin_will_return_adminAndUserRoles() {
+	public void grantedAuthoritiesForAdminShouldReturnCorrectRoles() {
 		Collection<GrantedAuthority> adminRoles = new ArrayList<GrantedAuthority>();
 		SimpleGrantedAuthority a= null; 
 		a = new SimpleGrantedAuthority("admin");
@@ -54,7 +54,7 @@ public class UserServiceTest {
 	}
 	
 	@Test
-	public void test_granted_authorities_user_will_return_just_userRole() {
+	public void grantedAuthoritiesUserWillReturnOnlyUserRole() {
 		Collection<GrantedAuthority> userRoles = new ArrayList<GrantedAuthority>();
 		SimpleGrantedAuthority b= null; 
 		b = new SimpleGrantedAuthority("user");
