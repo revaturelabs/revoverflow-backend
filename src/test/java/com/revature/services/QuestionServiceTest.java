@@ -69,7 +69,7 @@ public class QuestionServiceTest {
 	}
 	
 	@Test
-	public void updateQuestionAcceptedAnswerId_will_return_question() {
+	public void updateQuestionAcceptedAnswerIdWillReturnQuestion() {
 		Question q = new Question(1, 1, "title", "content", LocalDateTime.MIN, LocalDateTime.MIN, true, false, 1,1);
 		Question q1 = new Question(1, 1, "title", "content", LocalDateTime.MIN, LocalDateTime.MIN, true, false, 1,1);
 		Mockito.when(questionRepository.save(q)).thenReturn(q1);
@@ -81,7 +81,7 @@ public class QuestionServiceTest {
 	}
 	
 	@Test(expected = HttpClientErrorException.class)
-	public void updateQuestionAcceptedAnswerId_will_return_bad_request() {
+	public void updateQuestionAcceptedAnswerIdWillReturnBadRequest() {
 		//Intentional send question with id = 0
 		Question q2 = new Question(0,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, false, 1,0);
 		Mockito.when(questionRepository.save(Mockito.any(Question.class))).thenReturn(null);
