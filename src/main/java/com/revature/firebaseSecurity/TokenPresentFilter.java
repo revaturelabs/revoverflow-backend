@@ -38,6 +38,7 @@ public class TokenPresentFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         final String uri = httpServletRequest.getRequestURI();
+
         if (uri.contains("actuator")) {
             logger.debug("Request to actuator endpoint. Ignoring");
             filterChain.doFilter(httpServletRequest, httpServletResponse);
@@ -56,10 +57,8 @@ public class TokenPresentFilter extends OncePerRequestFilter {
 
         if (authentication instanceof FirebaseUser) {
         	UserDetails details = clientUserDetailsService.loadUserByUsername(authentication.getName());
-        	logger.info("**************getting details -> "+ details.getUsername() + " " + details.getPassword());
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
             		details.getUsername(),details.getPassword(), details.getAuthorities());
-            logger.info("**************auth value -> "+ auth);
             auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
             SecurityContextHolder.getContext().setAuthentication(auth);
             logger.info("Successfully set security context for {} request to {}", httpServletRequest.getMethod(), httpServletRequest.getRequestURI());
