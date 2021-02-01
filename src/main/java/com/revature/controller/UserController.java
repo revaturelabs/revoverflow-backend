@@ -20,10 +20,11 @@ import com.revature.services.UserService;
 @RequestMapping("/user")
 @CrossOrigin("*")
 public class UserController {
+	
 
 	@Autowired
 	UserService userService;
-	
+    
 	/**
 	 * @author Ryan Clayton
 	 * @param id this is the user's Id
@@ -34,11 +35,5 @@ public class UserController {
 	public User getUserById(@AuthenticationPrincipal String user, @PathVariable int id) {
 		return userService.getUserById(id);
 	}
-
-	@PostMapping("/login")
-	@PreAuthorize("hasAuthority('user')")
-	public User login(@AuthenticationPrincipal String user){
-		return userService.getByEmail(user);
-
-	}
+	
 }

@@ -13,6 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -25,9 +27,12 @@ public class TokenPresentFilter extends OncePerRequestFilter {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final AuthenticationManager authenticationManager;
+    
+    private final UserDetailsService clientUserDetailsService;
 
-    public TokenPresentFilter(AuthenticationManager authenticationManager) {
+    public TokenPresentFilter(AuthenticationManager authenticationManager, UserDetailsService clientUserDetailsService) {
         this.authenticationManager = authenticationManager;
+        this.clientUserDetailsService = clientUserDetailsService;
     }
 
     @Override
@@ -50,10 +55,14 @@ public class TokenPresentFilter extends OncePerRequestFilter {
         }
 
         if (authentication instanceof FirebaseUser) {
+        	UserDetails details = clientUserDetailsService.loadUserByUsername(authentication.getName());
+        	logger.info("**************getting details -> "+ details.getUsername() + " " + details.getPassword());
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                    authentication.getName(), "", AuthorityUtils.createAuthorityList("ROLE_USER"));
+            		details.getUsername(),details.getPassword(), details.getAuthorities());
+            logger.info("**************auth value -> "+ auth);
             auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
             SecurityContextHolder.getContext().setAuthentication(auth);
+            logger.info("Successfully set security context for {} request to {}", httpServletRequest.getMethod(), httpServletRequest.getRequestURI());
         }
 
         filterChain.doFilter(httpServletRequest, httpServletResponse);
