@@ -85,7 +85,7 @@ public class QuestionControllerTests {
 		
 		// Create page of data
 		List<Question> questions = new ArrayList<>();
-		questions.add(new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, false, 1,0));
+		questions.add(new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, false, 1, 0));
 		Page<Question> pageResult = new PageImpl<>(questions);
 		
 		// Stub getAllQuestions to return page of data
@@ -270,6 +270,9 @@ public class QuestionControllerTests {
         System.out.println("result = " + content);
         assertEquals(200, result.getResponse().getStatus());
 	}
+	
+		
+	
 	
 	/* @Author Arjun */
 	@Test

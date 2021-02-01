@@ -136,6 +136,10 @@ public class QuestionService {
 	public Page<Question> getAllQuestionsByRevatureStatusAndLocationID(Pageable pageable, boolean isRevature, int locationID){
 		return questionRepository.findByRevatureQuestionAndLocationID(pageable, isRevature, locationID);
 	}
+	//author Tristan
+	public Page<Question> getQuestionsBasedOnRevature(Pageable pageable, boolean revature){
+		return questionRepository.getQuestionsBasedOnRevature(pageable, revature);
+	}
 	
 	/**@author Hammad
 	 * @return This method retrieves all the location based question.*/

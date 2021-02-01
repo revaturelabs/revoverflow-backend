@@ -128,5 +128,14 @@ public class QuestionController {
 		return questionService.findById(id);
 	}
 	
+	//author: Tristan
+	@GetMapping("/revature/{revature}")
+	@PreAuthorize("hasAuthority('user')")
+	public Page<Question> getQuestionsBasedOnRevature(Pageable pageable, @PathVariable boolean revature)
+	{
+		
+		return questionService.getQuestionsBasedOnRevature(pageable, revature);
+	}
+	
 		
 }
