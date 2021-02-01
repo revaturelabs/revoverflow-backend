@@ -39,6 +39,10 @@ import com.revature.entities.Question;
 import com.revature.entities.User;
 import com.revature.services.FaqService;
 
+/**
+ * @authors Mahesh Kalle & Jeevan Selvagunarajah
+ *
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(
 		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
@@ -82,23 +86,23 @@ public class FaqControllerTest {
 		a.setId(1);
 		
 		
-		faqList.add(new Faq(6,q,a,2));
+		faqList.add(new Faq(q,a));
 
 		// Stub getAllQuestions to return page of data
 		when(faqService.getAllFaq()).thenReturn(faqList);
 		
 		// Call API end point and assert result
-		mvc.perform(get("/faq/all")
+		mvc.perform(get("/faq")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content()
 			.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("$[0].id", is(6)));
+			.andExpect(jsonPath("$[0].id", is(0)));
 	}
 	
 	@Test
     @WithMockUser(username = "admin@rss.com", password = "Password123!", authorities = "admin")
-	public void testGetFaqByLocation() throws Exception {
+	public void testGetFaqById() throws Exception {
 		
 		List<Faq> faqList = new ArrayList<>();
 		
@@ -108,18 +112,24 @@ public class FaqControllerTest {
 		Answer a = new Answer();
 		a.setId(1);
 		
-		faqList.add(new Faq(6,q,a,1));
+		Faq f = new Faq(q,a);
+		f.setId(4);
+		
+		
+		
+		faqList.add(f);
 
 		// Stub getAllQuestions to return page of data
-		when(faqService.getFaqByLocation("Toronto")).thenReturn(faqList);
+		when(faqService.findFaqById(4)).thenReturn(f);
 		
 		// Call API end point and assert result
-		 mvc.perform(get("/faq/Toronto")
+		MvcResult res = mvc.perform(get("/faq/4")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content()
 			.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("$[0].id", is(6)));
+			.andExpect(jsonPath("$.id", is(4))).andReturn();
+		System.out.println("result = "+res);
 	}
 	
 	@Test
@@ -142,9 +152,9 @@ public class FaqControllerTest {
 		a.setEditDate(LocalDateTime.MIN);
 		a.setUserId(13);
 		
-		Faq faq = new Faq(1, q, a, 1);
+		Faq faq = new Faq(q, a);
 
-		when(faqService.save(Mockito.any(Faq.class))).thenReturn(faq);
+		when(faqService.newFaqQuestion(Mockito.any(Faq.class))).thenReturn(faq);
 		
         String toUpdate = mapper.writeValueAsString(faq);
          mvc.perform(MockMvcRequestBuilders.post("/faq")

@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.revature.entities.Faq;
-import com.revature.entities.Location;
 
-
+/**
+ * @authors Mahesh Kalle & Jeevan Selvagunarajah
+ *
+ */
 @Repository
 public interface FaqRepository extends JpaRepository<Faq, Integer>{
 

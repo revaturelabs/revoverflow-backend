@@ -10,6 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * @authors Mahesh Kalle & Jeevan Selvagunarajah
+ *
+ */
 @Entity
 @Table(name = "faq")
 public class Faq {

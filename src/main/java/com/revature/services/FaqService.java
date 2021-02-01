@@ -17,6 +17,10 @@ import com.revature.repositories.FaqRepository;
 import com.revature.repositories.LocationRepository;
 import com.revature.repositories.QuestionRepository;
 
+/**
+ * @authors Mahesh Kalle & Jeevan Selvagunarajah
+ *
+ */
 @Service
 public class FaqService {
 
