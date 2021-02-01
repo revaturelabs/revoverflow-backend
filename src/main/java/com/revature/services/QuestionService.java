@@ -148,9 +148,4 @@ public class QuestionService {
 		return questionRepository.findByLocation(pageable);
 	}
 	
-	//author Tristan
-	public Page<Question> getQuestionsBasedOnRevature(Pageable pageable, boolean revature){
-		return questionRepository.getQuestionsBasedOnRevature(pageable, revature);
-	}
-	
 }
