@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS faq CASCADE;
 create table faq (
 	id INTEGER generated always as identity primary key,
 	question_id INTEGER references questions(id),
-    location_id INTEGER references locations(id)
+	answer_id INTEGER references answers(id)
 );
 
 begin;

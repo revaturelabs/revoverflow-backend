@@ -48,7 +48,10 @@ public class FaqService {
 	 */
 	public List<Faq> getFaqByLocation(String location) {
 		Location faqLocation = this.getLocation(location);
-		return faqRepository.getFaqByLocation(faqLocation.getId());
+		if(faqLocation != null) {
+			return faqRepository.getFaqByLocation(faqLocation.getId());
+		}
+		return null;		
 	}
 
 	/**This method is used to get all the Revature based questions and answers by location
@@ -58,7 +61,10 @@ public class FaqService {
 	 */
 	public List<Faq> getRevatureAndLocationFaq(String location) {
 		Location faqLocation = this.getLocation(location);
-		return faqRepository.getRevatureAndLocationFaq(faqLocation.getId());
+		if(faqLocation != null) {
+			return faqRepository.getRevatureAndLocationFaq(faqLocation.getId());
+		}
+		return null;
 	}
 		
 	/**This method is used to get all the Revature based questions 

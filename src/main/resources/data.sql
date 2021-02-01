@@ -44,10 +44,11 @@ create table answers (
 );
 
 
+DROP TABLE IF EXISTS faq CASCADE;
 create table faq (
 	id INTEGER generated always as identity primary key,
 	question_id INTEGER references questions(id),
-    location VARCHAR(50)
+	answer_id INTEGER references answers(id)
 );
 
 INSERT INTO users (user_id,account_id, points, admin_role, profile_picture, email, first_name, last_name, "PASSWORD") 
