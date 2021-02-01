@@ -33,27 +33,45 @@ public class FaqService {
 	@Autowired
 	LocationRepository locationRepository;
 
+	/**This method returns all the Faqs
+	 * @return all frequently asked questions
+	 */
 	public List<Faq> getAllFaq() {
 		return faqRepository.findAll();
 	}
 
 
+	/**This method is used to get the questions and answers based on location 
+	 * @param takes in the location name
+	 * @return returns all frequently asked questions 
+	 * filtered by location name 
+	 */
 	public List<Faq> getFaqByLocation(String location) {
 		Location faqLocation = this.getLocation(location);
 		return faqRepository.getFaqByLocation(faqLocation.getId());
 	}
 
+	/**This method is used to get all the Revature based questions and answers by location
+	 * @param location takes in the name of the location
+	 * @return returns all frequently asked questions that are 
+	 * Revature based filtered by the location name 
+	 */
 	public List<Faq> getRevatureAndLocationFaq(String location) {
 		Location faqLocation = this.getLocation(location);
 		return faqRepository.getRevatureAndLocationFaq(faqLocation.getId());
 	}
 		
-
+	/**This method is used to get all the Revature based questions 
+	 * @return returns all frequently asked questions and answers
+	 */
 	public List<Faq> getRevatureBasedFaq() {
 		return faqRepository.getRevatureBasedFaq();
 	}
 
-
+	/**This method is used to post a new Faq question and answer
+	 * @param takes in Faq object
+	 * @return returns the Faq object stored in the database
+	 */
 	@Transactional
 	public Faq newFaqQuestion(Faq faq) {
 		Question question = this.saveFaqQuestion(faq.getQuestion());
@@ -65,12 +83,20 @@ public class FaqService {
 		return newFaq;
 	}
 
-	
+	/**This method is used to get the questions and answers based on location 
+	 * @param takes in the location name
+	 * @return returns all frequently asked questions 
+	 * filtered by location name 
+	 */
 	public Location getLocation(String location) {
 		Location faqLocation = locationRepository.findByLocationName(location);
 		return faqLocation;
 	}
 
+	/**This method is used to save a new Faq question
+	 * @param takes in Faq object
+	 * @return returns the Faq object stored in the database
+	 */
 	public Question saveFaqQuestion(Question question) {
 		question.setCreationDate(LocalDateTime.now());
 		question.setEditDate(LocalDateTime.now());
@@ -78,6 +104,10 @@ public class FaqService {
 		return faqQuestion;
 	}
 
+	/**This method is used to save a new Faq answer
+	 * @param takes in Faq object
+	 * @return returns the Faq object stored in the database
+	 */
 	public Answer saveFaqAnswer(Answer answer) {
 		answer.setCreationDate(LocalDateTime.now());
 		answer.setEditDate(LocalDateTime.now());
@@ -89,6 +119,10 @@ public class FaqService {
 		faqRepository.deleteById(id);
 	}
 	
+	/**This method is used to return Faq object associated with the id
+	 * @param takes in the faq id
+	 * @return returns the faq object
+	 */
 	public Faq findFaqById(int id) {
 		Optional<Faq> faq = faqRepository.findById(id);
 		if(faq.isPresent()) {
@@ -97,7 +131,13 @@ public class FaqService {
 		else return null;
 		}
 		
+	/**This method is used to update the Faq object
+	 * @param takes in the updated Faq object 
+	 * @return returns the object that is stored in the database
+	 */
 	public Faq updateFaq(Faq faq) {
+		faq.getAnswer().setEditDate(LocalDateTime.now());
+		faq.getQuestion().setEditDate(LocalDateTime.now());
 		Faq updatedFaq = faqRepository.save(faq);
 			return updatedFaq;	
 	}

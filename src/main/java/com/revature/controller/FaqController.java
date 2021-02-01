@@ -30,7 +30,7 @@ public class FaqController {
 	FaqService faqService;
 
 	
-	/**
+	/**This method returns all the Faqs
 	 * @return all frequently asked questions
 	 */
 	@GetMapping
@@ -39,7 +39,7 @@ public class FaqController {
 		return faqService.getAllFaq();
 	}
 	
-	/**
+	/**This method is used to return Faq object associated with the id
 	 * @param takes in the faq id
 	 * @return returns the Faq object associated with the id
 	 */
@@ -49,7 +49,7 @@ public class FaqController {
 		return faqService.findFaqById(id);
 	}
 	
-	/**
+	/**This method is used to get all the Revature based questions 
 	 * @return returns all Revature based frequently asked questions
 	 */
 	@GetMapping("/revature")
@@ -59,7 +59,7 @@ public class FaqController {
 	}
 	
 	
-	/**
+	/**This method is used to get the questions and answers based on location  
 	 * @param takes in the location name
 	 * @return returns all frequently asked questions 
 	 * filtered by location name 
@@ -72,6 +72,7 @@ public class FaqController {
 	
 	
 	/**
+	 * This method is used to get all the Revature based questions and answers by location
 	 * @param location takes in the name of the location
 	 * @return returns all frequently asked questions that are 
 	 * Revature based filtered by the location name 
@@ -84,7 +85,7 @@ public class FaqController {
 	
 	
 	
-	/**
+	/**This method is used to add a new Faq question and answer
 	 * @param takes in Faq object
 	 * @return returns the Faq object stored in the database
 	 */
@@ -95,7 +96,7 @@ public class FaqController {
 	}
 	
 	
-	/**
+	/**This method is used to delete the Faq record by id
 	 * @param takes in the Faq id and deletes the respective
 	 * Faq object in the database
 	 */
@@ -105,9 +106,7 @@ public class FaqController {
 		faqService.deleteFaqById(id);
 	}
 
-
-	
-	/**
+	/**This method is used to update the Faq object
 	 * @param takes in the updated Faq object 
 	 * @return returns the object that is stored in the database
 	 */
