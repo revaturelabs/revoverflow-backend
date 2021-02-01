@@ -31,7 +31,7 @@ public class LocationServiceTest {
 	}
 	
 	@Test
-	public void addLocation_will_return_location() {
+	public void addLocationWillReturnLocation() {
 		Location l1 = new Location(1,"Toronto");
 		
 		Location l2 = new Location();
@@ -46,7 +46,7 @@ public class LocationServiceTest {
 	}
 	
 	@Test
-	public void getAllLocation_will_return_all_location() {
+	public void getAllLocationWillReturnAllLocation() {
 		List<Location> expectedResult = new ArrayList<Location>();
 		locationRepository.save(new Location(1,"Toronto"));
 		locationRepository.save(new Location(2,"Ottawa"));

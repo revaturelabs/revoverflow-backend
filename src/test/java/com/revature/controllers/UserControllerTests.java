@@ -58,7 +58,7 @@ public class UserControllerTests {
     
     @Test
     @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
-    public void will_return_user_with_a_status_of_200() throws Exception {
+    public void willReturnUserWith200Status() throws Exception {
     	MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/user/12")
     			.accept(MediaType.APPLICATION_JSON_UTF8)
     			).andReturn();
@@ -71,7 +71,7 @@ public class UserControllerTests {
     
     @Test
     @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
-    public void will__not_return_user_with_a_status_of_200() throws Exception {
+    public void willNotReturnUserWith200Status() throws Exception {
     	MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/user/15")
     			.accept(MediaType.APPLICATION_JSON_UTF8)
     			).andReturn();
@@ -81,7 +81,7 @@ public class UserControllerTests {
     }
     @Test
     @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
-    public void will_return_nothing_with_a_status_of_400() throws Exception {
+    public void willReturnNothingWith400Status() throws Exception {
     	MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/user/alatreon")
     			.accept(MediaType.APPLICATION_JSON_UTF8)
     			).andReturn();
@@ -92,7 +92,7 @@ public class UserControllerTests {
     
     @Test
     @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
-    public void will_return_nothing_with_a_status_of_404() throws Exception {
+    public void willReturnNothingWith404Status() throws Exception {
     	MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/user/20/alatreon")
     			.accept(MediaType.APPLICATION_JSON_UTF8)
     			).andReturn();
