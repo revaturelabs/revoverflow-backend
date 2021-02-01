@@ -62,8 +62,16 @@ public class QuestionController {
 	}
 	
 	/**@author Hammad
-	 * @return This method retrieves all the questions based on the specific location they are related to
-	 * and whether or not they are company based.*/
+	 * @return This method retrieves all the location based question.*/
+	@GetMapping("/location")
+	@PreAuthorize("hasAuthority('user')")
+	public Page<Question> getAllLocationQuestions(Pageable pageable)
+	{
+		return questionService.getAllLocationQuestions(pageable);
+	}
+	
+	/**@author Hammad
+	 * @return This method retrieves all the questions based on the specific location they are related to.*/
 	@GetMapping("/location/{id}")
 	@PreAuthorize("hasAuthority('user')")
 	public Page<Question> getAllQuestionsByLocationID(Pageable pageable, @PathVariable int id)

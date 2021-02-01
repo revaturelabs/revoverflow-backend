@@ -270,5 +270,28 @@ public class QuestionControllerTests {
         System.out.println("result = " + content);
         assertEquals(200, result.getResponse().getStatus());
 	}
+	
+	/* @Author Arjun */
+	@Test
+    @WithMockUser(username = "user@rss.com", password = "Password123!", authorities = "user")
+	public void testGetAllRevatureQuestionsPath() throws Exception {
+		
+		// Create page of data
+		List<Question> questions = new ArrayList<>();
+		questions.add(new Question(1,1,"title","content", LocalDateTime.MIN, LocalDateTime.MIN, true, true, 1, 0));
+		Page<Question> pageResult = new PageImpl<>(questions);
+		
+		// Stub getAllQuestions to return page of data just from revature question
+		when(questionService.getQuestionsBasedOnRevature(Mockito.any(Pageable.class), Mockito.anyBoolean())).thenReturn(pageResult);
+		
+		// Call API end point and assert result
+		mvc.perform(get("/questions/revature/true")
+			.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+			.andExpect(content()
+				.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+		.andExpect(jsonPath("$.content[0].title", is("title")));
+		
+	}
     
 }

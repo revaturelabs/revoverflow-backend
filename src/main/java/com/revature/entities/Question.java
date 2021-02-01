@@ -59,7 +59,7 @@ public class Question {
 	}
 
 	public Question(int id, Integer acceptedId, @NotNull String title, @NotNull String content, LocalDateTime creationDate,
-			LocalDateTime editDate, boolean status, boolean revatureQuestion, int userID,Integer locationID) {
+			LocalDateTime editDate, boolean status, boolean revatureQuestion, int userID, Integer locationID) {
 		super();
 		this.id = id;
 		this.acceptedId = acceptedId;
