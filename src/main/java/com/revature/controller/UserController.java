@@ -36,6 +36,10 @@ public class UserController {
 		return userService.getUserById(id);
 	}
 	
-	
+	 @GetMapping("/{email}/points")
+	    //@PreAuthorize("hasAuthority('user')")
+	    public User getUserByEmail(@AuthenticationPrincipal String user, @PathVariable String email) {
+	        return userService.getUserByEmail(email);
+	    } 
 	
 }
