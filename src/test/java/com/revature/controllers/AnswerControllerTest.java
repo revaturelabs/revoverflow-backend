@@ -1,4 +1,4 @@
-package com.revature.controllers.test;
+package com.revature.controllers;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
